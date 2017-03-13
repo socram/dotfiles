@@ -163,8 +163,8 @@
 
     noremap <Leader>ba : badd
     noremap <Leader>bd : bdelete
-    noremap <Leader>h  : leftabove vnew
-    noremap <Leader>v  : rightbelow new
+    noremap <Leader>h  : leftabove vnew 
+    noremap <Leader>v  : rightbelow new 
     noremap <Leader>l  : ls <CR>
 
 " }}}
