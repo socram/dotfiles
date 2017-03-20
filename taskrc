@@ -73,7 +73,12 @@
 
 # }}}
 
+# Data Format
+# {{{
 
+    dateformat=d/m/Y
+
+# }}}
 
 
 # Alias: 
