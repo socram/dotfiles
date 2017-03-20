@@ -1,0 +1,93 @@
+# Color:
+# {{{
+
+    color=on
+    color.header=yellow
+    color.footnote=yellow
+    color.error=yellow
+    color.debug=yellow
+
+    color.summary.bar=black on green
+    color.summary.background=white on black
+
+    color.history.add=black on red
+    color.history.done=black on green
+    color.history.delete=black on yellow
+
+    color.burndown.pending=on red
+    color.burndown.started=on yellow
+    color.burndown.done=on green
+
+    color.sync.added=green
+    color.sync.changed=yellow
+    color.sync.rejected=red
+
+    color.undo.before=red
+    color.undo.after=green
+
+    color.calendar.today=bold white on bright blue
+    color.calendar.due=white on red
+    color.calendar.due.today=bold white on red
+    color.calendar.overdue=black on bright red
+    color.calendar.weekend=white on bright black
+    color.calendar.holiday=black on bright yellow
+    color.calendar.weeknumber=bold blue
+
+    color.recurring=magenta
+    color.overdue=bold red
+    color.due.today=red
+    color.due=red
+    color.active=black on bright green
+    color.pri.none=
+    color.pri.H=bold white
+    color.pri.M=white
+    color.pri.L=
+    color.tagged=green
+    color.blocked=black on white
+    color.blocking=black on bright white
+    color.project.none=
+    color.tag.none=
+    color.alternate=
+
+# }}}
+
+# Start Week:
+# {{{
+
+    weekstart=monday
+
+# }}}
+
+
+# Search:
+# {{{
+
+    search.case.sensitive=no
+
+# }}}
+
+# Data Location:
+# {{{
+
+    data.location=~/Dropbox/task
+
+# }}}
+
+
+
+
+# Alias: 
+# {{{
+
+    alias.rm        =   delete
+    alias.l         =   list
+    alias.ll        =   list all
+    alias.mv        =   annotate
+    alias.ca        =   calendar
+    alias.h         =   ghistory.monthly
+    alias.p         =   project
+    alias.s         =   summary
+    alias.t         =   tags
+
+
+# }}}
