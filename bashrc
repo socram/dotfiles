@@ -9,11 +9,18 @@
 
 # Alias 
 # {{{
+        # Copy and Paste to clipboard
         alias pbcopy='xsel --clipboard --input'
         alias pbpaste='xsel --clipboard --output'
+
+        # List
         alias ll='ls -ls'
+
+        # File _
         alias _bashrc='source ~/.bashrc ; echo "Bashrc Atualizado"'
         alias __bashrc='vi ~/.bashrc'
+
+
 # }}}
 
 # PS1 
@@ -30,7 +37,7 @@
 # Configure Keyboard
 # {{{
         setxkbmap -model pc105 -layout us_intl
-    
+        #   Shift   +  ~   =   ã
 # }}}
 
 # History 
@@ -42,3 +49,4 @@
         export HISTIGNORE='&:ls:ll:la:cd:exit:clear:history'
   
 # }}}
+        
