@@ -7,6 +7,22 @@
   
 # }}}
 
+
+# Functions
+# {{{
+
+    function move_to_trash () 
+    {
+        clean=`echo "$@" | sed 's/-rf//' `
+        mv ${clean} ~/.local/share/Trash/files
+    }
+
+        
+  
+# }}}
+
+
+
 # Alias 
 # {{{
         # Copy and Paste to clipboard
@@ -19,6 +35,9 @@
         # File _
         alias _bashrc='source ~/.bashrc ; echo "Bashrc Atualizado"'
         alias __bashrc='vi ~/.bashrc'
+
+        # Rm files
+        alias rm='move_to_trash'
 
 
 # }}}
@@ -37,7 +56,8 @@
 # Configure Keyboard
 # {{{
         setxkbmap -model pc105 -layout us_intl
-        #   Shift   +  ~   =   ã
+#       Shift   +  ~   =   ã
+    
 # }}}
 
 # History 
@@ -49,4 +69,3 @@
         export HISTIGNORE='&:ls:ll:la:cd:exit:clear:history'
   
 # }}}
-        
