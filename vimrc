@@ -350,11 +350,10 @@
     " {{{
 
         let g:open=1
+        let g:defaultName="~/.vim/plugged/snipmate.vim/"
         fun! JJ_HelpSnippet()
 
-            " let g:format= &filetype
-            let format= expand('%:e'))
-            
+            let format= &filetype
             let buffer_name = "~/.vim/plugged/snipmate.vim/snippets/".format.".snippets"
             if g:open
                 set foldlevelstart=99
@@ -362,7 +361,7 @@
                 vertical resize -30
                 let g:open = 0
             else
-                execute "bdelete! ~/.vim/plugged/snipmate.vim/"
+                execute "bdelete! " . g:defaultName
                 let g:open = 1
             endif
 
@@ -374,6 +373,7 @@
     " {{{
 
         let s:comment_map = {
+        \   "yml": '#',
         \   "c": '\/\/',
         \   "javascript": '\/\/',
         \   "php": '\/\/',
@@ -530,7 +530,7 @@
 
                 let position = input(": ")
                 execute "".g:linesAdd[position]
-                execute ":zz"
+                " execute ":zz"
 
             endfun
 
