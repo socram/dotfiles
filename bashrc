@@ -1,5 +1,4 @@
 # ------- JJ BashRC
-
 # Model 
 # {{{
         
