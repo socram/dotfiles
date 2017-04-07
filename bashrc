@@ -1,3 +1,4 @@
+
 # ------- JJ BashRC
 
 # Model 
@@ -164,13 +165,13 @@
     function jjConfigureGit ()
     {
 	    git config --global user.name "mconeicao"
-	    git config --global user.email marcos@socram.io
+	    git config --global user.email mconceicao@protonmail.com
         git config --global core.editor vi
         git config --global merge.tool vimdiff
         
         cd ~/.ssh
        
-        ssh-keygen -t rsa -C "marcos@socram.io"
+        ssh-keygen -t rsa -C "mconceicao@protonmail.com"
         ssh-add id_rsa
         gedit id_rsa.pub &
       
@@ -184,7 +185,6 @@
     function jjMoveToTrash () 
     {
         clean=`echo "$@" | sed 's/-rf//' `
-        echo "VOCE ESTA DELETANDO ESSES AQUIVO !!!!!!!!!!!!!!!!!"
         echo "mv ${clean} ~/.local/share/Trash/files"
     }
     
