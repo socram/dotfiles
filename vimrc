@@ -93,6 +93,7 @@
 " Aparece:
 " {{{
 
+    set t_Co=256
     colorscheme molokai
     set laststatus=2
     set statusline=%<Buffer[%n]\ %f%m\ \[%{&ff}:%{&fenc}:%Y]\ %{getcwd()}\ \ \ %=\ Line:%l\/%L\ Column:%c%V
