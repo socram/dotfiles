@@ -508,42 +508,61 @@
         " sign define jjBreakPoint text=✦ texthl=JJ_BreakPoint
 
             let g:linesAdd = []
+            let g:linesDescription= []
 
             fun! JJ_CreateBreakPoint()
 
                 sign define jjBreakPoint text=➙ texthl=JJ_BreakPoint
 
-                let g:linhaAtual = line(".")
+                let g:currentLine = line(".")
+                let g:lineDescription= getline(".")
 
-                execute ":sign place 2 line=" .g:linhaAtual. " name=jjBreakPoint file=" . expand("%:p")
+                execute ":sign place 2 line=" .g:currentLine. " name=jjBreakPoint file=" . expand("%:p")
 
-                call add(g:linesAdd, g:linhaAtual)
+                call add(g:linesAdd, g:currentLine)
+                call add(g:linesDescription, g:lineDescription)
 
-                echo g:linesAdd
 
             endfun
+
 
             fun! JJ_ChangeBreakPoint()
 
                 echon "Break Points"
-                echo g:linesAdd
+                let g:count=1
+
+                let size=len(g:linesDescription)
+
+                for i in range(size)
+                    echo "Line ➙ [". g:count . "] Content ➙ [" . g:linesDescription[ i - 1 ] . "]"
+                    let g:count += 1
+
+                endfor
 
                 let position = input(": ")
-                execute "".g:linesAdd[position]
-                " execute ":zz"
+
+                if len(g:linesDescription) < position
+                    " echom "The index Value " . position ." is > than size of break point lines [" . size . "]"
+                    execute "call JJ_ChangeBreakPoint()<CR>"
+                endif
+
+                execute "".g:linesAdd[position -1 ]
 
             endfun
 
 
             fun! JJ_ClearBreakPoint()
 
-                for i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+                let size=len(g:linesDescription)
+
+                for i in range(size)
                     execute 'sign unplace 2'
                 endfor
+
             endfun
 
 
-            noremap <Leader>m : call JJ_CreateBreakPoint()<CR>
+            noremap <Leader>m : call JJ_CreateBreakPoint() <CR>
             noremap <Leader>mm : call JJ_ChangeBreakPoint()<CR>
             noremap <Leader>mmm : call JJ_ClearBreakPoint()<CR>
 
