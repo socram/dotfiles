@@ -1,4 +1,6 @@
+
 # ------- JJ BashRC
+
 # Model 
 # {{{
         
@@ -31,6 +33,14 @@
 
         # Initialize Keyboard
         setxkbmap -model pc105 -layout us_intl
+
+        # Initialize Docker
+        ps cax | grep dockerd > /dev/null
+        
+        if [ $? -eq 1 ]; 
+        then
+            sudo dockerd
+        fi
 
     }
 
@@ -330,4 +340,4 @@
     export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
     export LESS_TERMCAP_ue=$'\E[0m'           # end underline
     export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
-# }}}
+# }}}   
