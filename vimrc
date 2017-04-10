@@ -535,7 +535,7 @@
                 let size=len(g:linesDescription)
 
                 for i in range(size)
-                    echo "Line ➙ [". g:count . "] Content ➙ [" . g:linesDescription[ i - 1 ] . "]"
+                    echo "Line ➙ [". g:count . "] Content ➙ [" . g:linesDescription[ i ] . "]"
                     let g:count += 1
 
                 endfor
