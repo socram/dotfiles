@@ -234,16 +234,16 @@
 " Save / Close:
 " {{{
 
-    cnoreabbrev W! w!
-    cnoreabbrev Q! q!
-    cnoreabbrev Qall! qall!
-    cnoreabbrev Wq wq!
-    cnoreabbrev Wa wa!
-    cnoreabbrev wQ wq!
-    cnoreabbrev WQ wq!
+    cnoreabbrev W! w
+    cnoreabbrev Q! q
+    cnoreabbrev Qall! qall
+    cnoreabbrev Wq wq
+    cnoreabbrev Wa wa
+    cnoreabbrev wQ wq
+    cnoreabbrev WQ wq
     cnoreabbrev W w
     cnoreabbrev Q q
-    cnoreabbrev Qall qall!
+    cnoreabbrev Qall qall
     noremap <Leader>s : w<CR>
     noremap <Leader>q : q!   <CR>
     noremap <Leader>Q : qall!<CR>
@@ -306,7 +306,10 @@
 
                 let g:show = 0
             else
-                set list lcs=eol:¬,trail:·
+                " set list lcs=eol:¬,trail:·
+                set list
+                set listchars=eol:¬,tab:>·,trail:.,extends:>,precedes:<,space:␣
+
 
                 set cursorline
                 hi CursorLine ctermbg=8 ctermfg=15 "8 = dark gray, 15 = white
