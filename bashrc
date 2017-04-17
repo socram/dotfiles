@@ -1,4 +1,5 @@
 
+
 # ------- JJ BashRC
 
 # Model 
@@ -14,12 +15,14 @@
 
     function jjInitializePrograms ()
     {
+
         # Initialize Dropbox
         ps cax | grep dropbox > /dev/null
         
         if [ $? -eq 1 ]; 
         then
-            ~/.dropbox-dist/dropboxd &
+            echo "Init Dropbox"
+            #~/.dropbox-dist/dropboxd &
         fi
 
 
@@ -28,6 +31,7 @@
 
         if [ $? -eq 1 ]; 
         then
+            echo "Init Bluetooth"
             sudo /etc/init.d/bluetooth start
         fi
 
@@ -39,7 +43,8 @@
         
         if [ $? -eq 1 ]; 
         then
-            sudo dockerd
+            echo "Init Docker"
+            sudo dockerd & 2>&1 > /dev/null
         fi
 
     }
@@ -48,6 +53,22 @@
     jjInitializePrograms 
 
 
+    function jjConverterBitCoinToReal ()
+    {
+        valorEmBitCoin=${1}
+        valorAtualEmReal=`curl -s curl http://api.coindesk.com/v1/bpi/currentprice/BRL.json | jq '.bpi.BRL.rate_float' `
+
+        valorEmReal=`echo "${valorAtualEmReal} * ${valorEmBitCoin}" | bc`
+
+        echo "Valor em Real -> " ${valorEmReal}
+    }
+
+    function jjBitCoinToReal ()
+    {
+       valorAtualEmReal=`curl -s curl http://api.coindesk.com/v1/bpi/currentprice/BRL.json | jq '.bpi.BRL.rate_float' `
+
+       echo "Valor em Real -> " ${valorAtualEmReal}
+    }
 
 
     function jjConferenceRoom ()
@@ -147,11 +168,11 @@
         -------------------------------------------------------------------
         Ação \t Comando 
         -------------------------------------------------------------------
-        Redirecionar saída (stdout) para arquivo\tcomando > saida.txt
+        Redirecionar saída (stdout) para arquivo\t comando > saida.txt
         Redirecionar stderr para stdout\tcomando 2>&1 
-        Redirecionar stderr para stdout e então para arquivo\tcomando 2>&1 > saida.txt
+        Redirecionar stderr para stdout e para arquivo\tcomando 2>&1 > saida.txt
         Redirecionar stderr e stdout direto para arquivo\tcomando &> arquivo.txt 
-        " | expand -t 30
+        " | expand -t 60
     }
 
     function jjCreateRandomPassword ()
