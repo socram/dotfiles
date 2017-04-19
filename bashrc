@@ -1,5 +1,4 @@
 
-
 # ------- JJ BashRC
 
 # Model 
@@ -17,13 +16,13 @@
     {
 
         # Initialize Dropbox
-        ps cax | grep dropbox > /dev/null
+        #ps cax | grep dropbox > /dev/null
         
-        if [ $? -eq 1 ]; 
-        then
-            echo "Init Dropbox"
+        #if [ $? -eq 1 ]; 
+        #then
+          # echo "Init Dropbox"
             #~/.dropbox-dist/dropboxd &
-        fi
+        #fi
 
 
         # Initialize Bluetooth
@@ -44,7 +43,7 @@
         if [ $? -eq 1 ]; 
         then
             echo "Init Docker"
-            sudo dockerd & 2>&1 > /dev/null
+            sudo dockerd & 2>&1 2>&1 > /dev/null &
         fi
 
     }
@@ -52,10 +51,14 @@
 
     jjInitializePrograms 
 
+    function jjLocalServer ()
+    {
+        sudo python -m SimpleHTTPServer 80 2>&1 > /dev/null &
+    }
 
     function jjConverterBitCoinToReal ()
     {
-        valorEmBitCoin=${1}
+        valorEmBitCoin=`echo ${1} | tr -d '฿| ' | tr ',' '.'`
         valorAtualEmReal=`curl -s curl http://api.coindesk.com/v1/bpi/currentprice/BRL.json | jq '.bpi.BRL.rate_float' `
 
         valorEmReal=`echo "${valorAtualEmReal} * ${valorEmBitCoin}" | bc`
