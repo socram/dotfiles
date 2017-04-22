@@ -72,6 +72,7 @@
 " {{{
 
     let mapleader=','
+    imap jk <Esc>
     set wildmode=longest,list
     set shell=/bin/bash
     set foldlevelstart=99
@@ -269,7 +270,7 @@
     noremap <Leader>a : <esc>ggVG<CR>
     noremap <Leader>b : <esc>vi{ <CR>%
 
-    " set mouse=a
+    set mouse=a
 
 " }}}
 
