@@ -167,7 +167,7 @@
     noremap <Leader>bd : bdelete
     noremap <Leader>h  : leftabove vnew 
     noremap <Leader>v  : rightbelow new 
-    noremap <Leader>l  : ls <CR>
+    noremap <Leader>l  :set nomore <Bar> :ls <Bar> :set more <CR>:b<Space>
 
 " }}}
 
@@ -218,7 +218,7 @@
     noremap <F1>  0
     noremap <F2>  $
     noremap <F3>  :call JJ_LateralPanel() <CR>
-    noremap <F4>  :echo "Não Mapeado "     <CR>
+    noremap <F4>  :echo "Não Mapeado "    <CR>
     noremap <F5>  :echo "Não Mapeado "    <CR>
     noremap <F6>  :echo "Não Mapeado "
     noremap <F7>  :echo "Não Mapeado "
@@ -246,7 +246,7 @@
     cnoreabbrev Q q
     cnoreabbrev Qall qall
     noremap <Leader>s : w<CR>
-    noremap <Leader>q : q!   <CR>
+    noremap <Leader>q : call JJ_Close()   <CR>
     noremap <Leader>Q : qall!<CR>
 
 " }}}
@@ -455,6 +455,22 @@
             inoremap <Nul> <c-r>=JJ_AutoComplite()<cr>
 
     " }}}
+
+
+    " <Leader>q Close current Buffer
+    " {{{
+            fun! JJ_Close()
+                let g:numberBuffer =  len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+
+                if g:numberBuffer >= 2
+                    let g:bufferName = bufname('')
+                    execute "bdelete! " . g:bufferName
+                else
+                    execute ":q!"
+                endif
+            endfun
+    " }}}
+
 
     " Check Spell Portuguese + English:
     " {{{
