@@ -1,30 +1,3 @@
-alias ORACLE_SUBE='echo docker run -d --shm-size=2g -p 1521:1521 -p 8080:8080 alexeiled/docker-oracle-xe-11g'
-
-alias npm='sudo npm'
-alias t='task '
-#/home/mconceicao/.dropbox-dist/dropboxd &
-alias HORA='date +"%T" '
-alias StartSite='jekyll server 80 --w'
-alias QRADAR_Nextel='sshpass -p "nextel123" ssh root@10.1.104.68'
-alias QRADAR_Ike='sshpass -p "Q1Lead5505" ssh root@192.168.8.80'
-alias QRADAR_TOTVS='sshpass -p "Q1Lead5505" ssh root@172.18.149.20 '
-alias QRADAR_LEADCOMM='sshpass -p "Q1Lead5505" ssh root@172.16.1.61'
-alias WINDOWS='rdesktop -f 172.16.1.199 -u mconceicao -pnada &'
-
-alias ESXi='sshpass -p "1qaz!QAZ" ssh root@172.16.1.77'
-
-
-alias ls='ls --color'
-
-
-alias docker='sudo docker '
-alias DEV_QRADAR='cd /home/mconceicao/Desktop/qradar/api'
-alias XMLFormater='xmllint --format '
-alias ll='ls --color -ls'
-#alias la='ls -A'
-#alias l='ls -CF'
-
-
 # ------- JJ BashRC
 
 # Model 
