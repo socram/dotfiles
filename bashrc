@@ -12,6 +12,11 @@
 # {{{
 
 
+    function jj ()
+    {
+        cat ~/.bashrc | grep 'function jj' | tr -d '\t' | cut -d ' ' -f6 | grep . 
+    }
+    
     function jjInitializePrograms ()
     {
 
@@ -43,9 +48,19 @@
         if [ $? -eq 1 ]; 
         then
             echo "Init Docker"
-            sudo dockerd & 2>&1 2>&1 > /dev/null &
+            sudo dockerd 2>&1 2>&1 > /dev/null &
         fi
+      
+        # Initialize Tmux
+        ps cax | grep tmux > /dev/null
 
+        if [ $? -eq 1 ]; 
+        then
+          tmux new -s main -d 2>&1 2>&1 > /dev/null 
+        else
+          export TMUX=
+          tmux attach -t main -d 2>&1 2>&1 > /dev/null 
+        fi
     }
 
 
@@ -53,7 +68,17 @@
 
     function jjLocalServer ()
     {
-        sudo python -m SimpleHTTPServer 80 2>&1 > /dev/null &
+        sudo python -m SimpleHTTPServer 80 
+    }
+
+    function jjDownloadYoutubeVideo ()
+    {
+        lista=`cat $1`
+
+        for video in $lista
+        do
+            youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "${video}" & 
+        done
     }
 
     function jjConverterBitCoinToReal ()
@@ -184,10 +209,6 @@
     }    
 
 
-    function jjTmux ()
-    {
-	    tmux new -s main
-    }
 
     function jjKill ()
     {
