@@ -484,7 +484,7 @@
 
                   let g:answer = input(':')
                   if g:answer == 'y'
-                      silent execute '!mv ~/.vimrc ~/.vimrc_old_' . g:jjVimRcVersion . '; curl https://raw.githubusercontent.com/mconceicao/dotfiles/master/vimrc > ~/.vimrc'
+                      silent execute '!mv ~/.vimrc ~/.vimrc_old_' . g:jjVimRcVersion . '; curl -s https://raw.githubusercontent.com/mconceicao/dotfiles/master/vimrc > ~/.vimrc'
                       silent execute "!sed -ie \"4s/let g:jjVimRcVersion='.*'/let g:jjVimRcVersion='" . @v . "'/g\" ~/.vimrc"
                       silent execute ':so ~/.vimrc'
                   else
