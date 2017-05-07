@@ -1,5 +1,8 @@
 " Vim-PLug core:
 " {{{
+
+    let g:jjVimRcVersion='8888888'
+
     if has('vim_starting')
         set nocompatible
     endif
@@ -32,8 +35,6 @@
     filetype plugin indent on
 
 " }}}
-
-
 
     " Load my Snippets
     " {{{
@@ -471,6 +472,28 @@
             endfun
     " }}}
 
+   " Verify version of vimrc
+      " {{{
+          fun! JJ_VerifyVersionJJVimRc()
+              " Get Last Version
+              let @v = system('git ls-remote git://github.com/mconceicao/dotfiles | head -1 | cut -f1 | head -c 7')
+
+              if @v != g:jjVimRcVersion
+                  
+                  echo "Deseja Atualizar Versao do JJ VimRC ? [y/n]"
+
+                  let g:answer = input(':')
+                  if g:answer == 'y'
+                      silent execute '!mv ~/.vimrc ~/.vimrc_old_' . g:jjVimRcVersion . '; curl https://raw.githubusercontent.com/mconceicao/dotfiles/master/vimrc > ~/.vimrc'
+                      silent execute "!sed -ie \"4s/let g:jjVimRcVersion='.*'/let g:jjVimRcVersion='" . @v . "'/g\" ~/.vimrc"
+                      silent execute ':so ~/.vimrc'
+                  else
+                      echo 'Ok, fica pra proxima'
+                  endif
+              endif
+          endfun
+      " }}}
+
 
     " Check Spell Portuguese + English:
     " {{{
@@ -590,3 +613,4 @@
     " }}}
 
 " }}}
+"
