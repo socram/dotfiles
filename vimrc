@@ -1,7 +1,7 @@
 " Vim-PLug core:
 " {{{
 
-    let g:jjVimRcVersion='8888888'
+    let g:jjVimRcVersion='1.0'
 
     if has('vim_starting')
         set nocompatible
