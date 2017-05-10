@@ -1,7 +1,7 @@
 " Vim-PLug core:
 " {{{
 
-    let g:jjVimRcVersion='1.0'
+    let g:jjVimRcVersion='c090dcd'
 
     if has('vim_starting')
         set nocompatible
@@ -77,7 +77,7 @@
     set wildmode=longest,list
     set shell=/bin/bash
     set foldlevelstart=99
-
+    hi Normal ctermbg=none
 " }}}
 
 " AutoCmd:
@@ -308,10 +308,15 @@
 
                 let g:show = 0
             else
-                " set list lcs=eol:¬,trail:·
                 set list
                 set listchars=eol:¬,tab:>·,trail:.,extends:>,precedes:<,space:␣
 
+                setlocal enc=utf8
+                if search('[^\x00-\xff]') != 0
+                    call matchadd('Error', '[^\x00-\xff]')
+                else
+                    setlocal enc=latin1 
+                endif
 
                 set cursorline
                 hi CursorLine ctermbg=8 ctermfg=15 "8 = dark gray, 15 = white
@@ -613,4 +618,3 @@
     " }}}
 
 " }}}
-"
