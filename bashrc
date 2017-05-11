@@ -234,8 +234,8 @@
     function jjUrlShortener ()
     {
         url="${1}"
-        lynx -source "http://migre.me/api.txt?url=${1}"
-        echo ""  
+        lynx -source "http://migre.me/api.txt?url=${1}" | pbcopy
+        echo "Link Copiado para Área de Transferência"  
     }
 
     function  jjExtract () 
