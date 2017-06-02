@@ -17,22 +17,22 @@
     let g:not_finish_vimplug = "yes"
         autocmd VimEnter * PlugInstall
     endif
+
     call plug#begin(expand('~/.vim/plugged'))
 
     "... Pacotes...
-    " 
+
         Plug 'msanders/snipmate.vim'
         Plug 'majutsushi/tagbar'
         Plug 'kien/ctrlp.vim'
         Plug 'scrooloose/syntastic'
         Plug 'godlygeek/tabular'
+        Plug 'joshdick/onedark.vim'
 
     call plug#end()
     filetype plugin indent on
 
     let mapleader=',' " Troca / por ,
-
-" }}}
 
 
 "..............................................
@@ -63,27 +63,33 @@
     let g:syntastic_aggregate_errors = 1
       
 
+"......................................
+"............. Aparência ..............
+"......................................
+colorscheme onedark
+set term=gnome-256color
+set t_Co=256
+
 "..............................................
 "............. Configurações Set ..............
 "..............................................
+
 " Geral
-
-imap jj <Esc>                      " jj funciona como esc no modo de edição
-syntax on                          " Liga Syntax
-set sm                             " Mostra par de parentese fechado
-set wildmode=longest,list:full     " Completa igual o bash
-set showcmd                        " Mostra comando sendo executado no rodapé
-set hidden                         " 
-set mouse=a                        " Habilita uso no mouse
-
-
+imap jj <Esc>                     " jj funciona como esc no modo de edição
+syntax on                         " Liga Syntax
+set sm                            " Mostra par de parentese fechado
+set wildmode=longest,list:full    " Completa igual o bash
+set showcmd                       " Mostra comando sendo executado no rodapé
+set hidden                        "
+set mouse=a                       " Habilita uso no mouse
+set nu                            " Número nas linhas
 
 " Configura Status Bar
-set laststatus=2                " Mostra barra de Status
-set statusline  +=%<[%n]        " Numero do buffer atual
-set statusline  +=[%f%m]\       " Nome do arquivo aberto
-set statusline  +=%=\Line:%l\/%L\     " Linha Atual
-set statusline  +=%=\Column:%c%V        " Coluna Atual
+set laststatus=2                  " Mostra barra de Status
+set statusline  +=%<[%n]          " Numero do buffer atual
+set statusline  +=[%f%m]\         " Nome do arquivo aberto
+set statusline  +=%=\Line:%l\/%L\ " Linha Atual
+set statusline  +=%=\Column:%c%V  " Coluna Atual
 
 " Configura Tab
 set tabstop=2
@@ -298,9 +304,6 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
         noremap <Leader>mm : call JJ_Point(2) <CR>  
       " Limpa Marcações
         noremap <Leader>mmm : call JJ_Point(3) <CR> 
-      
-      
-      
 
 ".........................................
 "........... Áreas para testes ...........
