@@ -22,7 +22,7 @@
 
     "... Pacotes...
 
-        Plug 'msanders/snipmate.vim'
+        " Plug 'msanders/snipmate.vim'
         Plug 'majutsushi/tagbar'
         Plug 'kien/ctrlp.vim'
         Plug 'scrooloose/syntastic'
@@ -33,6 +33,8 @@
     filetype plugin indent on
 
     let mapleader=',' " Troca / por ,
+
+
 
 
 "..............................................
@@ -104,6 +106,7 @@ set ignorecase
 set smartcase
 noremap <Leader>f : /
 noremap <Leader>g : %s/
+vnoremap // y/\V<C-R>"<CR>          "Faz pesquisa por palavra selecionada usando //
 
 " Desabilita arquivos de Backup
 set nowrap
@@ -114,8 +117,7 @@ set noswapfile
 " Configura Encode
 set encoding=utf-8
 set fileencoding=utf-8
-set fileencodings=utf-8
-
+set fileencodings=utf-8 
 "..............................................
 ".......... Configurações de Buffers ..........
 "..............................................
