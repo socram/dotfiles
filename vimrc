@@ -34,9 +34,6 @@
 
     let mapleader=',' " Troca / por ,
 
-
-
-
 "..............................................
 ".......... Configurações de Plugins ..........
 "..............................................
@@ -83,7 +80,6 @@ syntax on                               " Liga Syntax
 set sm                                  " Mostra par de parentese fechado
 set wildmode=longest,list:full          " Completa igual o bash
 set showcmd                             " Mostra comando sendo executado no rodapé
-set hidden                              "
 set mouse=a                             " Habilita uso no mouse
 set nu                                  " Número nas linhas
 
@@ -310,6 +306,15 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
       " Limpa Marcações
         noremap <Leader>mmm : call JJ_Point(3) <CR> 
 
+      "... Mostra definições dos Snippets para arquivo aberto  ...
+      fun! JJ_Snippets()
+        let extension = expand('%:e')
+        let fileName = '~/.vim/plugged/snipmate.vim/snippets/'.extension.'.snippets'
+        execute "leftabove vnew ".fileName
+        vertical resize 50
+      endfun
+
+      noremap <Leader>hh : call JJ_Snippets() <CR> 
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
