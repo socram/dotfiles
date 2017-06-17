@@ -22,7 +22,7 @@
 
     "... Pacotes...
 
-        " Plug 'msanders/snipmate.vim'
+        Plug 'msanders/snipmate.vim'
         Plug 'majutsushi/tagbar'
         Plug 'kien/ctrlp.vim'
         Plug 'scrooloose/syntastic'
