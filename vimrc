@@ -77,14 +77,17 @@ set t_Co=256
 "..............................................
 
 " Geral
-imap jj <Esc>                     " jj funciona como esc no modo de edição
-syntax on                         " Liga Syntax
-set sm                            " Mostra par de parentese fechado
-set wildmode=longest,list:full    " Completa igual o bash
-set showcmd                       " Mostra comando sendo executado no rodapé
-set hidden                        "
-set mouse=a                       " Habilita uso no mouse
-set nu                            " Número nas linhas
+imap jj <esc>                           " jj funciona como esc no modo de edição
+autocmd! bufwritepost ~/.vimrc source % " Carrega automaticamente vimrc qnd codificado
+syntax on                               " Liga Syntax
+set sm                                  " Mostra par de parentese fechado
+set wildmode=longest,list:full          " Completa igual o bash
+set showcmd                             " Mostra comando sendo executado no rodapé
+set hidden                              "
+set mouse=a                             " Habilita uso no mouse
+set nu                                  " Número nas linhas
+
+
 
 " Configura Status Bar
 set laststatus=2                  " Mostra barra de Status
