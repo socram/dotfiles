@@ -1,3 +1,4 @@
+
 # ------- JJ BashRC
 
 # Model 
@@ -48,12 +49,12 @@
 
     function jjLocalServer ()
     {
-        sudo python -m SimpleHTTPServer 80 
+        python -m SimpleHTTPServer 8000 
     }
     
     function jjTmuxInit()
     {
-      tmux new -s main
+      tmux -2 new -s main
     }
 
     function jjTmuxAttach()
@@ -228,7 +229,8 @@
     function jjMoveToTrash () 
     {
         clean=`echo "$@" | sed 's/-rf//' `
-        echo "mv ${clean} ~/.local/share/Trash/files"
+        # echo "mv ${clean} ~/.local/share/Trash/files"
+        mv ${clean} ~/.local/share/Trash/files
     }
     
     function jjUrlShortener ()
@@ -378,3 +380,5 @@
 # }}}   
 
 
+# Enable Color 
+export TERM="xterm-256color"
