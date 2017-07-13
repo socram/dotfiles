@@ -28,6 +28,7 @@
         Plug 'scrooloose/syntastic'
         Plug 'godlygeek/tabular'
         Plug 'joshdick/onedark.vim'
+        Plug 'jiangmiao/auto-pairs'
 
     call plug#end()
     filetype plugin indent on
@@ -311,6 +312,7 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
         noremap <Leader>mmm : call JJ_Point(3) <CR> 
 
       "... Mostra definições dos Snippets para arquivo aberto  ...
+
       fun! JJ_Snippets()
         let extension = expand('%:e')
         let fileName = '~/.vim/plugged/snipmate.vim/snippets/'.extension.'.snippets'
@@ -322,4 +324,3 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
-
