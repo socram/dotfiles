@@ -21,14 +21,19 @@
     call plug#begin(expand('~/.vim/plugged'))
 
     "... Pacotes...
-
+ 
         Plug 'msanders/snipmate.vim'
         Plug 'majutsushi/tagbar'
         Plug 'kien/ctrlp.vim'
-        Plug 'scrooloose/syntastic'
         Plug 'godlygeek/tabular'
         Plug 'joshdick/onedark.vim'
         Plug 'jiangmiao/auto-pairs'
+        Plug 'vim-scripts/YankRing.vim'
+        " Plug 'scrooloose/syntastic'
+        
+        " Javascript Plugins
+        Plug 'walm/jshint.vim'
+        Plug 'pangloss/vim-javascript'
 
     call plug#end()
     filetype plugin indent on
@@ -40,10 +45,6 @@
 "..............................................
 
   "... Tabular ...
-    xnoremap <Leader>t= : Tabularize /=<CR>
-    xnoremap <Leader>t: : Tabularize /:<CR>
-    xnoremap <Leader>t# : Tabularize /#<CR>
-    xnoremap <Leader>t" : Tabularize /"<CR>
     xnoremap <Leader>tt : Tabularize /
      
   "... TagBar ...     
@@ -52,13 +53,17 @@
 
   "... CtrlP ...
     noremap <Leader>p : CtrlP <CR>
+    let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\.git$\|public\/images\|public\/system\|data\|log\|tmp\|node_modules$',
+      \ 'file': '\.exe$\|\.so$\|\.dat$'
+      \ }
       
   "... Syntastic ...
     let g:syntastic_always_populate_loc_list=1
-    let g:syntastic_error_symbol='✗'
-    let g:syntastic_warning_symbol='⚠'
-    let g:syntastic_style_error_symbol = '✗'
-    let g:syntastic_style_warning_symbol = '⚠'
+    let g:syntastic_error_symbol=''
+    let g:syntastic_warning_symbol=''
+    let g:syntastic_style_error_symbol = ''
+    let g:syntastic_style_warning_symbol = ''
     let g:syntastic_auto_loc_list=1
     let g:syntastic_aggregate_errors = 1
       
@@ -201,6 +206,7 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
       let g:netrw_browse_split=4
       let g:netrw_altv=1
       let g:netrw_liststyle=3
+      let g:netrw_preview=1
       let g:netrw_list_hide=netrw_gitignore#Hide()
       let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
       Lexplore
@@ -256,7 +262,7 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
      
     "... Ctags ... 
      fun! JJ_Ctags()
-       execute ":r! ctags -R . "
+       execute ":r! ctags -R --exclude=.git --exclude=node_modules -R . "
      endfun
 
      noremap <Leader>T : call JJ_Ctags()<CR>
@@ -272,7 +278,7 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
           let g:currentLine = line(".")
           let g:lineDescription= getline(".")
 
-          sign define jjBreakPoint text=➙ texthl=JJ_Point
+          sign define jjBreakPoint text=> texthl=JJ_Point
           execute ":sign place 2 line=" .g:currentLine. " name=jjBreakPoint file=" . expand("%:p")
 
           call add(g:linesAdd, g:currentLine)
@@ -286,7 +292,7 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
           let size=len(g:linesDescription)
 
           for i in range(size)
-            echo "Line ➙ [". g:count . "] Content ➙ [" . g:linesDescription[ i ] . "]"
+            echo "Line  [". g:count . "] Content  [" . g:linesDescription[ i ] . "]"
             let g:count += 1
           endfor
 
@@ -321,6 +327,17 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
       endfun
 
       noremap <Leader>hh : call JJ_Snippets() <CR> 
+
+
+      " ... Gerenciador de Clipboard
+
+      fun! JJ_Clipboard()
+        execute ":YRShow"
+      endfun
+
+      noremap <Leader>, : call JJ_Clipboard() <CR> 
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
+"
+
