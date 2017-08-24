@@ -72,9 +72,9 @@
       
 
   " ... vim-fugitive ...
-    noremap <Leader>ga :Gwrite<CR> <esc>: echo "Arquivo [ " . expand('%:t'). " ] add GIT"<CR>   
-    noremap <Leader>gc :Gcommit<CR> <esc>: echo "Commit"
-    noremap <Leader>gp :Gpush<CR> <esc>: echo "Push on Master !!!"
+    noremap <Leader>ga :Gwrite<CR> <esc>: echo "Arquivo [ " . expand('%:t'). " ] add to GIT"<CR>   
+    noremap <Leader>gc :Gcommit<CR> <esc>: echo "Commit" <CR>
+    noremap <Leader>gp :Gpush<CR> <esc>: echo "Push on Master !!!" <CR>
     noremap <Leader>gll :Gpull<CR>
     noremap <Leader>gl :Gllog<CR>
     noremap <Leader>gs :Gstatus<CR>
@@ -224,7 +224,7 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
 "........................................
 augroup vimrc-remember-cursor-position
   autocmd!
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | exe "normal! zz"  | endif
 augroup END"`'")"'")
 
 augroup vimrc-sync-fromstart
