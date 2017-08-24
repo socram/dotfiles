@@ -74,7 +74,7 @@
   " ... vim-fugitive ...
     noremap <Leader>ga :Gwrite<CR> <esc>: echo "Arquivo [ " . expand('%:t'). " ] add GIT"<CR>   
     noremap <Leader>gc :Gcommit<CR> <esc>: echo "Commit"
-    noremap <Leader>gp :Gpush<CR>
+    noremap <Leader>gp :Gpush<CR> <esc>: echo "Push on Master !!!"
     noremap <Leader>gll :Gpull<CR>
     noremap <Leader>gl :Gllog<CR>
     noremap <Leader>gs :Gstatus<CR>
