@@ -70,20 +70,13 @@
       \ 'file': '\.exe$\|\.so$\|\.dat$'
       \ }
       
-  "... Syntastic ...
-    let g:syntastic_always_populate_loc_list=1
-    let g:syntastic_error_symbol=''
-    let g:syntastic_warning_symbol=''
-    let g:syntastic_style_error_symbol = ''
-    let g:syntastic_style_warning_symbol = ''
-    let g:syntastic_auto_loc_list=1
-    let g:syntastic_aggregate_errors = 1
 
   " ... vim-fugitive ...
-    noremap <Leader>ga :Gwrite<CR>
-    noremap <Leader>gc :Gcommit<CR>
-    noremap <Leader>gsh :Gpush<CR>
+    noremap <Leader>ga :Gwrite<CR> <esc>: echo "Arquivo [ " . expand('%:t'). " ] add GIT"<CR>   
+    noremap <Leader>gc :Gcommit<CR> <esc>: echo "Commit"
+    noremap <Leader>gp :Gpush<CR>
     noremap <Leader>gll :Gpull<CR>
+    noremap <Leader>gl :Gllog<CR>
     noremap <Leader>gs :Gstatus<CR>
     noremap <Leader>gb :Gblame<CR>
     noremap <Leader>gd :Gvdiff<CR>
@@ -115,7 +108,7 @@ set scrolloff=3
 "..............................................
 
 " Geral
-imap jj <esc>                           " jj funciona como esc no modo de edição
+imap jj <Esc>                           " jj funciona como esc no modo de edição
 autocmd! bufwritepost ~/.vimrc source % " Carrega automaticamente vimrc qnd codificado
 syntax on                               " Liga Syntax
 set sm                                  " Mostra par de parentese fechado
@@ -149,10 +142,6 @@ set smartcase
 " Sempre coloca o proximo resultado no centro da tela
 nnoremap n nzzzv
 nnoremap N Nzzzv
-
-noremap <Leader>f : /
-" noremap <Leader>g : %s/
-vnoremap // y/\V<C-R>"<CR>          "Faz pesquisa por palavra selecionada usando //
 
 " Desabilita arquivos de Backup
 set nowrap
