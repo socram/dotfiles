@@ -22,15 +22,18 @@
 
     "... Pacotes...
  
-        Plug 'msanders/snipmate.vim'
         Plug 'majutsushi/tagbar'
         Plug 'kien/ctrlp.vim'
         Plug 'godlygeek/tabular'
         Plug 'joshdick/onedark.vim'
         Plug 'jiangmiao/auto-pairs'
         Plug 'vim-scripts/YankRing.vim'
-        " Plug 'scrooloose/syntastic'
-        
+        Plug 'mileszs/ack.vim'
+        Plug 'tpope/vim-fugitive'
+        Plug 'SirVer/ultisnips'
+        Plug 'honza/vim-snippets'
+        Plug 'Yggdroot/indentLine'
+       
         " Javascript Plugins
         Plug 'walm/jshint.vim'
         Plug 'pangloss/vim-javascript'
@@ -43,6 +46,15 @@
 "..............................................
 ".......... Configurações de Plugins ..........
 "..............................................
+
+  "... Ack ...
+    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+    nmap <leader>aa :tab split<CR>:Ack! ""<Left>
+    nmap <leader>A :tab split<CR>:Ack! "\W<C-r><C-w>\W"<CR>
+
+    let g:unite_source_grep_command = 'ack-grep'
+    let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
+    let g:unite_source_grep_recursive_opt = ''
 
   "... Tabular ...
     xnoremap <Leader>tt : Tabularize /
@@ -66,7 +78,28 @@
     let g:syntastic_style_warning_symbol = ''
     let g:syntastic_auto_loc_list=1
     let g:syntastic_aggregate_errors = 1
-      
+
+  " ... vim-fugitive ...
+    noremap <Leader>ga :Gwrite<CR>
+    noremap <Leader>gc :Gcommit<CR>
+    noremap <Leader>gsh :Gpush<CR>
+    noremap <Leader>gll :Gpull<CR>
+    noremap <Leader>gs :Gstatus<CR>
+    noremap <Leader>gb :Gblame<CR>
+    noremap <Leader>gd :Gvdiff<CR>
+    noremap <Leader>gr :Gremove<CR>
+
+  " ... UltiSnips ...
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+    let g:UltiSnipsEditSplit="vertical"
+
+  " ... indentLine ....
+    let g:indentLine_enabled = 1
+    let g:indentLine_concealcursor = 0
+    let g:indentLine_char = ''
+    let g:indentLine_faster = 1
 
 "......................................
 "............. Aparência ..............
@@ -75,7 +108,8 @@ colorscheme onedark
 set term=gnome-256color
 set term=screen-256color
 set t_Co=256
-
+set gcr=a:blinkon0
+set scrolloff=3
 "..............................................
 "............. Configurações Set ..............
 "..............................................
@@ -91,8 +125,6 @@ set mouse=a                             " Habilita uso no mouse
 set nu                                  " Número nas linhas
 set foldlevelstart=99                   " Não encurta funções
 set foldlevel=99                        " Não encurta funções
-
-
 
 
 " Configura Status Bar
@@ -113,8 +145,13 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
+
+" Sempre coloca o proximo resultado no centro da tela
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
 noremap <Leader>f : /
-noremap <Leader>g : %s/
+" noremap <Leader>g : %s/
 vnoremap // y/\V<C-R>"<CR>          "Faz pesquisa por palavra selecionada usando //
 
 " Desabilita arquivos de Backup
@@ -127,6 +164,7 @@ set noswapfile
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8 
+
 "..............................................
 ".......... Configurações de Buffers ..........
 "..............................................
@@ -147,6 +185,8 @@ noremap <Leader>bd : bdelete
 noremap <Leader>h  : leftabove vnew 
 noremap <Leader>v  : rightbelow new 
 noremap <Leader>l  : set nomore <Bar> :ls <Bar> :set more <CR>:b<Space>
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
 
 "..............................................
 "........ Configurações de Abreviações ........
@@ -165,7 +205,6 @@ noremap <Leader>s : w<CR>
 noremap <Leader>q : call JJ_Close()   <CR>
 noremap <Leader>Q : qall!<CR>
 
-
 "..............................................
 "............... Seleção Visual ...............
 "..............................................
@@ -174,7 +213,6 @@ vmap > >gv
 noremap <Leader>a : <esc>ggVG<CR>
 noremap <Leader>b : <esc>vi{ <CR>%
 
-
 "..............................................
 "........... Configurações de Split ...........
 "..............................................
@@ -182,7 +220,6 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
-
 
 "........................................
 "........... Atalhos f1 - f12 ...........
@@ -193,7 +230,18 @@ noremap <F2>  $
 noremap <F3>  :call JJ_LateralPanel() <CR>
 noremap <F12> :tabnew ~/.vimrc        <CR>
 
+"........................................
+"......... Funções de Autoload ..........
+"........................................
+augroup vimrc-remember-cursor-position
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+augroup END"`'")"'")
 
+augroup vimrc-sync-fromstart
+  autocmd!
+  autocmd BufEnter * :syntax sync maxlines=200
+augroup END
 
 ".......................................................................
 "........... Minha funções JJ que subistituem muitos plugins ...........
@@ -292,7 +340,7 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
           let size=len(g:linesDescription)
 
           for i in range(size)
-            echo "Line  [". g:count . "] Content  [" . g:linesDescription[ i ] . "]"
+            echo "Line  [".g:count."] Content [".g:linesDescription[ i ]."]"
             let g:count += 1
           endfor
 
@@ -318,7 +366,6 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
         noremap <Leader>mmm : call JJ_Point(3) <CR> 
 
       "... Mostra definições dos Snippets para arquivo aberto  ...
-
       fun! JJ_Snippets()
         let extension = expand('%:e')
         let fileName = '~/.vim/plugged/snipmate.vim/snippets/'.extension.'.snippets'
@@ -339,5 +386,3 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
-"
-
