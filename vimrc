@@ -32,7 +32,8 @@
         Plug 'tpope/vim-fugitive'
         Plug 'SirVer/ultisnips'
         Plug 'honza/vim-snippets'
-        Plug 'Yggdroot/indentLine'
+        " Plug 'Yggdroot/indentLine'
+        Plug 'lordm/vim-browser-reload-linux'
        
         " Javascript Plugins
         Plug 'walm/jshint.vim'
@@ -91,7 +92,7 @@
   " ... indentLine ....
     let g:indentLine_enabled = 1
     let g:indentLine_concealcursor = 0
-    let g:indentLine_char = ''
+    " let g:indentLine_char = ''
     let g:indentLine_faster = 1
 
 "......................................
@@ -372,6 +373,25 @@ augroup END
       endfun
 
       noremap <Leader>, : call JJ_Clipboard() <CR> 
+      
+      " ... WatchFile 
+      
+      fun! JJ_WatchFile( action )
+
+        if a:action == 1 
+          let cmd='jj_FILE='. expand('%:p') .'; BROWSER=chromium-browser; while true; do  inotifywait -q $jj_FILE >/dev/null; CUR_WID=$(xdotool getwindowfocus) ;  WID=$(xdotool search --onlyvisible --class $BROWSER|head -1);  xdotool windowactivate $WID ;  xdotool key "ctrl+r" ;  xdotool windowactivate $CUR_WID ;done & '
+          execute system(cmd)
+        endif
+
+        if a:action == 2
+          let cmd='kill -9 $(ps -ef | grep jj_FILE | cut -d " " -f2)' 
+          execute system(cmd)
+        endif
+
+      endfun
+      
+      noremap <Leader>w : call JJ_WatchFile(1) <CR> 
+      noremap <Leader>ww : call JJ_WatchFile(2) <CR> 
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
