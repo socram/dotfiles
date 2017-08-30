@@ -33,7 +33,9 @@
         Plug 'SirVer/ultisnips'
         Plug 'honza/vim-snippets'
         Plug 'Yggdroot/indentLine'
-       
+        Plug 'lordm/vim-browser-reload-linux' 
+
+
         " Javascript Plugins
         Plug 'walm/jshint.vim'
         Plug 'pangloss/vim-javascript'
@@ -109,7 +111,7 @@ set scrolloff=3
 
 " Geral
 imap jj <Esc>                           " jj funciona como esc no modo de edição
-autocmd! bufwritepost ~/.vimrc source % " Carrega automaticamente vimrc qnd codificado
+" autocmd! bufwritepost ~/.vimrc source % " Carrega automaticamente vimrc qnd codificado
 syntax on                               " Liga Syntax
 set sm                                  " Mostra par de parentese fechado
 set wildmode=longest,list:full          " Completa igual o bash
@@ -217,6 +219,7 @@ map <C-l> <C-W>l
 noremap <F1>  0
 noremap <F2>  $
 noremap <F3>  :call JJ_LateralPanel() <CR>
+noremap <F4>  :call JJ_ChangeLog(1)   <CR>
 noremap <F12> :tabnew ~/.vimrc        <CR>
 
 "........................................
@@ -231,6 +234,21 @@ augroup vimrc-sync-fromstart
   autocmd!
   autocmd BufEnter * :syntax sync maxlines=200
 augroup END
+
+augroup vimrc-load-vimrc
+  autocmd!
+  autocmd! bufwritepost ~/.vimrc source % 
+augroup END
+
+augroup vimrc-load-changelog
+  autocmd!
+  autocmd BufWritePre * keepjumps call JJ_ChangeLog(2)
+augroup END
+
+" autocmd vimrc-change-log
+  " autocmd!
+" augroup END
+
 
 ".......................................................................
 "........... Minha funções JJ que subistituem muitos plugins ...........
@@ -372,6 +390,45 @@ augroup END
       endfun
 
       noremap <Leader>, : call JJ_Clipboard() <CR> 
+
+   " ... Gerenciador de Clipboard
+   "
+    fun! JJ_ChangeLog(action)
+
+      if a:action == 1 
+        let l:flag=0
+        for i in range(1,5)
+            if getline(i) !~ '.*Last Change.*'
+                let l:flag = l:flag + 1
+            endif
+        endfor
+        if l:flag >= 5
+            normal(1G)
+            call append(0, "-------------------------------------------------------------------")
+            call append(1, "   Created: " . strftime("%a %d/%b/%Y %H:%M"))
+            call append(2, "   Updated: " . strftime("%a %d/%b/%Y %H:%M"))
+            call append(3, "   Author: Marcos Conceicao <socram.io>")
+            call append(4, "-------------------------------------------------------------------")
+            normal gg
+       " normal 
+        endif
+      endif
+
+      if a:action == 2 
+
+        let _s=@/
+        let l = line(".")
+        let c = col(".")
+        if line("$") >= 5
+            1,5s/\s*Updated:\s*\zs.*/\="" . strftime("%Y %b %d %X")/ge
+        endif
+        let @/=_s
+        call cursor(l, c)
+
+      endif
+
+    endfun
+
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
