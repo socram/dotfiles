@@ -223,6 +223,7 @@ noremap <F12> :tabnew ~/.vimrc        <CR>
 "........................................
 "......... Funções de Autoload ..........
 "........................................
+
 augroup vimrc-remember-cursor-position
   autocmd!
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | exe "normal! zz"  | endif
@@ -231,6 +232,16 @@ augroup END"`'")"'")
 augroup vimrc-sync-fromstart
   autocmd!
   autocmd BufEnter * :syntax sync maxlines=200
+augroup END
+
+augroup vimrc-load-vimrc
+  autocmd!
+  autocmd! bufwritepost ~/.vimrc source % 
+augroup END
+
+augroup vimrc-load-changelog
+  autocmd!
+  autocmd BufWritePre * keepjumps call JJ_ChangeLog(2)
 augroup END
 
 ".......................................................................
@@ -392,6 +403,48 @@ augroup END
       
       noremap <Leader>w : call JJ_WatchFile(1) <CR> 
       noremap <Leader>ww : call JJ_WatchFile(2) <CR> 
+      
+      " ... Adiciona Header Aquivo
+   
+    fun! JJ_ChangeLog(action)
+
+      if a:action == 1 
+        let l:flag=0
+        for i in range(1,5)
+            if getline(i) !~ '.*Last Change.*'
+                let l:flag = l:flag + 1
+            endif
+        endfor
+        if l:flag >= 5
+            normal(1G)
+            call append(0, "-------------------------------------------------------------------")
+            call append(1, "   Created: " . strftime("%a %d/%b/%Y %H:%M"))
+            call append(2, "   Updated: " . strftime("%a %d/%b/%Y %H:%M"))
+            call append(3, "   Author: Marcos Conceicao <socram.io>")
+            call append(4, "-------------------------------------------------------------------")
+            normal gg
+       " normal 
+        endif
+      endif
+
+      if a:action == 2 
+
+        let _s=@/
+        let l = line(".")
+        let c = col(".")
+        if line("$") >= 5
+            1,5s/\s*Updated:\s*\zs.*/\="" . strftime("%Y %b %d %X")/ge
+        endif
+        let @/=_s
+        call cursor(l, c)
+
+      endif
+
+    endfun
+
+      
+      
+      
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
