@@ -20,16 +20,6 @@
     function jjInitializePrograms ()
     {
 
-        # Initialize Dropbox
-        #ps cax | grep dropbox > /dev/null
-        
-        #if [ $? -eq 1 ]; 
-        #then
-          # echo "Init Dropbox"
-            #~/.dropbox-dist/dropboxd &
-        #fi
-
-
         # Initialize Bluetooth
         ps cax | grep bluetooth > /dev/null
 
@@ -62,16 +52,6 @@
       tmux attach -t main
     }
 
-    function jjDownloadYoutubeVideo ()
-    {
-        lista=`cat $1`
-
-        for video in $lista
-        do
-            youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "${video}" & 
-        done
-    }
-
     function jjConverterBitCoinToReal ()
     {
         valorEmBitCoin=`echo ${1} | tr -d '฿| ' | tr ',' '.'`
@@ -98,23 +78,20 @@
 
     function jjFlagsTcpDump ()
     {
-        echo -e "
-        +----------------------------------------------------------------------------------------------------------------------------------------------+
-        |	TCP Flag	|	Flag tcpdump	|					Significado					       |
-        +----------------------------------------------------------------------------------------------------------------------------------------------+
-        |	SYN		|	s		|	Syn packet, a session establishment request.  A primeira parte de qualquer conexão TCP.|
-        |	ACK		|	ack		|	Ack packet, usado para reconhecimento de dados do sender.Pode aparecer em conjunto.    |
-        |	FIN		|	f		|	Finish flag, usado para indicar a intencao do sender de encerrar a conexao. 	       |
-        |	RES( cax | grep dropbox > /dev/null
-                if [ $? -eq 1 ]; then
-                            ~/.dropbox-dist/dropboxd &
-                                    fi
-                                    ET		|	r		|	Indica a intencao do remetente de abortar imediatamente a conexao existente.	       |
-        |	PUSH		|	p		|	Sinaliza o envio imediato de dados do host de envio para o host receptor.	       |
-        |	URGENT		|	urg		|	Dados urgentes devem ter precedência sobre outros dados. Por exemplo, um Ctrl-C.       |
-        |	Placeholder	|	.		|	Se a conexao nao tiver finish, reset, ou push flag setado.			       |
-        +----------------------------------------------------------------------------------------------------------------------------------------------+
-        "
+   echo -e "
+    +----------------------------------------------------------------------------------------------------------------------------------------------+
+    |   TCP Flag        |       Flag tcpdump    |                                       Significado                                            |
+    +----------------------------------------------------------------------------------------------------------------------------------------------+
+    |   SYN             |       s               |       Syn packet, a session establishment request.  A primeira parte de qualquer conexão TCP.|
+    |   ACK             |       ack             |       Ack packet, usado para reconhecimento de dados do sender.Pode aparecer em conjunto.    |
+    |   FIN             |       f               |       Finish flag, usado para indicar a intencao do sender de encerrar a conexao.            |
+    |   RESET           |       r               |       Indica a intencao do remetente de abortar imediatamente a conexao existente.           |
+    |   PUSH            |       p               |       Sinaliza o envio imediato de dados do host de envio para o host receptor.              |
+    |   URGENT          |       urg             |       Dados urgentes devem ter precedência sobre outros dados. Por exemplo, um Ctrl-C.       |
+    |   Placeholder     |       .               |       Se a conexao nao tiver finish, reset, ou push flag setado.                             |
+    +----------------------------------------------------------------------------------------------------------------------------------------------+
+    " 
+    
     }
 
     function jjNetwork ()
@@ -213,25 +190,18 @@
         git config --global core.editor vi
         git config --global merge.tool vimdiff
         
-        cd ~/.ssh
-       
-        ssh-keygen -t rsa -C "mconceicao@protonmail.com"
-        ssh-add id_rsa
-        gedit id_rsa.pub &
-      
-        firefox --new-tab "https://github.com/settings/ssh" & 
-
-        ssh -T git@github.com
+			# cd ~/.ssh
+			# 
+			# ssh-keygen -t rsa -C "mconceicao@protonmail.com"
+			# ssh-add id_rsa
+			# gedit id_rsa.pub &
+			# 
+			# firefox --new-tab "https://github.com/settings/ssh" & 
+			# 
+			# ssh -T git@github.com
 
     }
 
-
-    function jjMoveToTrash () 
-    {
-        clean=`echo "$@" | sed 's/-rf//' `
-        # echo "mv ${clean} ~/.local/share/Trash/files"
-        mv ${clean} ~/.local/share/Trash/files
-    }
     
     function jjUrlShortener ()
     {
