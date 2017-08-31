@@ -1,3 +1,4 @@
+" -------------------------------------------------------------------
 "...................................
 ".......... Vim-PLug core ..........
 "...................................
@@ -104,6 +105,10 @@ set term=screen-256color
 set t_Co=256
 set gcr=a:blinkon0
 set scrolloff=3
+
+
+
+
 "..............................................
 "............. Configurações Set ..............
 "..............................................
@@ -119,6 +124,7 @@ set mouse=a                             " Habilita uso no mouse
 set nu                                  " Número nas linhas
 set foldlevelstart=99                   " Não encurta funções
 set foldlevel=99                        " Não encurta funções
+
 
 
 " Configura Status Bar
@@ -195,6 +201,13 @@ noremap <Leader>s : w<CR>
 noremap <Leader>q : call JJ_Close()   <CR>
 noremap <Leader>Q : qall!<CR>
 
+
+"..............................................
+"........... Configurações Rename .............
+"..............................................
+" Sempre vai para o preview
+inoremap <C-n> <C-p>
+
 "..............................................
 "............... Seleção Visual ...............
 "..............................................
@@ -218,6 +231,7 @@ map <C-l> <C-W>l
 noremap <F1>  0
 noremap <F2>  $
 noremap <F3>  :call JJ_LateralPanel() <CR>
+noremap <F4>  :call JJ_ChangeLog(1) <CR>
 noremap <F12> :tabnew ~/.vimrc        <CR>
 
 "........................................
@@ -442,8 +456,6 @@ augroup END
 
     endfun
 
-      
-      
       
 ".........................................
 "........... Áreas para testes ...........
