@@ -1,3 +1,4 @@
+" -------------------------------------------------------------------
 "...................................
 ".......... Vim-PLug core ..........
 "...................................
@@ -32,10 +33,9 @@
         Plug 'tpope/vim-fugitive'
         Plug 'SirVer/ultisnips'
         Plug 'honza/vim-snippets'
-        Plug 'Yggdroot/indentLine'
-        Plug 'lordm/vim-browser-reload-linux' 
-
-
+        " Plug 'Yggdroot/indentLine'
+        Plug 'lordm/vim-browser-reload-linux'
+       
         " Javascript Plugins
         Plug 'walm/jshint.vim'
         Plug 'pangloss/vim-javascript'
@@ -93,7 +93,7 @@
   " ... indentLine ....
     let g:indentLine_enabled = 1
     let g:indentLine_concealcursor = 0
-    let g:indentLine_char = ''
+    " let g:indentLine_char = ''
     let g:indentLine_faster = 1
 
 "......................................
@@ -105,13 +105,17 @@ set term=screen-256color
 set t_Co=256
 set gcr=a:blinkon0
 set scrolloff=3
+
+
+
+
 "..............................................
 "............. Configurações Set ..............
 "..............................................
 
 " Geral
 imap jj <Esc>                           " jj funciona como esc no modo de edição
-" autocmd! bufwritepost ~/.vimrc source % " Carrega automaticamente vimrc qnd codificado
+autocmd! bufwritepost ~/.vimrc source % " Carrega automaticamente vimrc qnd codificado
 syntax on                               " Liga Syntax
 set sm                                  " Mostra par de parentese fechado
 set wildmode=longest,list:full          " Completa igual o bash
@@ -120,6 +124,7 @@ set mouse=a                             " Habilita uso no mouse
 set nu                                  " Número nas linhas
 set foldlevelstart=99                   " Não encurta funções
 set foldlevel=99                        " Não encurta funções
+
 
 
 " Configura Status Bar
@@ -196,6 +201,13 @@ noremap <Leader>s : w<CR>
 noremap <Leader>q : call JJ_Close()   <CR>
 noremap <Leader>Q : qall!<CR>
 
+
+"..............................................
+"........... Configurações Rename .............
+"..............................................
+" Sempre vai para o preview
+inoremap <C-n> <C-p>
+
 "..............................................
 "............... Seleção Visual ...............
 "..............................................
@@ -219,12 +231,13 @@ map <C-l> <C-W>l
 noremap <F1>  0
 noremap <F2>  $
 noremap <F3>  :call JJ_LateralPanel() <CR>
-noremap <F4>  :call JJ_ChangeLog(1)   <CR>
+noremap <F4>  :call JJ_ChangeLog(1) <CR>
 noremap <F12> :tabnew ~/.vimrc        <CR>
 
 "........................................
 "......... Funções de Autoload ..........
 "........................................
+
 augroup vimrc-remember-cursor-position
   autocmd!
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | exe "normal! zz"  | endif
@@ -244,11 +257,6 @@ augroup vimrc-load-changelog
   autocmd!
   autocmd BufWritePre * keepjumps call JJ_ChangeLog(2)
 augroup END
-
-" autocmd vimrc-change-log
-  " autocmd!
-" augroup END
-
 
 ".......................................................................
 "........... Minha funções JJ que subistituem muitos plugins ...........
@@ -390,9 +398,28 @@ augroup END
       endfun
 
       noremap <Leader>, : call JJ_Clipboard() <CR> 
+      
+      " ... WatchFile 
+      
+      fun! JJ_WatchFile( action )
 
-   " ... Gerenciador de Clipboard
-   "
+        if a:action == 1 
+          let cmd='jj_FILE='. expand('%:p') .'; BROWSER=chromium-browser; while true; do  inotifywait -q $jj_FILE >/dev/null; CUR_WID=$(xdotool getwindowfocus) ;  WID=$(xdotool search --onlyvisible --class $BROWSER|head -1);  xdotool windowactivate $WID ;  xdotool key "ctrl+r" ;  xdotool windowactivate $CUR_WID ;done & '
+          execute system(cmd)
+        endif
+
+        if a:action == 2
+          let cmd='kill -9 $(ps -ef | grep jj_FILE | cut -d " " -f2)' 
+          execute system(cmd)
+        endif
+
+      endfun
+      
+      noremap <Leader>w : call JJ_WatchFile(1) <CR> 
+      noremap <Leader>ww : call JJ_WatchFile(2) <CR> 
+      
+      " ... Adiciona Header Aquivo
+   
     fun! JJ_ChangeLog(action)
 
       if a:action == 1 
@@ -429,6 +456,7 @@ augroup END
 
     endfun
 
+      
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
