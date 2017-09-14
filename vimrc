@@ -33,6 +33,7 @@
         Plug 'tpope/vim-fugitive'
         Plug 'SirVer/ultisnips'
         Plug 'honza/vim-snippets'
+        Plug 'ap/vim-css-color'
         " Plug 'Yggdroot/indentLine'
         Plug 'lordm/vim-browser-reload-linux'
        
