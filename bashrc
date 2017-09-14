@@ -1,12 +1,4 @@
-
 # ------- JJ BashRC
-
-# Model 
-# {{{
-        
-  
-# }}}
-
 
 # Functions
 # {{{
@@ -20,18 +12,25 @@
     function jjInitializePrograms ()
     {
 
-        # Initialize Bluetooth
-        ps cax | grep bluetooth > /dev/null
+      # Initialize Bluetooth
+      ps cax | grep bluetooth > /dev/null
 
-        if [ $? -eq 1 ]; 
-        then
-            echo "Init Bluetooth"
-            sudo /etc/init.d/bluetooth start
+      if [ $? -eq 1 ]; 
+      then
+        echo "Init Bluetooth"
+        sudo /etc/init.d/bluetooth start
+      fi
+
+      # Initialize Keyboard
+      setxkbmap -model pc105 -layout us_intl
+
+      # Initialize Tmux
+      if command -v tmux >/dev/null
+      then
+        if [ ! -z "$PS1" ]; then 
+          [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux -2 new -s main
         fi
-
-        # Initialize Keyboard
-        setxkbmap -model pc105 -layout us_intl
-     
+      fi
     }
 
 
@@ -42,16 +41,6 @@
         python -m SimpleHTTPServer 8000 
     }
     
-    function jjTmuxInit()
-    {
-      tmux -2 new -s main
-    }
-
-    function jjTmuxAttach()
-    {
-      tmux attach -t main
-    }
-
     function jjConverterBitCoinToReal ()
     {
         valorEmBitCoin=`echo ${1} | tr -d '฿| ' | tr ',' '.'`
@@ -185,118 +174,15 @@
 
     function jjConfigureGit ()
     {
-	    git config --global user.name "mconeicao"
-	    git config --global user.email mconceicao@protonmail.com
-        git config --global core.editor vi
-        git config --global merge.tool vimdiff
+      git config --global user.name "mconeicao"
+      git config --global user.email mconceicao@protonmail.com
+      git config --global core.editor vi
+      git config --global merge.tool vimdiff
         
-			# cd ~/.ssh
-			# 
-			# ssh-keygen -t rsa -C "mconceicao@protonmail.com"
-			# ssh-add id_rsa
-			# gedit id_rsa.pub &
-			# 
-			# firefox --new-tab "https://github.com/settings/ssh" & 
-			# 
-			# ssh -T git@github.com
+      echo "git remote add origin <endereco>"
 
     }
 
-    
-    function jjUrlShortener ()
-    {
-        url="${1}"
-        lynx -source "http://migre.me/api.txt?url=${1}" | pbcopy
-        echo "Link Copiado para Área de Transferência"  
-    }
-
-    function  jjExtract () 
-    {
-        clrstart="\033[1;34m"  #color codes
-        clrend="\033[0m"
-
-        if [[ "$#" -lt 1 ]]; then
-            echo -e "${clrstart}Pass a filename. Optionally a destination folder. You can also append a v for verbose output.${clrend}"
-            exit 1 #not enough args
-        fi
-
-        if [[ ! -e "$1" ]]; then
-            echo -e "${clrstart}File does not exist!${clrend}"
-            exit 2 #file not found
-        fi
-
-        if [[ -z "$2" ]]; then
-            DESTDIR="." #set destdir to current dir
-        elif [[ ! -d "$2" ]]; then
-            echo -e -n "${clrstart}Destination folder doesn't exist or isnt a directory. Create? (y/n): ${clrend}"
-            read response
-            #echo -e "\n"
-            if [[ $response == y || $response == Y ]]; then
-                mkdir -p "$2"
-                if [ $? -eq 0 ]; then
-                    DESTDIR="$2"
-                else
-                    exit 6 #Write perms error
-                fi
-            else
-                echo -e "${clrstart}Closing.${clrend}"; exit 3 # n/wrong response
-            fi
-        else
-            DESTDIR="$2"
-        fi
-
-        if [[ ! -z "$3" ]]; then
-            if [[ "$3" != "v" ]]; then
-                echo -e "${clrstart}Wrong argument $3 !${clrend}"
-                exit 4 #wrong arg 3
-            fi
-        fi
-
-        filename=`basename "$1"`
-
-        #echo "${filename##*.}" debug
-
-        case "${filename##*.}" in
-            tar)
-                echo -e "${clrstart}Extracting $1 to $DESTDIR: (uncompressed tar)${clrend}"
-                tar x${3}f "$1" -C "$DESTDIR"
-                ;;
-            gz)
-                echo -e "${clrstart}Extracting $1 to $DESTDIR: (gip compressed tar)${clrend}"
-                tar x${3}fz "$1" -C "$DESTDIR"
-                ;;
-            tgz)
-                echo -e "${clrstart}Extracting $1 to $DESTDIR: (gip compressed tar)${clrend}"
-                tar x${3}fz "$1" -C "$DESTDIR"
-                ;;
-            xz)
-                echo -e "${clrstart}Extracting  $1 to $DESTDIR: (gip compressed tar)${clrend}"
-                tar x${3}f -J "$1" -C "$DESTDIR"
-                ;;
-            bz2)
-                echo -e "${clrstart}Extracting $1 to $DESTDIR: (bzip compressed tar)${clrend}"
-                tar x${3}fj "$1" -C "$DESTDIR"
-                ;;
-            zip)
-                echo -e "${clrstart}Extracting $1 to $DESTDIR: (zipp compressed file)${clrend}"
-                unzip "$1" -d "$DESTDIR"
-                ;;
-            rar)
-                echo -e "${clrstart}Extracting $1 to $DESTDIR: (rar compressed file)${clrend}"
-                unrar x "$1" "$DESTDIR"
-                ;;
-            7z)
-                echo -e  "${clrstart}Extracting $1 to $DESTDIR: (7zip compressed file)${clrend}"
-                7za e "$1" -o"$DESTDIR"
-                ;;
-            *)
-                echo -e "${clrstart}Unknown archieve format!"
-                exit 5
-                ;;
-        esac
-    }
-        
-  
 # }}}
 
 
@@ -313,9 +199,6 @@
         # File _
         alias _bashrc='source ~/.bashrc ; echo "Bashrc Atualizado"'
         alias __bashrc='vi ~/.bashrc'
-
-        # Rm files
-        alias rm='jjMoveToTrash'
 
 
 # }}}
@@ -352,3 +235,8 @@
 
 # Enable Color 
 export TERM="xterm-256color"
+
+# Logo
+echo '- -  - -'
+echo '>  JJ  <'
+echo '- -  - -'
