@@ -41,6 +41,18 @@
         python -m SimpleHTTPServer 8000 
     }
     
+    function jjPublish ()
+    {
+		if [ "$#" -ne 1 ]
+		then
+			echo -e "How to use:\n\t jjPublish <port>"
+		else
+            ngrok http ${1}
+        fi 
+    } 
+    
+    
+    
     function jjConverterBitCoinToReal ()
     {
         valorEmBitCoin=`echo ${1} | tr -d '฿| ' | tr ',' '.'`
