@@ -34,9 +34,11 @@
         Plug 'SirVer/ultisnips'
         Plug 'honza/vim-snippets'
         Plug 'ap/vim-css-color'
-        " Plug 'Yggdroot/indentLine'
+        Plug 'kshenoy/vim-signature'
         Plug 'lordm/vim-browser-reload-linux'
-       
+        Plug 'vim-syntastic/syntastic'
+      
+     
         " Javascript Plugins
         Plug 'walm/jshint.vim'
         Plug 'pangloss/vim-javascript'
@@ -91,11 +93,21 @@
     let g:UltiSnipsJumpBackwardTrigger="<c-b>"
     let g:UltiSnipsEditSplit="vertical"
 
-  " ... indentLine ....
+  " ... indentLine ...
     let g:indentLine_enabled = 1
     let g:indentLine_concealcursor = 0
     " let g:indentLine_char = ''
     let g:indentLine_faster = 1
+
+  " ... syntastic ...
+		set statusline+=%#warningmsg#
+		set statusline+=%{SyntasticStatuslineFlag()}
+		set statusline+=%*
+
+		let g:syntastic_always_populate_loc_list = 1
+		let g:syntastic_auto_loc_list = 1
+		let g:syntastic_check_on_open = 1
+		let g:syntastic_check_on_wq = 0
 
 "......................................
 "............. Aparência ..............
@@ -108,6 +120,7 @@ set gcr=a:blinkon0
 set scrolloff=3
 
 
+set paste
 
 
 "..............................................
@@ -244,6 +257,12 @@ augroup vimrc-remember-cursor-position
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | exe "normal! zz"  | endif
 augroup END"`'")"'")
 
+augroup vimrc-cursor-line
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
+
 augroup vimrc-sync-fromstart
   autocmd!
   autocmd BufEnter * :syntax sync maxlines=200
@@ -339,39 +358,16 @@ augroup END
       fun! JJ_Point(action)
 
         if a:action == 1 
-          let g:currentLine = line(".")
-          let g:lineDescription= getline(".")
-
-          sign define jjBreakPoint text=> texthl=JJ_Point
-          execute ":sign place 2 line=" .g:currentLine. " name=jjBreakPoint file=" . expand("%:p")
-
-          call add(g:linesAdd, g:currentLine)
-          call add(g:linesDescription, g:lineDescription)
+          return 
         endif
 
         if a:action == 2
-          echon "Break Points"
-          let g:count=1
-
-          let size=len(g:linesDescription)
-
-          for i in range(size)
-            echo "Line  [".g:count."] Content [".g:linesDescription[ i ]."]"
-            let g:count += 1
-          endfor
-
-          let position = input(": ")
-          execute "".g:linesAdd[position -1 ]
+          execute ':SignatureListGlobalMarks'
         endif
 
         if a:action == 3 
-          let size=len(g:linesDescription)
-          for i in range(size)
-            execute 'sign unplace 2'
-            let g:linesAdd = []
-            let g:linesDescription= []
-          endfor
         endif
+
       endfun
 
       " Criar Marcação
@@ -405,8 +401,9 @@ augroup END
       fun! JJ_WatchFile( action )
 
         if a:action == 1 
-          let cmd='jj_FILE='. expand('%:p') .'; BROWSER=chromium-browser; while true; do  inotifywait -q $jj_FILE >/dev/null; CUR_WID=$(xdotool getwindowfocus) ;  WID=$(xdotool search --onlyvisible --class $BROWSER|head -1);  xdotool windowactivate $WID ;  xdotool key "ctrl+r" ;  xdotool windowactivate $CUR_WID ;done & '
-          execute system(cmd)
+"          let cmd='jj_FILE='. expand('%:p') .'; BROWSER=chromium; while true; do  inotifywait -q $jj_FILE >/dev/null; CUR_WID=$(xdotool getwindowfocus) ;  WID=$(xdotool search --onlyvisible --class $BROWSER|head -1);  xdotool windowactivate $WID ;  xdotool key "ctrl+r" ;  xdotool windowactivate $CUR_WID ;done & '
+	   let cmd='jj_FILE='. expand('%:p') .'BROWSER=chromium;  ps cax | grep $BROWSER /dev/null;  if [ $? -eq 1 ];  then echo "Please, open the " ${BROWSER} ;  exit ; fi;  type inotifywait > /dev/null 2>&1  ;  if [ $? -eq 1 ];  then echo "Install inotify-tools" ;  exit ; fi;  type xdotool > /dev/null 2>&1; if [ $? -eq 1 ];  then echo "Install xdotool" ; exit ; fi;  ps -ef | grep [i]notifywait > /dev/null 2>&1  ;  if [ $? -eq 0 ];  then exit; fi;  while true;  do   inotifywait -q $jj_FILE >/dev/null; CUR_WID=$(xdotool getwindowfocus) ; WID=$(xdotool search --onlyvisible --class $BROWSER|head -1); xdotool windowactivate $WID ; xdotool key "ctrl+r" ; xdotool windowactivate $CUR_WID ; done &'
+	   execute system(cmd)
         endif
 
         if a:action == 2
@@ -461,4 +458,3 @@ augroup END
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
-"
