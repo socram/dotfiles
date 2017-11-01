@@ -358,25 +358,25 @@ augroup END
       fun! JJ_Point(action)
 
         if a:action == 1 
-          return 
+         exe "normal m," 
         endif
 
-        if a:action == 2
-          execute ':SignatureListGlobalMarks'
+        if a:action == 2 
+         exe "normal m/" 
         endif
 
         if a:action == 3 
+          exe "normal m "
         endif
-
       endfun
 
       " Criar Marcação
         noremap <Leader>m : call JJ_Point(1) <CR>
-      " Vai para Marcação   
+      " Lista Marcações
         noremap <Leader>mm : call JJ_Point(2) <CR>  
       " Limpa Marcações
         noremap <Leader>mmm : call JJ_Point(3) <CR> 
-
+      
       "... Mostra definições dos Snippets para arquivo aberto  ...
       fun! JJ_Snippets()
         let extension = expand('%:e')
@@ -458,3 +458,4 @@ augroup END
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
+
