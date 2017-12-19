@@ -24,6 +24,7 @@
     "... Pacotes...
  
         Plug 'majutsushi/tagbar'
+        Plug 'maksimr/vim-jsbeautify'
         Plug 'kien/ctrlp.vim'
         Plug 'godlygeek/tabular'
         Plug 'joshdick/onedark.vim'
@@ -37,11 +38,10 @@
         Plug 'kshenoy/vim-signature'
         Plug 'lordm/vim-browser-reload-linux'
         Plug 'vim-syntastic/syntastic'
-      
-     
-        " Javascript Plugins
+        " Plug 'Yggdroot/indentLine'
         Plug 'walm/jshint.vim'
         Plug 'pangloss/vim-javascript'
+        Plug 'ternjs/tern_for_vim'
 
     call plug#end()
     filetype plugin indent on
@@ -96,7 +96,7 @@
   " ... indentLine ...
     let g:indentLine_enabled = 1
     let g:indentLine_concealcursor = 0
-    " let g:indentLine_char = ''
+    let g:indentLine_char = '︙'
     let g:indentLine_faster = 1
 
   " ... syntastic ...
@@ -118,8 +118,6 @@ set term=screen-256color
 set t_Co=256
 set gcr=a:blinkon0
 set scrolloff=3
-
-
 set paste
 
 
@@ -247,6 +245,15 @@ noremap <F2>  $
 noremap <F3>  :call JJ_LateralPanel() <CR>
 noremap <F4>  :call JJ_ChangeLog(1) <CR>
 noremap <F12> :tabnew ~/.vimrc        <CR>
+
+"........................................
+"......... Funções de FileType ..........
+"........................................
+
+autocmd FileType javascript vnoremap <buffer> <leader>f :call RangeJsBeautify()   <cr>
+autocmd FileType json       vnoremap <buffer> <leader>f :call RangeJsonBeautify() <cr>
+autocmd FileType html       vnoremap <buffer> <leader>f :call RangeHtmlBeautify() <cr>
+autocmd FileType css        vnoremap <buffer> <leader>f :call RangeCSSBeautify()  <cr>
 
 "........................................
 "......... Funções de Autoload ..........
@@ -458,4 +465,3 @@ augroup END
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
-
