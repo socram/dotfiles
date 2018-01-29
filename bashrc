@@ -187,6 +187,10 @@
         </dev/urandom tr -dc '1234567890!@#$%^&()_+ABCDEFGHIJLMNOPQRSTUVXZabcdefghijlmnopqrstuvxz' | head -c $1; echo ""
     }    
 
+    function jjAttachSession ()
+    {
+        tmux attach-session -t main
+    }
 
 
     function jjKill ()
