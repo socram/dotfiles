@@ -137,6 +137,11 @@ set nu                                  " Número nas linhas
 set foldlevelstart=99                   " Não encurta funções
 set foldlevel=99                        " Não encurta funções
 
+noremap <Up> <NOP>                      " Desabilita Setas
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
 
 
 " Configura Status Bar
