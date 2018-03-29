@@ -457,26 +457,6 @@ augroup END
 
       noremap <Leader>, : call JJ_Clipboard() <CR> 
       
-      " ... WatchFile 
-      
-      fun! JJ_WatchFile( action )
-
-        if a:action == 1 
-"          let cmd='jj_FILE='. expand('%:p') .'; BROWSER=chromium; while true; do  inotifywait -q $jj_FILE >/dev/null; CUR_WID=$(xdotool getwindowfocus) ;  WID=$(xdotool search --onlyvisible --class $BROWSER|head -1);  xdotool windowactivate $WID ;  xdotool key "ctrl+r" ;  xdotool windowactivate $CUR_WID ;done & '
-	   let cmd='jj_FILE='. expand('%:p') .'BROWSER=chromium;  ps cax | grep $BROWSER /dev/null;  if [ $? -eq 1 ];  then echo "Please, open the " ${BROWSER} ;  exit ; fi;  type inotifywait > /dev/null 2>&1  ;  if [ $? -eq 1 ];  then echo "Install inotify-tools" ;  exit ; fi;  type xdotool > /dev/null 2>&1; if [ $? -eq 1 ];  then echo "Install xdotool" ; exit ; fi;  ps -ef | grep [i]notifywait > /dev/null 2>&1  ;  if [ $? -eq 0 ];  then exit; fi;  while true;  do   inotifywait -q $jj_FILE >/dev/null; CUR_WID=$(xdotool getwindowfocus) ; WID=$(xdotool search --onlyvisible --class $BROWSER|head -1); xdotool windowactivate $WID ; xdotool key "ctrl+r" ; xdotool windowactivate $CUR_WID ; done &'
-	   execute system(cmd)
-        endif
-
-        if a:action == 2
-          let cmd='kill -9 $(ps -ef | grep jj_FILE | cut -d " " -f2)' 
-          execute system(cmd)
-        endif
-
-      endfun
-      
-      noremap <Leader>w : call JJ_WatchFile(1) <CR> 
-      noremap <Leader>ww : call JJ_WatchFile(2) <CR> 
-      
       " ... Adiciona Header Aquivo
    
     fun! JJ_ChangeLog(action)
