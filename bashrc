@@ -72,6 +72,61 @@
    }
    
    
+   function jjWatchFile () 
+{
+
+    if [ "$#" -ne 1 ]
+	then
+	    echo -e "How to use:\n\t jjWatchFile <file>"
+        exit;  
+    fi
+
+    BROWSER=chrome;
+    jj_FILE=${1}  
+
+    ps cax | grep $BROWSER > /dev/null 2>&1; 
+    if [ $? -eq 1 ]; 
+    then 
+        echo "Please, open the " ${BROWSER} ;
+        exit ;
+    fi;  
+
+    type inotifywait 
+    if [ $? -eq 1 ];
+    then 
+        echo "Install inotify-tools" ;
+        exit ;
+    fi; 
+
+    type xdotool > /dev/null 2>&1;
+    if [ $? -eq 1 ];
+    then 
+        echo "Install xdotool" ;
+        exit ;
+    fi;
+
+
+    ps -ef | grep [i]notifywait > /dev/null 2>&1  ;
+    if [ $? -eq 0 ];
+    then 
+        exit; 
+    fi;  
+
+
+    while true
+    do
+        clear
+        echo -e '\n\njjWatchFile running ...\n\nType Ctrl + C to cancel'
+        inotifywait -q $jj_FILE >/dev/null; 
+        CUR_WID=$(xdotool getwindowfocus) ;
+        WID=$(xdotool search --onlyvisible --class $BROWSER|head -1);
+        xdotool windowactivate $WID ;
+        xdotool key "ctrl+r" ;
+        xdotool windowactivate $CUR_WID ;
+    done
+}
+   
+   
     
     function jjConverterBitCoinToReal ()
     {
