@@ -1,4 +1,3 @@
-" -------------------------------------------------------------------
 "...................................
 ".......... Vim-PLug core ..........
 "...................................
@@ -22,26 +21,93 @@
     call plug#begin(expand('~/.vim/plugged'))
 
     "... Pacotes...
- 
-        Plug 'majutsushi/tagbar'
-        Plug 'maksimr/vim-jsbeautify'
-        Plug 'kien/ctrlp.vim'
-        Plug 'godlygeek/tabular'
-        Plug 'joshdick/onedark.vim'
-        Plug 'jiangmiao/auto-pairs'
-        Plug 'vim-scripts/YankRing.vim'
-        Plug 'mileszs/ack.vim'
-        Plug 'tpope/vim-fugitive'
-        Plug 'SirVer/ultisnips'
-        Plug 'honza/vim-snippets'
-        Plug 'ap/vim-css-color'
-        Plug 'kshenoy/vim-signature'
-        Plug 'lordm/vim-browser-reload-linux'
-        Plug 'vim-syntastic/syntastic'
-        " Plug 'Yggdroot/indentLine'
-        Plug 'walm/jshint.vim'
-        Plug 'pangloss/vim-javascript'
-        Plug 'ternjs/tern_for_vim'
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'majutsushi/tagbar'                " Tagbar is a Vim plugin that provides an easy way to browse the tags of the current file
+                                                " and get an overview of its structure. It does this by creating a sidebar that displays 
+                                                " the ctags-generated tags of the current file, ordered by their scope. This means that 
+                                                " for example methods in C++ are displayed under the class they are defined in.
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'maksimr/vim-jsbeautify'           " This extension allows you to use jsbeautifier inside vim to quickly format javascript, 
+                                                " html and css files. Version 1.0 also supports the editorconfig file.
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'kien/ctrlp.vim'                   " Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'godlygeek/tabular'                " Sometimes, it's useful to line up text. Naturally, it's nicer to have the computer 
+                                                " do this for you, since aligning things by hand quickly becomes unpleasant. 
+                                                " While there are other plugins for aligning text, the ones I've tried are either 
+                                                " impossibly difficult to understand and use, or too simplistic to handle complicated tasks.
+                                                " This plugin aims to make the easy things easy and the hard things possible, 
+                                                " without providing an unnecessarily obtuse interface. It's still a work in progress, 
+                                                " and criticisms are welcome.
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'joshdick/onedark.vim'             " A dark Vim/Neovim color scheme for the GUI and 16/256/true-color terminals, based on 
+                                                " FlatColor, with colors inspired by the excellent One Dark syntax theme for the Atom editor.
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'jiangmiao/auto-pairs'             " Insert or delete brackets, parens, quotes in pair.
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'vim-scripts/YankRing.vim'         " The YankRing plugin allows the user to configure the number of yanked, deleted and changed 
+                                                " text.  A split window can be used to choose which element(s) from the yankring you wish 
+                                                " to paste.  Alternately after text has been pasted (using p), it can be replaced with a 
+                                                " previous value from the yankring with a single key stroke. 
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'tpope/vim-fugitive'               " I'm not going to lie to you; fugitive.vim may very well be the best Git wrapper 
+                                                " of all time. Check out these features: View any blob, tree, commit, or tag in the
+                                                " repository with :Gedit (and :Gsplit, :Gvsplit, :Gtabedit, ...). Edit a file in the 
+                                                " index and write to it to stage the changes. Use :Gdiff to bring up the staged version 
+                                                " of the file side by side with the working tree version and use Vim's diff handling 
+                                                " capabilities to stage a subset of the file's changes.
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'SirVer/ultisnips'                 " UltiSnips is the ultimate solution for snippets in Vim. It has tons of features and is 
+                                                " very fast.
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'honza/vim-snippets'               " This repository contains snippets files for various programming languages.
+                                                " It is community-maintained and many people have contributed snippet files and other 
+                                                " improvements already.
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'ap/vim-css-color'                 "  A very fast, multi-syntax context-sensitive color name highlighter
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'kshenoy/vim-signature'            " vim-signature is a plugin to place, toggle and display marks.
+
+                                                " Apart from the above, you can also
+
+                                                "  Navigate forward/backward by position/alphabetical order
+                                                "  Displaying multiple marks (upto 2, limited by the signs feature)
+                                                "  Placing custom signs !@#$%^&*() as visual markers
+
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+        Plug 'vim-syntastic/syntastic'          " Syntastic is a syntax checking plugin for Vim created by Martin Grenfell. It runs files
+                                                " through external syntax checkers and displays any resulting errors to the user. 
+                                                " This can be done on demand, or automatically as files are saved. If syntax errors are 
+                                                " detected, the user is notified and is happy because they didn't have to compile 
+                                                " their code or execute their script to find them.
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -        
 
     call plug#end()
     filetype plugin indent on
@@ -93,12 +159,6 @@
     let g:UltiSnipsJumpBackwardTrigger="<c-b>"
     let g:UltiSnipsEditSplit="vertical"
 
-  " ... indentLine ...
-    let g:indentLine_enabled = 1
-    let g:indentLine_concealcursor = 0
-    let g:indentLine_char = '︙'
-    let g:indentLine_faster = 1
-
   " ... syntastic ...
 		set statusline+=%#warningmsg#
 		set statusline+=%{SyntasticStatuslineFlag()}
@@ -118,7 +178,7 @@ set term=screen-256color
 set t_Co=256
 set gcr=a:blinkon0
 set scrolloff=3
-set paste
+" set paste
 
 
 "..............................................
@@ -136,11 +196,6 @@ set mouse=a                             " Habilita uso no mouse
 set nu                                  " Número nas linhas
 set foldlevelstart=99                   " Não encurta funções
 set foldlevel=99                        " Não encurta funções
-
-noremap <Up> <NOP>                      " Desabilita Setas
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
 
 
 
@@ -218,12 +273,6 @@ noremap <Leader>s : w<CR>
 noremap <Leader>q : call JJ_Close()   <CR>
 noremap <Leader>Q : qall!<CR>
 
-
-"..............................................
-"........... Configurações Rename .............
-"..............................................
-" Sempre vai para o preview
-inoremap <C-n> <C-p>
 
 "..............................................
 "............... Seleção Visual ...............
@@ -309,18 +358,18 @@ augroup END
 
     "... Comentarios ...
      let s:comment_map = {
-        \   "yml": '#',
-        \   "c": '\/\/',
-        \   "javascript": '\/\/',
-        \   "php": '\/\/',
-        \   "html": '\<\!\-\-',
-        \   "python": '#',
-        \   "ruby": '#',
-        \   "sh": '#',
-        \   "conf": '#',
-        \   "profile": '#',
-        \   "bashrc": '#',
-        \   "vim": '"',
+        \   "yml"        : '#',
+        \   "c"          : '\/\/',
+        \   "javascript" : '\/\/',
+        \   "php"        : '\/\/',
+        \   "html"       : '\<\!\-\-',
+        \   "python"     : '#',
+        \   "ruby"       : '#',
+        \   "sh"         : '#',
+        \   "conf"       : '#',
+        \   "profile"    : '#',
+        \   "bashrc"     : '#',
+        \   "vim"        : '"',
         \ }
 
         fun! JJ_Comment()
@@ -392,7 +441,7 @@ augroup END
       "... Mostra definições dos Snippets para arquivo aberto  ...
       fun! JJ_Snippets()
         let extension = expand('%:e')
-        let fileName = '~/.vim/plugged/snipmate.vim/snippets/'.extension.'.snippets'
+        let fileName = '~/.vim/plugged/vim-snippets/snippets/'.extension.'.snippets'
         execute "leftabove vnew ".fileName
         vertical resize 50
       endfun
