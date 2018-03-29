@@ -60,8 +60,18 @@
 			curl -s https://pastebin.com/raw/iBT95x0w > /tmp/jjUploadServer ; python /tmp/jjUploadServer ${1}
 			fi 
 			} 
-    
-	 
+   
+   function jjPrintLineOfFile ()
+   { 
+	if [ "$#" -ne 2 ]
+	then
+		echo -e "How to use:\n\t jjPrintLineOfFile <number|1,4> <file>"
+	else
+	sed -n ${1}p ${2}
+	fi
+   }
+   
+   
     
     function jjConverterBitCoinToReal ()
     {
