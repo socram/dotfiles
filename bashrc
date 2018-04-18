@@ -287,9 +287,16 @@
         # List
         alias ll='ls -ls'
 
-        # File _
+        # File 
         alias _bashrc='source ~/.bashrc ; echo "Bashrc Atualizado"'
         alias __bashrc='vi ~/.bashrc'
+
+	## Directory navigation aliases
+	alias ..="cd .."
+	alias ...="cd ../.."
+	alias ....="cd ../../.."
+	alias .....="cd ../../../.."
+ 
 
 
 # }}}
