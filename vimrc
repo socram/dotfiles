@@ -193,7 +193,7 @@ set sm                                  " Mostra par de parentese fechado
 set wildmode=longest,list:full          " Completa igual o bash
 set showcmd                             " Mostra comando sendo executado no rodapé
 set mouse=a                             " Habilita uso no mouse
-set nu                                  " Número nas linhas
+set number relativenumber		" Número nas linhas
 set foldlevelstart=99                   " Não encurta funções
 set foldlevel=99                        " Não encurta funções
 
