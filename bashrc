@@ -247,6 +247,23 @@
       echo "$@" | tr \[:lower:\] \[:upper:\];
     }
 
+    function jjVerifyMemoryOfProgram()
+    {
+        if [ "$#" -ne 1 ]
+        then
+            echo -e "How to use:\n\t jjVerifyMemoryOfProgram <pid|program name>"
+            exit
+        fi
+
+        while true;
+        do
+            ps -eo size,pid,user,command --sort -size | grep -v grep | grep ${1} | awk '{ hr=$1/1024 ; printf("%13.2f Mb ",hr) } { for ( x=4 ; x<=NF ; x++ ) { printf("%s ",$x) } print "" }' |cut -d "" -f2 | cut -d "-" -f1
+            sleep 3s
+            clear
+        done
+    }
+
+
     function jjWatchFile () 
     {
 
