@@ -109,6 +109,16 @@
 
         " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -        
 
+				Plug 'severin-lemaignan/vim-minimap'   " The Sublime text-editor can display an useful overview of the code as a minimap sidebar. 
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -        
+
+				Plug 'vim-scripts/RltvNmbr.vim'				 " The RltvNmbr plugin uses the signs feature to display the line numbering relative to the 
+																							 " current line.  A number of commands take [count] arguments for which this is helpful.
+
+        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -        
+
+
     call plug#end()
     filetype plugin indent on
 
@@ -193,7 +203,7 @@ set sm                                  " Mostra par de parentese fechado
 set wildmode=longest,list:full          " Completa igual o bash
 set showcmd                             " Mostra comando sendo executado no rodapé
 set mouse=a                             " Habilita uso no mouse
-set number relativenumber		" Número nas linhas
+set number                              " Número nas linhas
 set foldlevelstart=99                   " Não encurta funções
 set foldlevel=99                        " Não encurta funções
 
