@@ -84,7 +84,40 @@
         +----------------------------------------------------------------------------------------------------------------------------------------------+
       " 
     }
-
+    
+    function jjGeradorDeCpf()
+    {
+        SOMA=0
+        for i in {10..2}
+        do
+            NUMERO=$((`cat /dev/urandom|od -N1 -An -i` % 9))
+            CPF=$CPF$NUMERO
+            SOMA=$(($SOMA+($NUMERO*$i)))
+        done
+        RESTO=$(($SOMA%11))
+        if [ $RESTO -lt 2 ]
+        then
+            DIGITO1=0
+        else
+            DIGITO1=$((11-$RESTO))
+        fi
+        CPF=$CPF$DIGITO1
+        SOMA=0
+        for i in {11..2}
+        do
+            INDICE=$((($i-11)*-1))
+            SOMA=$(($SOMA+(${CPF:$INDICE:1}*$i)))	
+        done
+        RESTO=$(($SOMA%11))
+        if [ $RESTO -lt 2 ]
+        then
+            DIGITO2=0
+        else
+            DIGITO2=$((11-$RESTO))
+        fi
+        CPF=$CPF$DIGITO2
+        echo $CPF
+    }
     function jjInitializePrograms ()
     {
 
