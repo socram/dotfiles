@@ -196,16 +196,15 @@ set scrolloff=3
 "..............................................
 
 " Geral
-imap jj <Esc>                           " jj funciona como esc no modo de edição
-autocmd! bufwritepost ~/.vimrc source % " Carrega automaticamente vimrc qnd codificado
-syntax on                               " Liga Syntax
-set sm                                  " Mostra par de parentese fechado
-set wildmode=longest,list:full          " Completa igual o bash
-set showcmd                             " Mostra comando sendo executado no rodapé
-set mouse=a                             " Habilita uso no mouse
-set number                              " Número nas linhas
-set foldlevelstart=99                   " Não encurta funções
-set foldlevel=99                        " Não encurta funções
+imap jj <esc>:echo 'ESC'<cr>   " jj funciona como esc no modo de edição
+syntax on                      " Liga Syntax
+set sm                         " Mostra par de parentese fechado
+set wildmode=longest,list:full " Completa igual o bash
+set showcmd                    " Mostra comando sendo executado no rodapé
+set mouse=a                    " Habilita uso no mouse
+set number                     " Número nas linhas
+set foldlevelstart=99          " Não encurta funções
+set foldlevel=99               " Não encurta funções
 
 
 
