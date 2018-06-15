@@ -354,6 +354,12 @@ augroup vimrc-load-changelog
   autocmd BufWritePre * keepjumps call JJ_ChangeLog(2)
 augroup END
 
+augroup vimrc-mostra-buffer-ativo
+    autocmd!
+    autocmd WinEnter * set colorcolumn=80
+    autocmd WinLeave * set colorcolumn=0
+augroup END
+
 ".......................................................................
 "........... Minha funções JJ que subistituem muitos plugins ...........
 ".......................................................................
