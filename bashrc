@@ -10,7 +10,7 @@
     
     function jjBackUp()
     {
-        cp "${1}" "${1}.bkp.$(date +%Y%m%d)"
+        cp -vi "${1}" "${1}.bkp.$(date +%Y%m%d)"
     }
 
     function jjBitCoinToReal ()
