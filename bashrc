@@ -167,8 +167,7 @@
     function jjMyIpAdress ()
     {
       echo -e '\nLocal\n'
-      ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk '{print $2}' | cut -d'/' -f1;  
-
+ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk ' { print "interface > "  $NF " IP > " $2} '
       echo -e '\nPublic\n'
       curl -s ipinfo.io/ip
       echo ''
