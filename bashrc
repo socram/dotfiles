@@ -51,6 +51,21 @@
       </dev/urandom tr -dc '1234567890!@#$%^&()_+ABCDEFGHIJLMNOPQRSTUVXZabcdefghijlmnopqrstuvxz' | head -c $1; echo ""
     }    
 
+    function jjEnableSiteNgnix()
+    {
+        if [ "$#" -ne 1 ]
+        then
+          echo -e "How to use:\n\t jjEnableSiteNgnix <arquivo>"
+        else
+          if [ ! -f /etc/nginx/sites-available/${1} ]	
+          then
+            echo 'copy' ${1}' to -> /etc/nginx/sites-available'
+            sudo cp ${1} /etc/nginx/sites-available && sudo ln -s /etc/nginx/sites-available/${1} /etc/nginx/sites-enabled/${1} && sudo ls -ls /etc/nginx/sites-enabled/${1} && echo 'Site ' ${1} 'enabled !!!'
+          else
+            sudo ln -s /etc/nginx/sites-available/${1} /etc/nginx/sites-enabled/${1} &&     sudo ls -ls /etc/nginx/sites-enabled/${1} && echo 'Site ' ${1} 'enabled !!!'
+          fi
+        fi
+    }
     function jjExtract () 
     {
       if [[ -f $1 ]]; then
