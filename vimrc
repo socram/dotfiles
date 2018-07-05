@@ -21,94 +21,23 @@
     call plug#begin(expand('~/.vim/plugged'))
 
     "... Pacotes...
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        Plug 'majutsushi/tagbar'                " Tagbar is a Vim plugin that provides an easy way to browse the tags of the current file
-                                                " and get an overview of its structure. It does this by creating a sidebar that displays
-                                                " the ctags-generated tags of the current file, ordered by their scope. This means that
-                                                " for example methods in C++ are displayed under the class they are defined in.
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        Plug 'maksimr/vim-jsbeautify'           " This extension allows you to use jsbeautifier inside vim to quickly format javascript,
-                                                " html and css files. Version 1.0 also supports the editorconfig file.
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        Plug 'kien/ctrlp.vim'                   " Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        Plug 'godlygeek/tabular'                " Sometimes, it's useful to line up text. Naturally, it's nicer to have the computer
-                                                " do this for you, since aligning things by hand quickly becomes unpleasant.
-                                                " While there are other plugins for aligning text, the ones I've tried are either
-                                                " impossibly difficult to understand and use, or too simplistic to handle complicated tasks.
-                                                " This plugin aims to make the easy things easy and the hard things possible,
-                                                " without providing an unnecessarily obtuse interface. It's still a work in progress,
-                                                " and criticisms are welcome.
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        Plug 'joshdick/onedark.vim'             " A dark Vim/Neovim color scheme for the GUI and 16/256/true-color terminals, based on
-                                                " FlatColor, with colors inspired by the excellent One Dark syntax theme for the Atom editor.
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        Plug 'jiangmiao/auto-pairs'             " Insert or delete brackets, parens, quotes in pair.
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        Plug 'vim-scripts/YankRing.vim'         " The YankRing plugin allows the user to configure the number of yanked, deleted and changed
-                                                " text.  A split window can be used to choose which element(s) from the yankring you wish
-                                                " to paste.  Alternately after text has been pasted (using p), it can be replaced with a
-                                                " previous value from the yankring with a single key stroke.
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        Plug 'tpope/vim-fugitive'               " I'm not going to lie to you; fugitive.vim may very well be the best Git wrapper
-                                                " of all time. Check out these features: View any blob, tree, commit, or tag in the
-                                                " repository with :Gedit (and :Gsplit, :Gvsplit, :Gtabedit, ...). Edit a file in the
-                                                " index and write to it to stage the changes. Use :Gdiff to bring up the staged version
-                                                " of the file side by side with the working tree version and use Vim's diff handling
-                                                " capabilities to stage a subset of the file's changes.
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        Plug 'SirVer/ultisnips'                 " UltiSnips is the ultimate solution for snippets in Vim. It has tons of features and is
-                                                " very fast.
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        Plug 'honza/vim-snippets'               " This repository contains snippets files for various programming languages.
-                                                " It is community-maintained and many people have contributed snippet files and other
-                                                " improvements already.
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        Plug 'ap/vim-css-color'                 "  A very fast, multi-syntax context-sensitive color name highlighter
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-        Plug 'kshenoy/vim-signature'            " vim-signature is a plugin to place, toggle and display marks.
-
-                                                " Apart from the above, you can also
-
-                                                "  Navigate forward/backward by position/alphabetical order
-                                                "  Displaying multiple marks (upto 2, limited by the signs feature)
-                                                "  Placing custom signs !@#$%^&*() as visual markers
-
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-				Plug 'severin-lemaignan/vim-minimap'   " The Sublime text-editor can display an useful overview of the code as a minimap sidebar.
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-				Plug 'vim-scripts/RltvNmbr.vim'				 " The RltvNmbr plugin uses the signs feature to display the line numbering relative to the
-																							 " current line.  A number of commands take [count] arguments for which this is helpful.
-
-        " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        Plug 'majutsushi/tagbar'
+        Plug 'maksimr/vim-jsbeautify'
+        Plug 'kien/ctrlp.vim'
+        Plug 'godlygeek/tabular'
+        Plug 'joshdick/onedark.vim'
+        Plug 'jiangmiao/auto-pairs'
+        Plug 'vim-scripts/YankRing.vim'
+        Plug 'tpope/vim-fugitive'
+        Plug 'ap/vim-css-color'
+        Plug 'kshenoy/vim-signature'
+				Plug 'severin-lemaignan/vim-minimap'
+				Plug 'vim-scripts/RltvNmbr.vim'
+        Plug 'Quramy/tsuquyomi'
+        Plug 'leafgarland/typescript-vim'
+        Plug 'w0rp/ale'
+        Plug 'Valloric/YouCompleteMe'
+        Plug 'Shougo/vimproc.vim'
 
 
     call plug#end()
@@ -125,6 +54,16 @@
 "..............................................
 ".......... Configurações de Plugins ..........
 "..............................................
+
+
+  "... YouCompleteMe ...
+    if !exists("g:ycm_semantic_triggers")
+     let g:ycm_semantic_triggers = {}
+     endif
+     let g:ycm_semantic_triggers['typescript'] = ['.']
+
+    let g:ycm_server_keep_logfiles = 1
+    let g:ycm_server_log_level = 'debug'
 
   "... Ack ...
     let g:ackprg="ack-grep -H --nocolor --nogroup --column"
@@ -161,12 +100,6 @@
     noremap <Leader>gd :Gvdiff<CR>
     noremap <Leader>gr :Gremove<CR>
 
-  " ... UltiSnips ...
-    let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
-    let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-    let g:UltiSnipsEditSplit="vertical"
-
 
 "......................................
 "............. Aparência ..............
@@ -178,7 +111,7 @@ set t_Co=256
 set gcr=a:blinkon0
 set scrolloff=3
 set paste
-set list
+" set list
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 
 
@@ -196,7 +129,7 @@ set mouse=a                    " Habilita uso no mouse
 set number                     " Número nas linhas
 set foldlevelstart=99          " Não encurta funções
 set foldlevel=99               " Não encurta funções
-
+set ttymouse=
 
 
 " Configura Status Bar
@@ -357,13 +290,20 @@ augroup vimrc-mostra-buffer-ativo
     autocmd WinLeave * set colorcolumn=0
 augroup END
 
+
+" augroup vimrc-habilita-LateralPanel
+  " autocmd!
+  " autocmd VimEnter * :call JJ_LateralPanel()
+" augroup END
+
+
 ".......................................................................
 "........... Minha funções JJ que subistituem muitos plugins ...........
 ".......................................................................
 
   "... NerdTree Like ...
     fun! JJ_LateralPanel()
-      let g:netrw_winsize = -25
+      let g:netrw_winsize = -40
       let g:netrw_banner=0
       let g:netrw_browse_split=4
       let g:netrw_altv=1
@@ -373,6 +313,7 @@ augroup END
       let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
       Lexplore
     endfun
+
 
     "... Comentarios ...
      let s:comment_map = {
@@ -516,3 +457,4 @@ augroup END
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
+
