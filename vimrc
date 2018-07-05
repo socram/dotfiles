@@ -320,6 +320,7 @@ augroup END
         \   "yml"        : '#',
         \   "c"          : '\/\/',
         \   "javascript" : '\/\/',
+        \   "typescript" : '\/\/',
         \   "php"        : '\/\/',
         \   "html"       : '\<\!\-\-',
         \   "python"     : '#',
