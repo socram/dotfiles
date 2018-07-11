@@ -3,11 +3,11 @@
 # Functions
 # {{{
 
-    function jj ()
+    function jj()
     {
         grep function ~/.bashrc | grep -v '~/.bashrc' | cut -d ' ' -f2 | sort
     }
-    
+
     function jjBackUp()
     {
         cp -vi "${1}" "${1}.bkp.$(date +%Y%m%d)"
@@ -28,7 +28,7 @@
 
     function jjConfigureGit ()
     {
-      git config --global user.name "mconeicao"
+      git config --global user.name "mconceicao"
       git config --global user.email mconceicao@protonmail.com
       git config --global core.editor vi
       git config --global merge.tool vimdiff
@@ -36,20 +36,10 @@
       echo "git remote add origin <endereco>"
     }
 
-    function jjConverterBitCoinToReal ()
-    {
-      valorEmBitCoin=`echo ${1} | tr -d '฿| ' | tr ',' '.'`
-      valorAtualEmReal=`curl -s curl http://api.coindesk.com/v1/bpi/currentprice/BRL.json | jq '.bpi.BRL.rate_float' `
-
-      valorEmReal=`echo "${valorAtualEmReal} * ${valorEmBitCoin}" | bc`
-
-      echo "Valor em Real -> " ${valorEmReal}
-    }
-
     function jjCreateRandomPassword ()
     {
       </dev/urandom tr -dc '1234567890!@#$%^&()_+ABCDEFGHIJLMNOPQRSTUVXZabcdefghijlmnopqrstuvxz' | head -c $1; echo ""
-    }    
+    }
 
     function jjEnableSiteNgnix()
     {
@@ -57,7 +47,7 @@
         then
           echo -e "How to use:\n\t jjEnableSiteNgnix <arquivo>"
         else
-          if [ ! -f /etc/nginx/sites-available/${1} ]	
+          if [ ! -f /etc/nginx/sites-available/${1} ]
           then
             echo 'copy' ${1}' to -> /etc/nginx/sites-available'
             sudo cp ${1} /etc/nginx/sites-available && sudo ln -s /etc/nginx/sites-available/${1} /etc/nginx/sites-enabled/${1} && sudo ls -ls /etc/nginx/sites-enabled/${1} && echo 'Site ' ${1} 'enabled !!!'
@@ -66,7 +56,8 @@
           fi
         fi
     }
-    function jjExtract () 
+
+    function jjExtract ()
     {
       if [[ -f $1 ]]; then
         case $1 in
@@ -102,9 +93,9 @@
         |   URGENT          |       urg             |       Dados urgentes devem ter precedência sobre outros dados. Por exemplo, um Ctrl-C.       |
         |   Placeholder     |       .               |       Se a conexao nao tiver finish, reset, ou push flag setado.                             |
         +----------------------------------------------------------------------------------------------------------------------------------------------+
-      " 
+      "
     }
-    
+
     function jjGeradorDeCpf()
     {
         SOMA=0
@@ -126,7 +117,7 @@
         for i in {11..2}
         do
             INDICE=$((($i-11)*-1))
-            SOMA=$(($SOMA+(${CPF:$INDICE:1}*$i)))	
+            SOMA=$(($SOMA+(${CPF:$INDICE:1}*$i)))
         done
         RESTO=$(($SOMA%11))
         if [ $RESTO -lt 2 ]
@@ -138,31 +129,32 @@
         CPF=$CPF$DIGITO2
         echo $CPF
     }
+
+    function jjHash()
+    {
+      for i in $*;
+      do
+        md5sum -r "$i"
+        shasum -a 1 "$i"
+        shasum -a 256 "$i"
+      done | tr -s ' ' ' '
+    }
+
     function jjInitializePrograms ()
     {
-
-      # Initialize Bluetooth
-      ps cax | grep bluetooth > /dev/null
-
-      if [ $? -eq 1 ]; 
-      then
-        echo "Init Bluetooth"
-        sudo /etc/init.d/bluetooth start
-      fi
-
       # Initialize Keyboard
       setxkbmap -model pc105 -layout us_intl
 
       # Initialize Tmux
       if command -v tmux >/dev/null
       then
-        if [ ! -z "$PS1" ]; then 
+        if [ ! -z "$PS1" ];
+        then
           [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux -2 new -s main
         fi
       fi
     }
-    jjInitializePrograms 
-
+    jjInitializePrograms
 
     function jjKill ()
     {
@@ -171,7 +163,7 @@
 
     function jjLocalServer ()
     {
-      python -m SimpleHTTPServer 8000 
+      python -m SimpleHTTPServer 8000
     }
 
     function jjLowCase ()
@@ -182,7 +174,7 @@
     function jjMyIpAdress ()
     {
       echo -e '\nLocal\n'
-ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk ' { print "interface > "  $NF " IP > " $2} '
+      ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk ' { print "interface > "  $NF " IP > " $2} '
       echo -e '\nPublic\n'
       curl -s ipinfo.io/ip
       echo ''
@@ -252,7 +244,7 @@ ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk ' { prin
     }
 
     function jjPrintLineOfFile ()
-    { 
+    {
       if [ "$#" -ne 2 ]
       then
         echo -e "How to use:\n\t jjPrintLineOfFile <number|1,4> <file>"
@@ -268,19 +260,19 @@ ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk ' { prin
         echo -e "How to use:\n\t jjPublish <port>"
       else
         ngrok http ${1}
-      fi 
-    } 
+      fi
+    }
 
     function jjStandardOutput ()
     {
       echo -e "
       -------------------------------------------------------------------
-      Ação \t Comando 
+      Ação \t Comando
       -------------------------------------------------------------------
       Redirecionar saída (stdout) para arquivo\t comando > saida.txt
-      Redirecionar stderr para stdout\tcomando 2>&1 
+      Redirecionar stderr para stdout\tcomando 2>&1
       Redirecionar stderr para stdout e para arquivo\tcomando 2>&1 > saida.txt
-      Redirecionar stderr e stdout direto para arquivo\tcomando &> arquivo.txt 
+      Redirecionar stderr e stdout direto para arquivo\tcomando &> arquivo.txt
       " | expand -t 60
     }
 
@@ -291,8 +283,8 @@ ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk ' { prin
         echo -e "How to use:\n\t jjUploadServer <port>"
       else
         curl -s https://pastebin.com/raw/iBT95x0w > /tmp/jjUploadServer ; python /tmp/jjUploadServer ${1}
-      fi 
-    } 
+      fi
+    }
 
     function jjUpperCase ()
     {
@@ -316,35 +308,35 @@ ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk ' { prin
     }
 
 
-    function jjWatchFile () 
+    function jjWatchFile ()
     {
 
       if [ "$#" -ne 1 ]
       then
         echo -e "How to use:\n\t jjWatchFile <file>"
-        exit;  
+        exit;
       fi
 
       BROWSER=chrome;
-      jj_FILE=${1}  
+      jj_FILE=${1}
 
-      ps cax | grep $BROWSER > /dev/null 2>&1; 
-      if [ $? -eq 1 ]; 
-      then 
+      ps cax | grep $BROWSER > /dev/null 2>&1;
+      if [ $? -eq 1 ];
+      then
         echo "Please, open the " ${BROWSER} ;
         exit ;
-      fi;  
+      fi;
 
-      type inotifywait 
+      type inotifywait
       if [ $? -eq 1 ];
-      then 
+      then
         echo "Install inotify-tools" ;
         exit ;
-      fi; 
+      fi;
 
       type xdotool > /dev/null 2>&1;
       if [ $? -eq 1 ];
-      then 
+      then
         echo "Install xdotool" ;
         exit ;
       fi;
@@ -352,16 +344,16 @@ ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk ' { prin
 
       ps -ef | grep [i]notifywait > /dev/null 2>&1  ;
       if [ $? -eq 0 ];
-      then 
-        exit; 
-      fi;  
+      then
+        exit;
+      fi;
 
 
       while true
       do
         clear
         echo -e '\n\njjWatchFile running ...\n\nType Ctrl + C to cancel'
-        inotifywait -q $jj_FILE >/dev/null; 
+        inotifywait -q $jj_FILE >/dev/null;
         CUR_WID=$(xdotool getwindowfocus) ;
         WID=$(xdotool search --onlyvisible --class $BROWSER|head -1);
         xdotool windowactivate $WID ;
@@ -374,7 +366,7 @@ ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk ' { prin
 
 
 
-# Alias 
+# Alias
 # {{{
     # Copy and Paste to clipboard
     alias pbcopy='xsel --clipboard --input'
@@ -383,7 +375,7 @@ ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk ' { prin
     # List
     alias ll='ls -ls'
 
-    # File 
+    # File
     alias _bashrc='source ~/.bashrc ; echo "Bashrc Atualizado"'
     alias __bashrc='vi ~/.bashrc'
 
@@ -397,24 +389,24 @@ ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk ' { prin
 
     # }}}
 
-    # PS1 
+    # PS1
     # {{{
     PS1='[\h - \w]$ '
     # }}}
 
 
-    # History 
+    # History
     # {{{
 
-    export HISTSIZE=1000            
-    export HISTFILESIZE=${HISTSIZE} 
-    export HISTCONTROL=ignoreboth   
+    export HISTSIZE=1000
+    export HISTFILESIZE=${HISTSIZE}
+    export HISTCONTROL=ignoreboth
     export HISTIGNORE='&:ls:ll:la:cd:exit:clear:history'
 
     # }}}
 
 
-    # Color to man page 
+    # Color to man page
     # {{{
     export PAGER=less
     export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -424,10 +416,10 @@ ip addr sh | grep -vE inet6 | grep -E inet | grep -E "10|192|172" | awk ' { prin
     export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
     export LESS_TERMCAP_ue=$'\E[0m'           # end underline
     export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
-    # }}}   
+    # }}}
 
 
-    # Enable Color 
+    # Enable Color
     export TERM="xterm-256color"
 
     # Logo
