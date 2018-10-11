@@ -171,6 +171,16 @@
       echo "$@" | tr \[:upper:\] \[:lower:\];
     }
 
+    function jjMkdir()
+    {
+    if [ "$#" -ne 1 ]
+    then
+      echo -e "How to use:\n\t jjMkdir <folder|/path/to/folder/folder-name>"
+      exit;  
+    fi
+        mkdir -p ${1} ; cd ${1} ; pwd
+    }
+
     function jjMyIpAdress ()
     {
       echo -e '\nLocal\n'
