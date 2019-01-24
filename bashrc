@@ -1,5 +1,9 @@
 # ------- JJ BashRC
 
+# Chromebook
+sudo mount -i -o remount,exec /home/chronos/user
+
+
 # Functions
 # {{{
 
