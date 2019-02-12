@@ -185,6 +185,35 @@ sudo mount -i -o remount,exec /home/chronos/user
         mkdir -p ${1} ; cd ${1} ; pwd
     }
 
+    function jjMoney ()
+    {
+        local CURRENTYEAR=`date +"%Y"`
+        local CURRENTDATE=`date`
+        local PATH_TO_PROJECT='/home/mconceicao/Dropbox/Chromebook/PROJETOS_2019/app-controle-finceiro/'
+        local FILE=${PATH_TO_PROJECT}${CURRENTYEAR}'.lm.txt'
+
+        if [ "$#" -ne 1 ]
+        then
+          echo -e "How to use:\n\t jjMoney [ e | s ]\n\t\t jjMoney e # to edit file or \n\t\t jjMoney l # to run localhost"
+        elif [ "${1}" == "e" ]
+        then
+            echo 'Editando'
+            vi ${FILE}
+            echo '' >> ${FILE} 
+            local NUMBER=`grep -En  '^#ULTIMA_ATUALIZACAO_DO_ARQUIVO' ${FILE} | cut -d ':' -f1`
+            ((NUMBER++))
+            echo "sed -i '${NUMBER}i#${CURRENTDATE}' ${FILE}" | sh
+        elif [ "${1}" == "l" ]
+        then
+            cd ${PATH_TO_PROJECT}moneylog-definitivo/
+            netstat -atunp | grep 4321 | rev  | cut -d '/' -f2 | cut -d ' ' -f1 | rev | xargs kill -9 &> /dev/null
+            python2.7 -m SimpleHTTPServer 4321 &> /dev/null & 
+            chromium --incognito http://localhost:4321
+        else
+          echo -e "How to use:\n\t jjMoney [ e | s ]\n\t\t jjMoney e # to edit file or \n\t\t jjMoney l # to run localhost"
+        fi
+    }
+
     function jjMyIpAdress ()
     {
       echo -e '\nLocal\n'
