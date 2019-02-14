@@ -4,10 +4,10 @@ mkdir -p ${INSTALL_DIR} && cd ${INSTALL_DIR}
 
 echo "Symlinking things:"
 
-ln -s $(pwd)/.vimrc ~/.vimrc
-ln -s $(pwd)/.gitconfig ~/.gitconfig
-ln -s $(pwd)/.bashrc ~/.bashrc
-ln -s $(pwd)/.tmux.conf ~/.tmux.conf
+ln -s $(pwd)/vimrc ~/.vimrc
+ln -s $(pwd)/gitconfig ~/.gitconfig
+ln -s $(pwd)/bashrc ~/.bashrc
+ln -s $(pwd)/tmux.conf ~/.tmux.conf
 
 # BINARIES
 echo "Installing binaries:"
