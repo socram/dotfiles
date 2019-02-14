@@ -1,7 +1,3 @@
-INSTALL_DIR='/opt/dotfiles'
-
-mkdir -p ${INSTALL_DIR} && cd ${INSTALL_DIR}
-
 echo "Symlinking things:"
 
 ln -s $(pwd)/vimrc ~/.vimrc
