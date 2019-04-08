@@ -198,7 +198,7 @@
         elif [ "${1}" == "e" ]
         then
             echo 'Editando'
-            vi ${FILE}
+            vi -c "call JJ_MoneyLog()" ${FILE}
             echo '' >> ${FILE} 
             local NUMBER=`grep -En  '^#ULTIMA_ATUALIZACAO_DO_ARQUIVO' ${FILE} | cut -d ':' -f1`
             ((NUMBER++))
