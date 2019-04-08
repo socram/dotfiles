@@ -313,7 +313,24 @@ augroup END
       let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
       Lexplore
     endfun
+   
+   "... Money Log
+   fun! JJ_MoneyLog()
+       syntax    match     data            "\v^\d{4}-\d{2}-\d{2}"
+       syntax    match     valorPositivo   "\v\s(\d+(,|.))+"
+       syntax    match     valorNegativo   "\v\s-(\d+(,|.))+"
+       syntax    region    descricao start="|\s" end="\n"
+       syntax    region    tags start=",," end=",,|"
+       syntax    region    dataMod start="#\w" end="-03"
 
+       highlight     data              gui=bold ctermfg=white
+       highlight     valorPositivo     gui=bold ctermfg=green
+       highlight     valorNegativo     gui=bold ctermfg=red
+       highlight     descricao         gui=bold ctermfg=blue
+       highlight     tags              gui=bold ctermfg=yellow
+       highlight     dataMod           gui=bold ctermfg=lightblue
+    endfun
+   
 
     "... Comentarios ...
      let s:comment_map = {
