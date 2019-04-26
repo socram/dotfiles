@@ -127,6 +127,7 @@ set wildmode=longest,list:full " Completa igual o bash
 set showcmd                    " Mostra comando sendo executado no rodapé
 set mouse=a                    " Habilita uso no mouse
 set number                     " Número nas linhas
+set number relativenumber      " Número relativos nas linhas
 set foldlevelstart=99          " Não encurta funções
 set foldlevel=99               " Não encurta funções
 set ttymouse=
@@ -249,6 +250,13 @@ autocmd FileType css        vnoremap <buffer> <leader>f :call RangeCSSBeautify()
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
+
+
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 augroup vimrc-format-file
     autocmd!
@@ -472,24 +480,40 @@ augroup END
 
     endfun
 
-    fun! JJ_RunShellCommand(cmdline)                                                                                                                                                                                   
-      echo a:cmdline                                                                                                                                                                                                   
-      let expanded_cmdline = a:cmdline                                                                                                                                                                                 
-      for part in split(a:cmdline, ' ')                                                                                                                                                                                
-         if part[0] =~ '\v[%#<]'                                                                                                                                                                                       
-            let expanded_part = fnameescape(expand(part))                                                                                                                                                              
-            let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')                                                                                                                               
-         endif                                                                                                                                                                                                         
-      endfor                                                                                                                                                                                                           
-      botright new                                                                                                                                                                                                     
-      setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap                                                                                                                                             
-      execute '$read !'. expanded_cmdline                                                                                                                                                                              
-      setlocal nomodifiable                                                                                                                                                                                            
-      1                                                                                                                                                                                                                
-    endfun                                                                                                                                                                                                             
-                                                                                                                                                                                                                   
-noremap <Leader>n : call JJ_RunShellCommand('systemctl restart nginx') <cr> 
+    fun! JJ_MoneyLog()
+
+      syntax    match     data            "\v^\d{4}-\d{2}-\d{2}"
+      syntax    match     valorPositivo   "\v\s(\d+(,|.))+"
+      syntax    match     valorNegativo   "\v\s-(\d+(,|.))+"
+      syntax    region    descricao start="|\s" end="\n"
+      syntax    region    tags start=",," end=",,|"
+      syntax    region    dataMod start="#\w" end="-03"
+
+      highlight     data              gui=bold ctermfg=white
+      highlight     valorPositivo     gui=bold ctermfg=green
+      highlight     valorNegativo     gui=bold ctermfg=red
+      highlight     descricao         gui=bold ctermfg=blue
+      highlight     tags              gui=bold ctermfg=yellow
+      highlight     dataMod           gui=bold ctermfg=lightblue
+
+    endfun
+
+    fun! JJ_RunShellCommand(cmdline)
+      echo a:cmdline
+      let expanded_cmdline = a:cmdline
+      for part in split(a:cmdline, ' ')
+         if part[0] =~ '\v[%#<]'
+            let expanded_part = fnameescape(expand(part))
+            let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+         endif
+      endfor
+      botright new
+      setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+      execute '$read !'. expanded_cmdline
+      setlocal nomodifiable
+      1
+    endfun
+noremap <Leader>n : call JJ_RunShellCommand('systemctl restart nginx') <cr>
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
-
