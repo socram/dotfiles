@@ -28,10 +28,13 @@ CapsLock & SC15D::Down
 CapsLock & SC138::Left
 CapsLock & SC11D::Right
 
-Shift & Esc::Send {~}
-CapsLock & Esc::`
 
-
+CapsLock & Esc::
+if GetKeyState("Shift")
+	Send {~}
+else
+	Send {``}
+return
 
 LWin & SC035::SendInput {Lwin down}{Up down}
 LWin & SC15D::SendInput {Lwin down}{Down down}
