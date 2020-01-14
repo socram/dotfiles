@@ -38,6 +38,9 @@
         Plug 'w0rp/ale'
         Plug 'Valloric/YouCompleteMe'
         Plug 'Shougo/vimproc.vim'
+        Plug 'fidian/hexmode'
+
+        
 
 
     call plug#end()
