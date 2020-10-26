@@ -1,0 +1,56 @@
+###############
+# https://gist.github.com/luccamendonca/df48e9a0e0dd5ea8333c5ba4bafd62d3
+
+! Custom keycode mappings for the Motospeed ck62 keyboard
+!
+! How xmodmap works
+!
+! keycode X = A B C D
+! X -> the keycode number. We can use `xev` to get it
+!
+! Now A-D represents the behaviors the keycode will have when
+! A -> Only the key is pressed
+! B -> The key is pressed with SHIFT
+! C -> The key is presset with a MODE_SWITCH
+! D -> The key is presset with a MODE_SWITCH and SHIFT
+!
+! ------------------------------------------------------------
+!
+! The expected behavior is:
+!
+! - CapsLock is a new Mode_Switch
+! - L goes home
+! - . goes end
+! - ; goes Prior (page up)
+! - ' goes Next (page down)
+! - / goes Up
+! - R_Alt goes Left
+! - R_Ctrl goes Right
+! - Menu goes Down
+! - Esc does dead_grave (backtick)
+! - Shift + Esc goes dead_tilde
+! - Backspace Deletes
+!
+! ------------------------------------------------------------
+
+keycode   9 = Escape NoSymbol dead_grave dead_tilde
+keycode  10 = 1 exclam F1 exclam
+keycode  11 = 2 at F2 at
+keycode  12 = 3 numbersign F3 numbersign
+keycode  13 = 4 dollar F4 dollar
+keycode  14 = 5 percent F5 percent
+keycode  15 = 6 dead_circumflex F6 dead_circumflex
+keycode  16 = 7 ampersand F7 ampersand
+keycode  17 = 8 asterisk F8 asterisk
+keycode  18 = 9 parenleft F9 parenleft
+keycode  19 = 0 parenright F10 parenright
+keycode  22 = BackSpace BackSpace Delete BackSpace
+keycode  46 = l L Home L
+keycode  47 = semicolon colon Prior colon paragraph degree paragraph
+keycode  48 = dead_acute dead_diaeresis Next dead_diaeresis apostrophe quotedbl apostrophe
+keycode  60 = period greater End greater dead_abovedot dead_caron dead_abovedot
+keycode  61 = slash question Up question questiondown dead_hook questiondown
+keycode  66 = Mode_switch Mode_switch Mode_switch Mode_switch
+keycode 105 = Mode_switch Mode_switch Right Mode_switch
+keycode 108 = ISO_Level3_Shift NoSymbol Left
+keycode 135 = Menu NoSymbol Down
