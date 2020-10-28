@@ -1,5 +1,9 @@
 ###############
 # https://gist.github.com/luccamendonca/df48e9a0e0dd5ea8333c5ba4bafd62d3
+# Comando para carregar configuracoes 
+# xmodmap /home/mconceicao/.Xmodmap 
+
+
 
 ! Custom keycode mappings for the Motospeed ck62 keyboard
 !
