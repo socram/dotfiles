@@ -134,6 +134,7 @@ set number relativenumber      " Número relativos nas linhas
 set foldlevelstart=99          " Não encurta funções
 set foldlevel=99               " Não encurta funções
 set ttymouse=
+set spell spelllang=pt         " Add dicionario para vim
 
 
 " Configura Status Bar
@@ -210,6 +211,11 @@ noremap <Leader>s : w<CR>
 noremap <Leader>q : call JJ_Close()   <CR>
 noremap <Leader>Q : qall!<CR>
 
+
+"..............................................
+"........... Corretor Ortografico .............
+"..............................................
+noremap <Leader>z z=
 
 "..............................................
 "............... Seleção Visual ...............
