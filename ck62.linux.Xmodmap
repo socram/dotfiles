@@ -37,8 +37,8 @@
 ! - Backspace Deletes
 !
 ! ------------------------------------------------------------
-
-keycode   9 = Escape NoSymbol dead_grave dead_tilde
+keycode   9 = Escape dead_grave dead_tilde space
+! Linha Original keycode   9 = Escape NoSymbol dead_grave dead_tilde
 keycode  10 = 1 exclam F1 exclam
 keycode  11 = 2 at F2 at
 keycode  12 = 3 numbersign F3 numbersign
