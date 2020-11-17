@@ -407,7 +407,11 @@
 
 # }}}
 
+# Desliga Caps_Lock
+setxkbmap -option ctrl:nocaps
 
+# Liga Caps_Lock
+# setxkbmap -option
 
 # Alias
 # {{{
