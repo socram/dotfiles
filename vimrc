@@ -22,26 +22,10 @@
 
     "... Pacotes...
         Plug 'majutsushi/tagbar'
-        Plug 'maksimr/vim-jsbeautify'
-        Plug 'kien/ctrlp.vim'
         Plug 'godlygeek/tabular'
         Plug 'joshdick/onedark.vim'
-        Plug 'jiangmiao/auto-pairs'
-        Plug 'vim-scripts/YankRing.vim'
-        Plug 'tpope/vim-fugitive'
-        Plug 'ap/vim-css-color'
-        Plug 'kshenoy/vim-signature'
-        Plug 'severin-lemaignan/vim-minimap'
         Plug 'vim-scripts/RltvNmbr.vim'
-        Plug 'Quramy/tsuquyomi'
-        Plug 'leafgarland/typescript-vim'
         Plug 'w0rp/ale'
-        Plug 'Valloric/YouCompleteMe'
-        Plug 'Shougo/vimproc.vim'
-        Plug 'fidian/hexmode'
-
-        
-
 
     call plug#end()
     filetype plugin indent on
@@ -58,25 +42,6 @@
 ".......... Configurações de Plugins ..........
 "..............................................
 
-
-  "... YouCompleteMe ...
-    if !exists("g:ycm_semantic_triggers")
-     let g:ycm_semantic_triggers = {}
-     endif
-     let g:ycm_semantic_triggers['typescript'] = ['.']
-
-    let g:ycm_server_keep_logfiles = 1
-    let g:ycm_server_log_level = 'debug'
-
-  "... Ack ...
-    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-    nmap <leader>aa :tab split<CR>:Ack! ""<Left>
-    nmap <leader>A :tab split<CR>:Ack! "\W<C-r><C-w>\W"<CR>
-
-    let g:unite_source_grep_command = 'ack-grep'
-    let g:unite_source_grep_default_opts = '--no-heading --no-color -a'
-    let g:unite_source_grep_recursive_opt = ''
-
   "... Tabular ...
     xnoremap <Leader>tt : Tabularize /
 
@@ -84,31 +49,12 @@
     noremap <Leader>t : TagbarToggle<CR>
     let g:tagbar_autofocus = 1
 
-  "... CtrlP ...
-    noremap <Leader>p : CtrlP <CR>
-    let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\.git$\|public\/images\|public\/system\|data\|log\|tmp\|node_modules$',
-      \ 'file': '\.exe$\|\.so$\|\.dat$'
-      \ }
-
-
-  " ... vim-fugitive ...
-    noremap <Leader>ga :Gwrite<CR> <esc>: echo "Arquivo [ " . expand('%:t'). " ] add to GIT"<CR>
-    noremap <Leader>gc :Gcommit<CR> <esc>: echo "Commit" <CR>
-    noremap <Leader>gp :Gpush<CR> <esc>: echo "Push on Master !!!" <CR>
-    noremap <Leader>gll :Gpull<CR>
-    noremap <Leader>gl :Gllog<CR>
-    noremap <Leader>gs :Gstatus<CR>
-    noremap <Leader>gb :Gblame<CR>
-    noremap <Leader>gd :Gvdiff<CR>
-    noremap <Leader>gr :Gremove<CR>
-
 
 "......................................
 "............. Aparência ..............
 "......................................
 colorscheme onedark
-set term=gnome-256color
+" set term=gnome-256color
 set term=screen-256color
 set t_Co=256
 set gcr=a:blinkon0
@@ -123,7 +69,7 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 "..............................................
 
 " Geral
-imap jj <esc>:echo 'ESC'<cr>   " jj funciona como esc no modo de edição
+" imap jj <esc>:echo 'ESC'<cr>   " jj funciona como esc no modo de edição
 syntax on                      " Liga Syntax
 set sm                         " Mostra par de parentese fechado
 set wildmode=longest,list:full " Completa igual o bash
@@ -197,23 +143,12 @@ nnoremap <S-Tab> gT
 "..............................................
 "........ Configurações de Abreviações ........
 "..............................................
-cnoreabbrev W! w
-cnoreabbrev Q! q
-cnoreabbrev Qall! qall
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Qall qall
 noremap <Leader>s : w<CR>
 noremap <Leader>q : call JJ_Close()   <CR>
 noremap <Leader>Q : qall!<CR>
 
-
 "..............................................
-"........... Corretor Ortografico .............
+"........... Corretor Ortográfico .............
 "..............................................
 noremap <Leader>z z=
 
@@ -233,29 +168,10 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-"........................................
-"........... Atalhos f1 - f12 ...........
-"........................................
-
-noremap <F1>  0
-noremap <F2>  $
-noremap <F3>  :call JJ_LateralPanel() <CR>
-noremap <F4>  :call JJ_ChangeLog(1) <CR>
-noremap <F12> :tabnew ~/.vimrc        <CR>
-
-"........................................
-"......... Funções de FileType ..........
-"........................................
-
-autocmd FileType javascript vnoremap <buffer> <leader>f :call RangeJsBeautify()   <cr>
-autocmd FileType json       vnoremap <buffer> <leader>f :call RangeJsonBeautify() <cr>
-autocmd FileType html       vnoremap <buffer> <leader>f :call RangeHtmlBeautify() <cr>
-autocmd FileType css        vnoremap <buffer> <leader>f :call RangeCSSBeautify()  <cr>
 
 "........................................
 "......... Funções de Autoload ..........
 "........................................
-
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -296,69 +212,34 @@ augroup vimrc-load-vimrc
   autocmd! bufwritepost ~/.vimrc source %
 augroup END
 
-augroup vimrc-load-changelog
-  autocmd!
-  autocmd BufWritePre * keepjumps call JJ_ChangeLog(2)
-augroup END
-
 augroup vimrc-mostra-buffer-ativo
     autocmd!
     autocmd WinEnter * set colorcolumn=80
     autocmd WinLeave * set colorcolumn=0
 augroup END
 
-
-" augroup vimrc-habilita-LateralPanel
-  " autocmd!
-  " autocmd VimEnter * :call JJ_LateralPanel()
-" augroup END
-
-
 ".......................................................................
 "........... Minha funções JJ que subistituem muitos plugins ...........
 ".......................................................................
 
-  "... NerdTree Like ...
-    fun! JJ_LateralPanel()
-      let g:netrw_winsize = -40
-      let g:netrw_banner=0
-      let g:netrw_browse_split=4
-      let g:netrw_altv=1
-      let g:netrw_liststyle=3
-      let g:netrw_preview=1
-      let g:netrw_list_hide=netrw_gitignore#Hide()
-      let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-      Lexplore
-    endfun
-   
-   "... Money Log
-   fun! JJ_MoneyLog()
-       syntax    match     data            "\v^\d{4}-\d{2}-\d{2}"
-       syntax    match     valorPositivo   "\v\s(\d+(,|.))+"
-       syntax    match     valorNegativo   "\v\s-(\d+(,|.))+"
-       syntax    region    descricao start="|\s" end="\n"
-       syntax    region    tags start=",," end=",,|"
-       syntax    region    dataMod start="#\w" end="-03"
+    "... Fecha buffer por buffer ...
+      fun! JJ_Close()
+        let g:numberBuffer =  len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
 
-       highlight     data              gui=bold ctermfg=white
-       highlight     valorPositivo     gui=bold ctermfg=green
-       highlight     valorNegativo     gui=bold ctermfg=red
-       highlight     descricao         gui=bold ctermfg=blue
-       highlight     tags              gui=bold ctermfg=yellow
-       highlight     dataMod           gui=bold ctermfg=lightblue
-    endfun
-   
+        if g:numberBuffer >= 2
+          let g:bufferName = bufname('')
+            execute "bdelete! " . g:bufferName
+          else
+            execute ":q!"
+        endif
+      endfun
 
-    "... Comentarios ...
+      "... Comentarios ...
      let s:comment_map = {
-        \   "yml"        : '#',
         \   "c"          : '\/\/',
         \   "javascript" : '\/\/',
-        \   "typescript" : '\/\/',
-        \   "php"        : '\/\/',
         \   "html"       : '\<\!\-\-',
         \   "python"     : '#',
-        \   "ruby"       : '#',
         \   "sh"         : '#',
         \   "conf"       : '#',
         \   "profile"    : '#',
@@ -386,127 +267,9 @@ augroup END
         vnoremap <leader>c :call JJ_Comment()<cr>
 
 
-    "... Fecha buffer por buffer ...
-      fun! JJ_Close()
-        let g:numberBuffer =  len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
-
-        if g:numberBuffer >= 2
-          let g:bufferName = bufname('')
-            execute "bdelete! " . g:bufferName
-          else
-            execute ":q!"
-        endif
-      endfun
-
-    "... Ctags ...
-     fun! JJ_Ctags()
-       execute ":r! ctags -R --exclude=.git --exclude=node_modules -R . "
-     endfun
-
-     noremap <Leader>T : call JJ_Ctags()<CR>
 
 
-    "... Criar Marcações  ...
-      let g:linesAdd = []
-      let g:linesDescription= []
-
-      fun! JJ_Point(action)
-
-        if a:action == 1
-         exe "normal m,"
-        endif
-
-        if a:action == 2
-         exe "normal m/"
-        endif
-
-        if a:action == 3
-          exe "normal m "
-        endif
-      endfun
-
-      " Criar Marcação
-        noremap <Leader>m : call JJ_Point(1) <CR>
-      " Lista Marcações
-        noremap <Leader>mm : call JJ_Point(2) <CR>
-      " Limpa Marcações
-        noremap <Leader>mmm : call JJ_Point(3) <CR>
-
-      "... Mostra definições dos Snippets para arquivo aberto  ...
-      fun! JJ_Snippets()
-        let extension = expand('%:e')
-        let fileName = '~/.vim/plugged/vim-snippets/snippets/'.extension.'.snippets'
-        execute "leftabove vnew ".fileName
-        vertical resize 50
-      endfun
-
-      noremap <Leader>hh : call JJ_Snippets() <CR>
-
-
-      " ... Gerenciador de Clipboard
-
-      fun! JJ_Clipboard()
-        execute ":YRShow"
-      endfun
-
-      noremap <Leader>, : call JJ_Clipboard() <CR>
-
-      " ... Adiciona Header Aquivo
-
-    fun! JJ_ChangeLog(action)
-
-      if a:action == 1
-        let l:flag=0
-        for i in range(1,5)
-            if getline(i) !~ '.*Last Change.*'
-                let l:flag = l:flag + 1
-            endif
-        endfor
-        if l:flag >= 5
-            normal(1G)
-            call append(0, "-------------------------------------------------------------------")
-            call append(1, "   Created: " . strftime("%a %d/%b/%Y %H:%M"))
-            call append(2, "   Updated: " . strftime("%a %d/%b/%Y %H:%M"))
-            call append(3, "   Author: Marcos Conceicao <socram.io>")
-            call append(4, "-------------------------------------------------------------------")
-            normal gg
-       " normal
-        endif
-      endif
-
-      if a:action == 2
-
-        let _s=@/
-        let l = line(".")
-        let c = col(".")
-        if line("$") >= 5
-            1,5s/\s*Updated:\s*\zs.*/\="" . strftime("%Y %b %d %X")/ge
-        endif
-        let @/=_s
-        call cursor(l, c)
-
-      endif
-
-    endfun
-
-    fun! JJ_MoneyLog()
-
-      syntax    match     data            "\v^\d{4}-\d{2}-\d{2}"
-      syntax    match     valorPositivo   "\v\s(\d+(,|.))+"
-      syntax    match     valorNegativo   "\v\s-(\d+(,|.))+"
-      syntax    region    descricao start="|\s" end="\n"
-      syntax    region    tags start=",," end=",,|"
-      syntax    region    dataMod start="#\w" end="-03"
-
-      highlight     data              gui=bold ctermfg=white
-      highlight     valorPositivo     gui=bold ctermfg=green
-      highlight     valorNegativo     gui=bold ctermfg=red
-      highlight     descricao         gui=bold ctermfg=blue
-      highlight     tags              gui=bold ctermfg=yellow
-      highlight     dataMod           gui=bold ctermfg=lightblue
-
-    endfun
-
+    "... Executa comando no shell
     fun! JJ_RunShellCommand(cmdline)
       echo a:cmdline
       let expanded_cmdline = a:cmdline
