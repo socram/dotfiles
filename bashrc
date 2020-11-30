@@ -4,8 +4,18 @@
 
 # Load
 # {{{
-  setxkbmap -model pc105 -layout us_intl  # Configura Modelo do Teclado
-  tmux -2 new -s main                     # Inicia sessão Tmux 
+  setxkbmap -model pc105 -layout us_intl              # Configura Modelo do Teclado
+  # Inicia sessão Tmux
+
+  if [[ -z "$TMUX" ]]; then
+    if tmux has-session 2>/dev/null; then
+        exec tmux a -t main
+    else
+        exec tmux -2 new -s main
+    fi
+fi
+
+
   set -o vi
   alias T='xmodmap /home/mconceicao/.Xmodmap'
 
