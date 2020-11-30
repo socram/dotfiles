@@ -1,64 +1,32 @@
 # ------- JJ BashRC
-
 # Chromebook
 #sudo mount -i -o remount,exec /home/chronos/user
 
-
-# Functions
+# Load
 # {{{
+  setxkbmap -model pc105 -layout us_intl  # Configura Modelo do Teclado
+  tmux -2 new -s main                     # Inicia sessão Tmux 
+  set -o vi
+  alias T='xmodmap /home/mconceicao/.Xmodmap'
 
+  # Desliga Caps_Lock
+  setxkbmap -option ctrl:nocaps
+# }}}
+
+# Functions # {{{
     function jj()
     {
-        grep function ~/.bashrc | grep -v '~/.bashrc' | cut -d ' ' -f2 | sort
+        grep function ~/.bashrc | sed 's/function//g ; s/()//g ' | tr -d ' ' | grep -vE 'grep|jj$'
     }
 
     function jjBackUp()
     {
-        cp -vi "${1}" "${1}.bkp.$(date +%Y%m%d)"
-    }
-
-    function jjBitCoinToReal ()
-    {
-      valorAtualEmReal=`curl -s curl http://api.coindesk.com/v1/bpi/currentprice/BRL.json | jq '.bpi.BRL.rate_float' `
-
-      echo "Valor em Real -> " ${valorAtualEmReal}
-    }
-
-    function jjConferenceRoom ()
-    {
-      room=`tr -dc A-Za-z0-9_ < /dev/urandom | head -c 15 | sed 's/$/\n/g'`
-      firefox "appear.in/${room}"
-    }
-
-    function jjConfigureGit ()
-    {
-      git config --global user.name "mconceicao"
-      git config --global user.email mconceicao@protonmail.com
-      git config --global core.editor vi
-      git config --global merge.tool vimdiff
-
-      echo "git remote add origin <endereco>"
+        cp -vi "${1}" "${1}.bkp.$(date +%Y%m%d-%s)"
     }
 
     function jjCreateRandomPassword ()
     {
       </dev/urandom tr -dc '1234567890!@#$%^&()_+ABCDEFGHIJLMNOPQRSTUVXZabcdefghijlmnopqrstuvxz' | head -c $1; echo ""
-    }
-
-    function jjEnableSiteNgnix()
-    {
-        if [ "$#" -ne 1 ]
-        then
-          echo -e "How to use:\n\t jjEnableSiteNgnix <arquivo>"
-        else
-          if [ ! -f /etc/nginx/sites-available/${1} ]
-          then
-            echo 'copy' ${1}' to -> /etc/nginx/sites-available'
-            sudo cp ${1} /etc/nginx/sites-available && sudo ln -s /etc/nginx/sites-available/${1} /etc/nginx/sites-enabled/${1} && sudo ls -ls /etc/nginx/sites-enabled/${1} && echo 'Site ' ${1} 'enabled !!!'
-          else
-            sudo ln -s /etc/nginx/sites-available/${1} /etc/nginx/sites-enabled/${1} &&     sudo ls -ls /etc/nginx/sites-enabled/${1} && echo 'Site ' ${1} 'enabled !!!'
-          fi
-        fi
     }
 
     function jjExtract ()
@@ -100,66 +68,6 @@
       "
     }
 
-    function jjGeradorDeCpf()
-    {
-        SOMA=0
-        for i in {10..2}
-        do
-            NUMERO=$((`cat /dev/urandom|od -N1 -An -i` % 9))
-            CPF=$CPF$NUMERO
-            SOMA=$(($SOMA+($NUMERO*$i)))
-        done
-        RESTO=$(($SOMA%11))
-        if [ $RESTO -lt 2 ]
-        then
-            DIGITO1=0
-        else
-            DIGITO1=$((11-$RESTO))
-        fi
-        CPF=$CPF$DIGITO1
-        SOMA=0
-        for i in {11..2}
-        do
-            INDICE=$((($i-11)*-1))
-            SOMA=$(($SOMA+(${CPF:$INDICE:1}*$i)))
-        done
-        RESTO=$(($SOMA%11))
-        if [ $RESTO -lt 2 ]
-        then
-            DIGITO2=0
-        else
-            DIGITO2=$((11-$RESTO))
-        fi
-        CPF=$CPF$DIGITO2
-        echo $CPF
-    }
-
-    function jjHash()
-    {
-      for i in $*;
-      do
-        md5sum -r "$i"
-        shasum -a 1 "$i"
-        shasum -a 256 "$i"
-      done | tr -s ' ' ' '
-    }
-
-    function jjInitializePrograms ()
-    {
-      # Initialize Keyboard
-      setxkbmap -model pc105 -layout us_intl
-
-      # Initialize Tmux
-      if command -v tmux >/dev/null
-      then
-        if [ ! -z "$PS1" ];
-        then
-          [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux -2 new -s main
-        fi
-      fi
-    }
-    jjInitializePrograms
-
     function jjKill ()
     {
       kill -9 $(ps -ef | grep $1 | awk '{print $2} ')
@@ -170,48 +78,14 @@
       python -m SimpleHTTPServer 8000
     }
 
-    function jjLowCase ()
-    {
-      echo "$@" | tr \[:upper:\] \[:lower:\];
-    }
-
     function jjMkdir()
     {
     if [ "$#" -ne 1 ]
     then
       echo -e "How to use:\n\t jjMkdir <folder|/path/to/folder/folder-name>"
-      exit;  
+      exit;
     fi
         mkdir -p ${1} ; cd ${1} ; pwd
-    }
-
-    function jjMoney ()
-    {
-        local CURRENTYEAR=`date +"%Y"`
-        local CURRENTDATE=`date`
-        local PATH_TO_PROJECT='/home/mconceicao/Dropbox/Chromebook/PROJETOS_2019/app-controle-finceiro/'
-        local FILE=${PATH_TO_PROJECT}${CURRENTYEAR}'.lm.txt'
-
-        if [ "$#" -ne 1 ]
-        then
-          echo -e "How to use:\n\t jjMoney [ e | s ]\n\t\t jjMoney e # to edit file or \n\t\t jjMoney l # to run localhost"
-        elif [ "${1}" == "e" ]
-        then
-            echo 'Editando'
-            vi -c "call JJ_MoneyLog()" ${FILE}
-            echo '' >> ${FILE} 
-            local NUMBER=`grep -En  '^#ULTIMA_ATUALIZACAO_DO_ARQUIVO' ${FILE} | cut -d ':' -f1`
-            ((NUMBER++))
-            echo "sed -i '${NUMBER}i#${CURRENTDATE}' ${FILE}" | sh
-        elif [ "${1}" == "l" ]
-        then
-            cd ${PATH_TO_PROJECT}moneylog-definitivo/
-            netstat -atunp | grep 4321 | rev  | cut -d '/' -f2 | cut -d ' ' -f1 | rev | xargs kill -9 &> /dev/null
-            python2.7 -m SimpleHTTPServer 4321 &> /dev/null & 
-            chromium --incognito http://localhost:4321
-        else
-          echo -e "How to use:\n\t jjMoney [ e | s ]\n\t\t jjMoney e # to edit file or \n\t\t jjMoney l # to run localhost"
-        fi
     }
 
     function jjMyIpAdress ()
@@ -329,11 +203,6 @@
       fi
     }
 
-    function jjUpperCase ()
-    {
-      echo "$@" | tr \[:lower:\] \[:upper:\];
-    }
-
     function jjVerifyMemoryOfProgram()
     {
         if [ "$#" -ne 1 ]
@@ -349,69 +218,7 @@
             clear
         done
     }
-
-
-    function jjWatchFile ()
-    {
-
-      if [ "$#" -ne 1 ]
-      then
-        echo -e "How to use:\n\t jjWatchFile <file>"
-        exit;
-      fi
-
-      BROWSER=chrome;
-      jj_FILE=${1}
-
-      ps cax | grep $BROWSER > /dev/null 2>&1;
-      if [ $? -eq 1 ];
-      then
-        echo "Please, open the " ${BROWSER} ;
-        exit ;
-      fi;
-
-      type inotifywait
-      if [ $? -eq 1 ];
-      then
-        echo "Install inotify-tools" ;
-        exit ;
-      fi;
-
-      type xdotool > /dev/null 2>&1;
-      if [ $? -eq 1 ];
-      then
-        echo "Install xdotool" ;
-        exit ;
-      fi;
-
-
-      ps -ef | grep [i]notifywait > /dev/null 2>&1  ;
-      if [ $? -eq 0 ];
-      then
-        exit;
-      fi;
-
-
-      while true
-      do
-        clear
-        echo -e '\n\njjWatchFile running ...\n\nType Ctrl + C to cancel'
-        inotifywait -q $jj_FILE >/dev/null;
-        CUR_WID=$(xdotool getwindowfocus) ;
-        WID=$(xdotool search --onlyvisible --class $BROWSER|head -1);
-        xdotool windowactivate $WID ;
-        xdotool key "ctrl+r" ;
-        xdotool windowactivate $CUR_WID ;
-      done
-    }
-
 # }}}
-
-# Desliga Caps_Lock
-setxkbmap -option ctrl:nocaps
-
-# Liga Caps_Lock
-# setxkbmap -option
 
 # Alias
 # {{{
@@ -445,33 +252,13 @@ setxkbmap -option ctrl:nocaps
     # History
     # {{{
 
-    export HISTSIZE=1000
+    export HISTSIZE=100000
     export HISTFILESIZE=${HISTSIZE}
     export HISTCONTROL=ignoreboth
     export HISTIGNORE='&:ls:ll:la:cd:exit:clear:history'
 
     # }}}
 
-
-    # Color to man page
-    # {{{
-    export PAGER=less
-    export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
-    export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
-    export LESS_TERMCAP_me=$'\E[0m'           # end mode
-    export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
-    export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
-    export LESS_TERMCAP_ue=$'\E[0m'           # end underline
-    export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
-    # }}}
-
-
     # Enable Color
     export TERM="xterm-256color"
-
-    # Logo
-    echo '- -  - -'
-    echo '>  JJ  <'
-    echo '- -  - -'
-
 # }}}
