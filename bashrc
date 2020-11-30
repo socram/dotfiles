@@ -16,6 +16,8 @@
 fi
 
 
+  export EDITOR=vi
+  bind 'set show-mode-in-prompt on' # Mostra em qual tipo de terminal eu estou, cmd ou ins
   set -o vi
   alias T='xmodmap /home/mconceicao/.Xmodmap'
 
