@@ -2,6 +2,12 @@
 # Chromebook
 #sudo mount -i -o remount,exec /home/chronos/user
 
+shopt -s histappend # Do not overwrite history
+shopt -s expand_aliases # Expand aliases
+shopt -s checkwinsize # Checks term size when bash regains control 
+
+
+
 # Load
 # {{{
   setxkbmap -model pc105 -layout us_intl              # Configura Modelo do Teclado
