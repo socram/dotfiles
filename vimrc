@@ -26,6 +26,9 @@
         Plug 'joshdick/onedark.vim'
         Plug 'vim-scripts/RltvNmbr.vim'
         Plug 'w0rp/ale'
+        Plug 'ap/vim-css-color'
+        Plug 'skywind3000/vim-quickui'
+
 
     call plug#end()
     filetype plugin indent on
@@ -33,15 +36,8 @@
     let mapleader=',' " Troca / por ,
 
 "..............................................
-".......... Configurações de macOSX  ..........
-"..............................................
-" set ttymouse=xterm2
-
-
-"..............................................
 ".......... Configurações de Plugins ..........
 "..............................................
-
   "... Tabular ...
     xnoremap <Leader>tt : Tabularize /
 
@@ -49,13 +45,33 @@
     noremap <Leader>t : TagbarToggle<CR>
     let g:tagbar_autofocus = 1
 
+  " Quick Ui
+  call quickui#menu#reset()  " clear all the menus
+
+  call quickui#menu#install('&Funcoes', [
+              \ [ "&Liga corretor Ortográfico" , ':set spell spelllang=pt', 'comentário' ],
+              \ [ "&Liga paste"                , ':set paste' , 'habilita colar sem indentação']
+              \ ])
+
+  call quickui#menu#install('&Roda comando', [
+              \ [ "&Source vimrc"          , ':source /home/mconceicao/.vimrc ' ] ,
+              \ [ "&Restart X"             , 'echo "restart servico qualquer no linux"']
+              \ ])
+
+  " enable to display tips in the cmdline
+  let g:quickui_show_tip = 1
+
+  " hit space twice to open menu
+  noremap <space><space> :call quickui#menu#open()<cr>
+
+
 
 "......................................
 "............. Aparência ..............
 "......................................
 colorscheme onedark
 " set term=gnome-256color
-set term=screen-256color
+" set term=screen-256color
 set t_Co=256
 set gcr=a:blinkon0
 set scrolloff=3
@@ -69,7 +85,7 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 "..............................................
 
 " Geral
-" imap jj <esc>:echo 'ESC'<cr>   " jj funciona como esc no modo de edição
+imap jj <esc>:echo 'ESC'<cr>   " jj funciona como esc no modo de edição
 syntax on                      " Liga Syntax
 set sm                         " Mostra par de parentese fechado
 set wildmode=longest,list:full " Completa igual o bash
@@ -80,7 +96,6 @@ set number relativenumber      " Número relativos nas linhas
 set foldlevelstart=99          " Não encurta funções
 set foldlevel=99               " Não encurta funções
 set ttymouse=
-set spell spelllang=pt         " Add dicionario para vim
 
 
 " Configura Status Bar
@@ -207,17 +222,6 @@ augroup vimrc-sync-fromstart
   autocmd BufEnter * :syntax sync maxlines=200
 augroup END
 
-augroup vimrc-load-vimrc
-  autocmd!
-  autocmd! bufwritepost ~/.vimrc source %
-augroup END
-
-augroup vimrc-mostra-buffer-ativo
-    autocmd!
-    autocmd WinEnter * set colorcolumn=80
-    autocmd WinLeave * set colorcolumn=0
-augroup END
-
 ".......................................................................
 "........... Minha funções JJ que subistituem muitos plugins ...........
 ".......................................................................
@@ -245,6 +249,9 @@ augroup END
         \   "profile"    : '#',
         \   "bashrc"     : '#',
         \   "vim"        : '"',
+        \   "text"        : '#',
+        \   "txt"        : '#',
+        \   "tmux"        : '#',
         \ }
 
         fun! JJ_Comment()
@@ -266,9 +273,6 @@ augroup END
         nnoremap <leader>c :call JJ_Comment()<cr>
         vnoremap <leader>c :call JJ_Comment()<cr>
 
-
-
-
     "... Executa comando no shell
     fun! JJ_RunShellCommand(cmdline)
       echo a:cmdline
@@ -286,6 +290,8 @@ augroup END
       1
     endfun
 noremap <Leader>n : call JJ_RunShellCommand('systemctl restart nginx') <cr>
+
+noremap <Leader>pb : %w !pbcopy <cr> <cr>
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
