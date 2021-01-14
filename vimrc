@@ -49,8 +49,10 @@
   call quickui#menu#reset()  " clear all the menus
 
   call quickui#menu#install('&Funcoes', [
-              \ [ "&Liga corretor Ortográfico" , ':set spell spelllang=pt', 'comentário' ],
-              \ [ "&Liga paste"                , ':set paste' , 'habilita colar sem indentação']
+              \ [ "&Corretor Ortográfico" , ':set spell spelllang=pt' , 'comentário' ]                       ,
+              \ [ "&Colar sem identar"    , ':set paste'              , 'habilita colar sem indentação']     ,
+              \ [ "&Quebra de Linha"      , ':set wrap'               , 'habilita quebra de linhas']         ,
+              \ [ "&Auto Reload"          , ':call JJ_Reload() '      , 'Auto reload automático do arquivo']
               \ ])
 
   call quickui#menu#install('&Roda comando', [
@@ -165,7 +167,7 @@ noremap <Leader>Q : qall!<CR>
 "..............................................
 "........... Corretor Ortográfico .............
 "..............................................
-noremap <Leader>z z=
+noremap <Leader>z z=1 <CR><CR>w
 
 "..............................................
 "............... Seleção Visual ...............
@@ -252,6 +254,7 @@ augroup END
         \   "text"        : '#',
         \   "txt"        : '#',
         \   "tmux"        : '#',
+        \   "yaml"        : '#',
         \ }
 
         fun! JJ_Comment()
@@ -292,6 +295,20 @@ augroup END
 noremap <Leader>n : call JJ_RunShellCommand('systemctl restart nginx') <cr>
 
 noremap <Leader>pb : %w !pbcopy <cr> <cr>
+
+    "... Faz reload do arquivo atual...
+      fun! JJ_Reload()
+        let pathCurrentBuffer = expand('%:p')
+        let fileName= expand('%:t')
+        execute ":badd /tmp/.tmp.vim"
+        execute ":bdelete " . fileName
+        execute ":e " . pathCurrentBuffer
+      endfun
+
+
+
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
+
+
