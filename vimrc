@@ -28,6 +28,7 @@
         Plug 'w0rp/ale'
         Plug 'ap/vim-css-color'
         Plug 'skywind3000/vim-quickui'
+        Plug 'MattesGroeger/vim-bookmarks'
 
 
     call plug#end()
