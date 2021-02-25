@@ -59,10 +59,13 @@ fi
     done
     }
 
-PID='/tmp/jjClipboardManager.pid'
-export -f myTest
-nohup bash -c myTest 1> /dev/null 2>&1 &
-echo $! > ${PID}
+    PID='/tmp/jjClipboardManager.pid'
+    export -f jjClipboardManager
+    nohup bash -c jjClipboardManager 1> /dev/null 2>&1 &
+    echo $! > ${PID}
+
+
+
     function jjBackUp()
     {
         cp -vi "${1}" "${1}.bkp.$(date +%Y%m%d-%s)"
