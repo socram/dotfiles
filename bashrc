@@ -37,6 +37,32 @@ fi
         grep function ~/.bashrc | sed 's/function//g ; s/()//g ' | tr -d ' ' | grep -vE 'grep|jj$'
     }
 
+    function jjClipboardManager()
+    {
+    while true
+    do
+      NEW='/tmp/jjClipboardManager.new'
+      OLD='/tmp/jjClipboardManager.old'
+      HISTORY='/tmp/jjClipboardManager.history'
+
+      xsel --clipboard --output | md5sum > ${NEW}
+      cmp -s ${NEW} ${OLD}
+      
+      if [ "$?" != "0" ]
+      then
+        # echo 'diferentes'
+        cat ${NEW} > ${OLD}
+        xsel --clipboard --output >> ${HISTORY}
+        echo -ne '\n--\n' >> ${HISTORY}
+      fi
+      sleep 1s;
+    done
+    }
+
+PID='/tmp/jjClipboardManager.pid'
+export -f myTest
+nohup bash -c myTest 1> /dev/null 2>&1 &
+echo $! > ${PID}
     function jjBackUp()
     {
         cp -vi "${1}" "${1}.bkp.$(date +%Y%m%d-%s)"
