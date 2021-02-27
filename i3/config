@@ -90,7 +90,7 @@ bindsym $super+Shift+0 move container to workspace number $ws10
 # Reload arquivo de configuracao
 bindsym $super+Shift+c reload
 # Restart arquivo de configuracao
-bindsym $mod+Shift+r restart
+bindsym $super+Shift+r restart
 
 
 mode "resize" {
