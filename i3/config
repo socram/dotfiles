@@ -2,13 +2,13 @@
 set $super Mod4
 
 # Configura fonte
-font pango:monospace 8
+font pango:monospace 10
 
 # Use Mouse+$super to drag floating windows to their wanted position
 floating_modifier $super
 
 # Inicia junto com o sistema
-# exec --no-startup-id hsetroot -center /home/mconceicao/Desktop/.wallpaper.jpg
+exec --no-startup-id hsetroot -center /home/mconceicao/Desktop/.wallpaper.jpg
 
 # Inicia terminal
 bindsym $super+Return exec i3-sensible-terminal
@@ -31,6 +31,10 @@ bindsym $super+Right focus right
 
 # Abrir programas com combinacao de teclas
 bindsym $super+Shift+g exec gedit
+
+# Tirar print selecionando a area
+bindsym $super+Shift+s exec gnome-screenshot -acf /tmp/test && cat /tmp/test | xclip -i -selection clipboard -target image/png
+
 
 
 # Move foto
