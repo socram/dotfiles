@@ -8,7 +8,8 @@ font pango:monospace 10
 floating_modifier $super
 
 # Inicia junto com o sistema
-exec --no-startup-id hsetroot -center /home/mconceicao/Desktop/.wallpaper.jpg
+# Wallpaper
+exec --no-startup-id feh --randomize --bg-scale
 
 # Inicia terminal
 bindsym $super+Return exec i3-sensible-terminal
