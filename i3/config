@@ -9,7 +9,7 @@ floating_modifier $super
 
 # Inicia junto com o sistema
 # Wallpaper
-exec --no-startup-id feh --randomize --bg-scale
+exec --no-startup-id feh --randomize --bg-scale ~/.config/i3/wallpaper/*
 
 # Inicia terminal
 bindsym $super+Return exec i3-sensible-terminal
