@@ -36,6 +36,8 @@ bindsym $super+Shift+g exec gedit
 # Tirar print selecionando a area
 bindsym $super+Shift+s exec gnome-screenshot -acf /tmp/test && cat /tmp/test | xclip -i -selection clipboard -target image/png
 
+# Fechar janela em foto
+bindsym $super+q kill
 
 
 # Move foto
