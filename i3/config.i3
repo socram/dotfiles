@@ -39,6 +39,11 @@ bindsym $super+Shift+s exec gnome-screenshot -acf /tmp/test && cat /tmp/test | x
 # Fechar janela em foto
 bindsym $super+q kill
 
+# Bloqueia a tela
+# Criando imagem desfocada do papel de parede para bloquear a tela
+# convert ${PICTURE} -blur "5x4" ${PICTURE}
+bindsym $super+Shift+l exec i3lock -i /home/mconceicao/.config/i3/lock/lock.png
+
 
 # Move foto
 bindsym $super+Shift+Left move left
