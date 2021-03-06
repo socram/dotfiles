@@ -58,12 +58,15 @@ fi
       sleep 1s;
     done
     }
+    
+    running=$(ps -ef | grep [j]jClipboardManager | wc -l )
 
-    PID='/tmp/jjClipboardManager.pid'
+   if [ "$running" -eq "0" ]
+   then
     export -f jjClipboardManager
     nohup bash -c jjClipboardManager 1> /dev/null 2>&1 &
-    echo $! > ${PID}
-
+   fi
+    
 
 
     function jjBackUp()
