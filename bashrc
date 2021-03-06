@@ -53,7 +53,7 @@ fi
         # echo 'diferentes'
         cat ${NEW} > ${OLD}
         xsel --clipboard --output >> ${HISTORY}
-        echo -ne '\n--\n' >> ${HISTORY}
+        echo -ne '\n_#_\n' >> ${HISTORY}
       fi
       sleep 1s;
     done
