@@ -8,8 +8,8 @@ font pango:monospace 10
 floating_modifier $super
 
 # Inicia junto com o sistema
-# Wallpaper
-exec --no-startup-id feh --randomize --bg-scale ~/.config/i3/wallpaper/*
+# Set wallpaper
+exec --no-startup-id feh --randomize --bg-scale ~/.config/i3/wallpapers/5.jpeg
 
 # Inicia terminal
 bindsym $super+Return exec i3-sensible-terminal
@@ -36,8 +36,9 @@ bindsym $super+Shift+g exec gedit
 # Tirar print selecionando a area
 bindsym $super+Shift+s exec gnome-screenshot -acf /tmp/test && cat /tmp/test | xclip -i -selection clipboard -target image/png
 
-# Fechar janela em foto
+# Fechar janela em foco
 bindsym $super+q kill
+
 
 # Bloqueia a tela
 # Criando imagem desfocada do papel de parede para bloquear a tela
@@ -132,38 +133,18 @@ mode "resize" {
 
 # panel
 bar {
-        colors {
-        background #2f343f
-        statusline #2f343f
-        separator #4b5262
+  status_command  /home/mconceicao/.config/i3/mybar.sh
+  position top
 
-        # colour of border, background, and text
-        focused_workspace       #2f343f #bf616a #d8dee8
-        active_workspace        #2f343f #2f343f #d8dee8
-        inactive_workspace      #2f343f #2f343f #d8dee8
-        urgent_workspacei       #2f343f #ebcb8b #2f343f
-    }
-        status_command i3status
-        position top
+  colors {
+    background #2f343f
+    statusline #2f343f
+    separator  #4b5262
+
+    # colour of border, background, and text
+    focused_workspace   #2f343f #bf616a #d8dee8
+    active_workspace    #2f343f #2f343f #d8dee8
+    inactive_workspace  #2f343f #2f343f #d8dee8
+    urgent_workspace    #2f343f #ebcb8b #2f343f
+  }
 }
-
-# window rules, you can find the window class using xprop
-for_window [class=".*"] border pixel 4
-assign [class=URxvt] 1
-assign [class=Firefox|Transmission-gtk] 2
-assign [class=Thunar|File-roller] 3
-assign [class=Geany|Evince|Gucharmap|Soffice|libreoffice*] 4
-assign [class=Audacity|Vlc|mpv|Ghb|Xfburn|Gimp*|Inkscape] 5
-assign [class=Lxappearance|System-config-printer.py|Lxtask|GParted|Pavucontrol|Exo-helper*|Lxrandr|Arandr] 6
-for_window [class=Viewnior|feh|Audacious|File-roller|Lxappearance|Lxtask|Pavucontrol] floating enable
-for_window [class=URxvt|Firefox|Geany|Evince|Soffice|libreoffice*|mpv|Ghb|Xfburn|Gimp*|Inkscape|Vlc|Lxappearance|Audacity] focus
-for_window [class=Xfburn|GParted|System-config-printer.py|Lxtask|Pavucontrol|Exo-helper*|Lxrandr|Arandr] focus
-
-# colour of border, background, text, indicator, and child_border
-client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8
-client.focused_inactive     #2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.unfocused            #2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.placeholder          #2f343f #2f343f #d8dee8 #2f343f #2f343f
-client.background           #2f343f
-
