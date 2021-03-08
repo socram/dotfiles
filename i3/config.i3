@@ -126,10 +126,6 @@ mode "resize" {
 
 
 
-##############################################
-##    Configurei aqui aqui
-##############################################
-
 
 # panel
 bar {
@@ -148,3 +144,6 @@ bar {
     urgent_workspace    #2f343f #ebcb8b #2f343f
   }
 }
+
+# Remove titulos das janelas                                                                                                                                                              
+for_window [class="^.*"] border pixel 0  
