@@ -123,7 +123,7 @@ mode "resize" {
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
-
+bindsym $super+r mode "resize"
 
 
 
