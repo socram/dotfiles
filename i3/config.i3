@@ -31,6 +31,8 @@ bindsym $super+Right focus right
 
 
 # Abrir programas com combinacao de teclas
+bindsym $super+Shift+b exec brave-browser
+bindsym $super+Shift+e exec nautilus
 bindsym $super+Shift+g exec gedit
 
 # Tirar print selecionando a area
