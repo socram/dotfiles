@@ -149,3 +149,6 @@ bar {
 
 # Remove titulos das janelas                                                                                                                                                              
 for_window [class="^.*"] border pixel 0  
+
+# Janelas sempre abre em floating
+for_window [class="^.*"] floating enable
