@@ -76,7 +76,10 @@ fi
 
     function jjCreateRandomPassword ()
     {
-      </dev/urandom tr -dc '1234567890!@#$%^&()_+ABCDEFGHIJLMNOPQRSTUVXZabcdefghijlmnopqrstuvxz' | head -c $1; echo ""
+      for i in {1..10}
+      do
+        </dev/urandom tr -dc '1234567890!@#$%^&()_+ABCDEFGHIJLMNOPQRSTUVXZabcdefghijlmnopqrstuvxz' | head -c 20 ; echo ""
+      done
     }
 
     function jjExtract ()
