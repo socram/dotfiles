@@ -9,7 +9,7 @@ floating_modifier $super
 
 # Inicia junto com o sistema
 # Set wallpaper
-exec --no-startup-id feh --randomize --bg-scale ~/.config/i3/wallpapers/5.jpeg
+exec --no-startup-id feh --randomize --bg-scale ~/.config/i3/wallpapers/6.jpeg
 
 # Inicia terminal
 bindsym $super+Return exec i3-sensible-terminal
@@ -125,8 +125,8 @@ mode "resize" {
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
-bindsym $super+r mode "resize"
 
+bindsym $super+r mode "resize"
 
 
 # panel
@@ -147,8 +147,24 @@ bar {
   }
 }
 
-# Remove titulos das janelas                                                                                                                                                              
-for_window [class="^.*"] border pixel 0  
+# Para pegar o nome da janela e usar nas configuracoes baixo usar o comando
 
-# Janelas sempre abre em floating
+      # xprop | grep -i class ;
+      # clicar na janela que voce quer
+
+##### Configuracoes de Janelas #####
+
+# Adiciona uma borda fina para conseguir fazer o resize com o mouse
+for_window [class="^.*"] border pixel 3
+
+# Habilita para conseguir sobrepor janelas
 for_window [class="^.*"] floating enable
+
+# Sempre abre o Nautilus na posicao do mouse com um determinado tamanho
+for_window [class="Nautilus"] resize set 900 900, move position mouse
+
+# Add borda em apps que nao consigo mover com o Mouse
+for_window [class="Gnome-terminal"] border normal 1
+for_window [class="Ferdi"] border normal
+
+
