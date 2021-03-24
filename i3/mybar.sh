@@ -45,7 +45,8 @@ do
   echo ',['
 
   echo ' {"background": "#ff5555","name":"data","full_text":"  '$(date)'"}'
-  # echo ',{"background": "#56b6c2","name":"vpn","full_text":"      ''"}'
+  echo ',{"background": "#e5c07b","name":"clipboard","full_text":"ClipBoard''"}'
+  echo ',{"background": "#FFFFFF","name":"windows52","full_text":"'VM .52'"}'
   echo ',{"background": "#56b6c2","name":"vpn","full_text":"'$(vpnConnection)'"}'
   echo ',{"background": "#50fa7b","name":"rede","full_text":" '$(iw dev | sed -nr 's/^\t\tssid (.*)/\1/p') ' - '$(ip route get 1 | sed -n "s/.*src \([0-9.]\+\).*/\1/p")'"}'
   echo ',{"background": "#f1fa8c","name":"bateria","full_text":" '$(cat /sys/class/power_supply/BAT0/status) '-' $(cat /sys/class/power_supply/BAT0/capacity)%'"}'
@@ -68,10 +69,30 @@ while read line;
 do
   name=`echo $line | sed 's/^,//g ' | jq .name | sed 's/"//g'`
 
-  case $name in
-      volume ) gnome-control-center -s "Sound"   & ;;
-      rede   ) gnome-terminal -e 'nmtui' & ;;
 
+  case $name in
+      clipboard )
+      cat /tmp/jjClipboardManager.history > /tmp/1.txt
+      gnome-terminal -e 'gedit /tmp/1.txt' & ;;
+
+      volume    ) gnome-control-center -s "Sound"   & ;;
+      rede      )
+            echo "Ak2539yz" | xsel --clipboard --input 
+           gnome-terminal -e 'nmtui' & ;;
+
+      windows52 )
+
+        isRunning=$(ps -ef | grep rdesktop | wc -l)
+
+        echo $isRunning >> /tmp/marcos
+
+        if [ "$isRunning" -gt "1" ]
+        then
+          ps -ef | grep rdesktop | awk '{ print $2 }' | xargs kill -9
+        else
+          gnome-terminal -e 'bash /home/mconceicao/.win.52.sh &'
+        fi
+      ;;
   esac
 
 done
