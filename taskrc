@@ -1,0 +1,11 @@
+# Arquivo padrao
+data.location=~/.task
+
+# Formato da data
+dateformat= d.m.y H:M:S
+dateformat.report= d/m/Y
+
+# Cores
+color=on
+include /usr/share/taskwarrior/dark-256.theme
+
