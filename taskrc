@@ -9,3 +9,4 @@ dateformat.report= d/m/Y
 color=on
 include /usr/share/taskwarrior/dark-256.theme
 
+default.project = Inbox
