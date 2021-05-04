@@ -10,12 +10,15 @@ floating_modifier $super
 # Inicia junto com o sistema
 # Set wallpaper
 exec --no-startup-id feh --randomize --bg-scale ~/.config/i3/wallpapers/6.jpeg
+exec ~/.dropbox-dist/dropboxd
 
 # Inicia terminal
 bindsym $super+Return exec i3-sensible-terminal
 
 # Inicia rofi ( Procurar programas )
 bindsym $super+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 10'
+
+
 
 # Muda foco VIM
 bindsym $super+h focus left
@@ -158,13 +161,19 @@ bar {
 for_window [class="^.*"] border pixel 3
 
 # Habilita para conseguir sobrepor janelas
-for_window [class="^.*"] floating enable
+#for_window [class="^.*"] floating enable
 
 # Sempre abre o Nautilus na posicao do mouse com um determinado tamanho
 for_window [class="Nautilus"] resize set 900 900, move position mouse
 
 # Add borda em apps que nao consigo mover com o Mouse
 for_window [class="Gnome-terminal"] border normal 1
-for_window [class="Ferdi"] border normal
+for_window [class="Ferdi"]          border normal
+for_window [class="kolourpaint"]    border normal
+for_window [class="VirtualBox.*"]   border normal
+for_window [class="vlc"]            border normal
+for_window [class="rdesktop"]       border normal
+for_window [class="vmplayer"]       border normal
+for_window [class="Vmplayer"]       border normal
 
 
