@@ -1,8 +1,8 @@
-###############
-# https://gist.github.com/luccamendonca/df48e9a0e0dd5ea8333c5ba4bafd62d3
-# Comando para carregar configuracoes 
-# xmodmap /home/mconceicao/.Xmodmap
-# setxkbmap -option lv3:rwin_switch <- Corrige problema de nao funcionar em algumas aplicacoes como Chrome por exemplo
+!###############
+!# https://gist.github.com/luccamendonca/df48e9a0e0dd5ea8333c5ba4bafd62d3
+!# Comando para carregar configuracoes 
+!# xmodmap /home/mconceicao/.Xmodmap
+!# setxkbmap -option lv3:rwin_switch <- Corrige problema de nao funcionar em algumas aplicacoes como Chrome por exemplo
 
 
 
