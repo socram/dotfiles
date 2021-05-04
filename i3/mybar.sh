@@ -44,21 +44,41 @@ echo '[]'
 do
   echo ',['
 
-  echo ' {"background": "#ff5555","name":"data","full_text":"  '$(date)'"}'
-  echo ',{"background": "#e5c07b","name":"clipboard","full_text":"ClipBoard''"}'
-  echo ',{"background": "#FFFFFF","name":"windows52","full_text":"'VM .52'"}'
-  echo ',{"background": "#56b6c2","name":"vpn","full_text":"'$(vpnConnection)'"}'
-  echo ',{"background": "#50fa7b","name":"rede","full_text":" '$(iw dev | sed -nr 's/^\t\tssid (.*)/\1/p') ' - '$(ip route get 1 | sed -n "s/.*src \([0-9.]\+\).*/\1/p")'"}'
-  echo ',{"background": "#f1fa8c","name":"bateria","full_text":" '$(cat /sys/class/power_supply/BAT0/status) '-' $(cat /sys/class/power_supply/BAT0/capacity)%'"}'
-  echo ',{"background": "#bd93f9","name":"cpu","full_text":" '$(LC_NUMERIC=en_US.UTF-8 top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}')'"}'
-  echo ',{"background": "#ff79c6","name":"memoria","full_text":" '$(free -g | awk '/^Mem/ {print $3}')''/''$(free -g | awk '/^Mem/ {print $2}' )'"}'
-  echo ',{"background": "#8be9fd","name":"volume","full_text":"'$(awk -F"[][]" '/dB/ { print $2 }' <(amixer sget Master))'"  }'
+  echo ' {"background": "#","name":"data","full_text":"  '$(date)'"}'
+  echo ',{"background": "#","name":"clipboard","full_text":"ClipBoard''"}'
+  echo ',{"background": "#","name":"windows52","full_text":"'VM .52'"}'
+  echo ',{"background": "#","name":"windows60","full_text":"'VM .60'"}'
+  echo ',{"background": "#","name":"vpn","full_text":"'$(vpnConnection)'"}'
+  echo ',{"background": "#","name":"rede","full_text":" '$(iw dev | sed -nr 's/^\t\tssid (.*)/\1/p') ' - '$(ip route get 1 | sed -n "s/.*src \([0-9.]\+\).*/\1/p")'"}'
+  echo ',{"background": "#","name":"bateria","full_text":" '$(cat /sys/class/power_supply/BAT0/status) '-' $(cat /sys/class/power_supply/BAT0/capacity)%'"}'
+  echo ',{"background": "#","name":"cpu","full_text":" '$(LC_NUMERIC=en_US.UTF-8 top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}')'"}'
+  echo ',{"background": "#","name":"memoria","full_text":" '$(free -g | awk '/^Mem/ {print $3}')''/''$(free -g | awk '/^Mem/ {print $2}' )'"}'
+  echo ',{"background": "#","name":"volume","full_text":"'$(awk -F"[][]" '/dB/ { print $2 }' <(amixer sget Master))'"  }'
 
-  # echo ',{"background": "#8be9fd","name":"mais","full_text":" "  }'
-  # echo ',{"background": "#8be9fd","name":"menos","full_text":" "   }'
-  # echo ',{"background": "#8be9fd","name":"mudo","full_text":" "  }'
-  # echo ',{"background": "#e5c07b","name":"3","full_text":" '$(my_clipboard)'"}'
-#
+
+
+
+  # echo ' {"background": "#ff5555","name":"data","full_text":"  '$(date)'"}'
+  # echo ',{"background": "#e5c07b","name":"clipboard","full_text":"ClipBoard''"}'
+  # echo ',{"background": "#FFFFFF","name":"windows52","full_text":"'VM .52'"}'
+  # echo ',{"background": "#FFFFF6","name":"windows60","full_text":"'VM .60'"}'
+  # echo ',{"background": "#56b6c2","name":"vpn","full_text":"'$(vpnConnection)'"}'
+  # echo ',{"background": "#50fa7b","name":"rede","full_text":" '$(iw dev | sed -nr 's/^\t\tssid (.*)/\1/p') ' - '$(ip route get 1 | sed -n "s/.*src \([0-9.]\+\).*/\1/p")'"}'
+  # echo ',{"background": "#f1fa8c","name":"bateria","full_text":" '$(cat /sys/class/power_supply/BAT0/status) '-' $(cat /sys/class/power_supply/BAT0/capacity)%'"}'
+  # echo ',{"background": "#bd93f9","name":"cpu","full_text":" '$(LC_NUMERIC=en_US.UTF-8 top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}')'"}'
+  # echo ',{"background": "#ff79c6","name":"memoria","full_text":" '$(free -g | awk '/^Mem/ {print $3}')''/''$(free -g | awk '/^Mem/ {print $2}' )'"}'
+  # echo ',{"background": "#8be9fd","name":"volume","full_text":"'$(awk -F"[][]" '/dB/ { print $2 }' <(amixer sget Master))'"  }'
+
+
+
+
+
+
+
+
+
+
+
   echo ']'
 
   sleep 2
@@ -79,6 +99,24 @@ do
       rede      )
             echo "Ak2539yz" | xsel --clipboard --input 
            gnome-terminal -e 'nmtui' & ;;
+
+
+      windows60 )
+
+        isRunning=$(ps -ef | grep rdesktop | wc -l)
+
+        echo $isRunning >> /tmp/marcos1
+
+        if [ "$isRunning" -gt "1" ]
+        then
+          ps -ef | grep rdesktop | awk '{ print $2 }' | xargs kill -9
+        else
+          gnome-terminal -e 'bash /home/mconceicao/.win.60.sh &'
+        fi
+      ;;
+
+
+
 
       windows52 )
 
