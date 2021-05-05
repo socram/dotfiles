@@ -43,17 +43,17 @@ fi
     do
       NEW='/tmp/jjClipboardManager.new'
       OLD='/tmp/jjClipboardManager.old'
-      HISTORY='/tmp/jjClipboardManager.history'
+      HISTORY='/tmp/jjClipboardManager.history.txt'
 
       xsel --clipboard --output | md5sum > ${NEW}
       cmp -s ${NEW} ${OLD}
-      
+
       if [ "$?" != "0" ]
       then
         # echo 'diferentes'
         cat ${NEW} > ${OLD}
         xsel --clipboard --output >> ${HISTORY}
-        echo -ne '\n_#_\n' >> ${HISTORY}
+        echo -ne '\n\n-----------------------\n\n' >> ${HISTORY}
       fi
       sleep 1s;
     done
