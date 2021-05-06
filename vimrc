@@ -29,6 +29,16 @@
         Plug 'ap/vim-css-color'
         Plug 'skywind3000/vim-quickui'
         Plug 'MattesGroeger/vim-bookmarks'
+        Plug 'shiracamus/vim-syntax-x86-objdump-d'
+        Plug 'plasticboy/vim-markdown'
+        Plug 'cespare/vim-toml'
+        Plug 'itchyny/calendar.vim'
+        Plug 'instant-markdown/vim-instant-markdown'
+        Plug 'neoclide/coc.nvim'
+
+
+
+
 
 
     call plug#end()
@@ -39,6 +49,12 @@
 "..............................................
 ".......... Configurações de Plugins ..........
 "..............................................
+  " ... vim-instant_markdown
+  let g:instant_markdown_browser = "brave-browser --new-tab"
+  let g:instant_markdown_port = 8888
+  set foldmethod=marker
+
+
   "... Tabular ...
     xnoremap <Leader>tt : Tabularize /
 
@@ -53,10 +69,12 @@
               \ [ "&Corretor Ortográfico" , ':set spell spelllang=pt' , 'comentário' ]                       ,
               \ [ "&Colar sem identar"    , ':set paste'              , 'habilita colar sem indentação']     ,
               \ [ "&Quebra de Linha"      , ':set wrap'               , 'habilita quebra de linhas']         ,
-              \ [ "&Auto Reload"          , ':call JJ_Reload() '      , 'Auto reload automático do arquivo']
+              \ [ "&Auto Reload"          , ':call JJ_Reload() '      , 'Auto reload automático do arquivo'],
+              \ [ "&Remove Espacos"       , ':%s/\s\+$//e '          , 'Remove espacos em branco descencessários']
               \ ])
 
   call quickui#menu#install('&Roda comando', [
+              \ [ "&VimWiki Gerar HTML"    , ':VimwikiAll2HTML'],
               \ [ "&Source vimrc"          , ':source /home/mconceicao/.vimrc ' ] ,
               \ [ "&Restart X"             , 'echo "restart servico qualquer no linux"']
               \ ])
@@ -73,9 +91,8 @@
 "............. Aparência ..............
 "......................................
 colorscheme onedark
-" set term=gnome-256color
-" set term=screen-256color
-set t_Co=256
+" colorscheme dracula
+set term=screen-256color
 set gcr=a:blinkon0
 set scrolloff=3
 set paste
@@ -168,7 +185,8 @@ noremap <Leader>Q : qall!<CR>
 "..............................................
 "........... Corretor Ortográfico .............
 "..............................................
-noremap <Leader>z z=1 <CR><CR>w
+" noremap <Leader>z z=1 <CR><CR>w
+noremap <Leader>z z=
 
 "..............................................
 "............... Seleção Visual ...............
@@ -192,7 +210,7 @@ map <C-l> <C-W>l
 "........................................
 
 highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
+highlight MinimizadoAddComentario ctermbg=white guibg=red
 
 
 augroup numbertoggle
@@ -206,7 +224,13 @@ augroup vimrc-format-file
     autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
     autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
     autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+
+    autocmd BufWinEnter * match MinimizadoAddComentario /\sComentario_sobre_oq_esta_minimizado/
+    autocmd InsertEnter * match MinimizadoAddComentario /\sComentario_sobre_oq_esta_minimizado/
+    autocmd InsertLeave * match MinimizadoAddComentario /\sComentario_sobre_oq_esta_minimizado/
+
     autocmd BufWinLeave * call clearmatches()
+
 augroup END
 
 augroup vimrc-remember-cursor-position
@@ -246,7 +270,11 @@ augroup END
         \   "c"          : '\/\/',
         \   "javascript" : '\/\/',
         \   "html"       : '\<\!\-\-',
+        \   "vimwiki"       : '\<\!\-\-',
+        \   "taskedit"     : '#',
         \   "python"     : '#',
+        \   "ruby"     : '#',
+        \   ""     : '#',
         \   "sh"         : '#',
         \   "conf"       : '#',
         \   "profile"    : '#',
@@ -308,8 +336,31 @@ noremap <Leader>pb : %w !pbcopy <cr> <cr>
 
 
 
+
+fun! JJ_Folding()
+  let ini = line("'<") " Pega Primeira Linha
+  let end = line("'>") " Pega Ultima Linha
+
+  let s:comment_map = {
+        \   "text" : '#'  ,
+        \   "c"    : '//' ,
+        \ }
+
+  if has_key(s:comment_map, &filetype)
+    let comment = s:comment_map[&filetype]
+  endif
+
+  call setline(ini - 1, comment . " Comentario_sobre_oq_esta_minimizado {{{ _#_")
+  call setline(end + 1, comment . " }}} _#_")
+
+
+endfun
+
+
+xnoremap <Leader>z : call JJ_Folding() <CR> : echo 'Marcar comentário para ser arrumado'
+nnoremap <Leader><space> za
+
+
 ".........................................
 "........... Áreas para testes ...........
 ".........................................
-
-
