@@ -132,22 +132,9 @@ mode "resize" {
 bindsym $super+r mode "resize"
 
 
-# panel
 bar {
   status_command  /home/mconceicao/.config/i3/scripts/mybar.sh
   position top
-
-  colors {
-    background #2f343f
-    statusline #2f343f
-    separator  #4b5262
-
-    # colour of border, background, and text
-    focused_workspace   #2f343f #bf616a #d8dee8
-    active_workspace    #2f343f #2f343f #d8dee8
-    inactive_workspace  #2f343f #2f343f #d8dee8
-    urgent_workspace    #2f343f #ebcb8b #2f343f
-  }
 }
 
 # Para pegar o nome da janela e usar nas configuracoes baixo usar o comando
@@ -175,6 +162,3 @@ for_window [class="vlc"]            border normal
 for_window [class="rdesktop"]       border normal
 for_window [class="vmplayer"]       border normal
 for_window [class="Vmplayer"]       border normal
-
-
-
