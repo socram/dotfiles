@@ -1,91 +1,75 @@
 # -> Configura master para tecla Super {{{ 
 set $super Mod4
-
-# }}} <-
+# }}} 
 
 # -> Configura Fonte {{{ 
 font pango:monospace 10
-
-# }}} <-
+# }}} 
 
 # -> AutoLoad ( Inicia com o Sistema ) {{{ 
 exec ~/.dropbox-dist/dropboxd
 exec ~/.config/i3/scripts/changeWallpaper.sh
-
-# }}} <-
+# }}} 
 
 # -> Abre terminal {{{ 
 bindsym $super+Return exec i3-sensible-terminal
-
-# }}} <-
+# }}} 
 
 # -> Abre Rofi ( Lançador de Programas ) {{{ 
 bindsym $super+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Noto Sans 10'
-
-# }}} <-
+# }}} 
 
 # -> Fuda foco com binds do vim HJKL {{{ 
 bindsym $super+h focus left
 bindsym $super+j focus down
 bindsym $super+k focus up
 bindsym $super+l focus right
-
-# }}} <-
+# }}} 
 
 # -> Muda foco com direcionais ( setas ) {{{ 
 bindsym $super+Left  focus left
 bindsym $super+Down  focus down
 bindsym $super+Up    focus up
 bindsym $super+Right focus right
-
-# }}} <-
+# }}} 
 
 # -> Atalhos para abrir programas {{{ 
 bindsym $super+Shift+b exec brave-browser
 bindsym $super+Shift+e exec nautilus
 bindsym $super+Shift+g exec gedit
-
-# }}} <-
+# }}} 
 
 # -> Configuração para tirar ScreenShots {{{ 
 bindsym $super+Shift+s exec gnome-screenshot -acf /tmp/test && cat /tmp/test | xclip -i -selection clipboard -target image/png
-
 # bindsym $super+Shift+s exec /home/mconceicao/.config/i3/scripts/screenShot.sh
-
-# }}} <-
+# }}} 
 
 # -> Kill na janela com foco {{{ 
 bindsym $super+q kill
-
-# }}} <-
+# }}} 
 
 # -> Bloqueio de Tela {{{ 
 bindsym $super+Shift+l exec /home/mconceicao/.config/i3/scripts/lockscreen.sh
-
-# }}} <-
+# }}} 
 
 # -> Move Foco{{{ 
 bindsym $super+Shift+Left move left
 bindsym $super+Shift+Down move down
 bindsym $super+Shift+Up move up
 bindsym $super+Shift+Right move right
-
-# }}} <-
+# }}} 
 
 # -> Alterna para Full Screen {{{ 
 bindsym $super+f fullscreen toggle
-
-# }}} <-
+# }}} 
 
 # -> Alterna posicao na tela igual TMUX ( Ctrl+b + space ) {{{ 
 bindsym $super+s layout toggle split
-
-# }}} <-
+# }}} 
 
 # -> Alterna flutuacao das janelas {{{ 
 bindsym $super+space floating toggle
-
-# }}} <-
+# }}} 
 
 # -> Define nome para workspaces {{{ 
 set $ws1 "1"
@@ -98,9 +82,7 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10"
-
-
-# }}} <-
+# }}} 
 
 # -> Troca entre workspaces {{{ 
 bindsym $super+1 workspace number $ws1
@@ -113,8 +95,7 @@ bindsym $super+7 workspace number $ws7
 bindsym $super+8 workspace number $ws8
 bindsym $super+9 workspace number $ws9
 bindsym $super+0 workspace number $ws10
-
-# }}} <-
+# }}} 
 
 # -> Muda o foco para workspaces {{{ 
 bindsym $super+Shift+1 move container to workspace number $ws1
@@ -127,18 +108,15 @@ bindsym $super+Shift+7 move container to workspace number $ws7
 bindsym $super+Shift+8 move container to workspace number $ws8
 bindsym $super+Shift+9 move container to workspace number $ws9
 bindsym $super+Shift+0 move container to workspace number $ws10
-
-# }}} <-
+# }}} 
 
 # -> Reload arquivo de configuracao {{{ 
 bindsym $super+Shift+c reload
-
-# }}} <-
+# }}} 
 
 # -> Restart arquivo de configuracao {{{
 bindsym $super+Shift+r restart
-
-# }}} <-
+# }}} 
 
 # -> Configuração de Resize {{{ 
 mode "resize" {
@@ -146,47 +124,40 @@ mode "resize" {
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
         bindsym semicolon resize grow width 10 px or 10 ppt
-
         
 # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
-
         
 # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
-
 bindsym $super+r mode "resize"
-
-# }}} <-
+# }}} 
 
 # -> Configuração barra de Status {{{ 
 bar {
   status_command  /home/mconceicao/.config/i3/scripts/mybar.sh
   position top
 }
-
-# }}} <-
+# }}} 
 
 # -> Adiciona uma borda fina para conseguir fazer o resize com o mouse {{{ 
   for_window [class="^.*"] border pixel 3
-
-# }}} <-
+# }}} 
 
 # -> Habilita para conseguir sobrepor janelas {{{
-  for_window [class="^.*"] floating enable
-
-# }}} <-
+  # for_window [class="^.*"] floating enable
+  floating_modifier $super 
+# }}} 
 
 # -> Abrir Apps em posições espeficicas  {{{ 
   for_window [class="Nautilus"] resize set 900 900, move position mouse
-
-# }}} <-
+# }}} 
 
 # -> Add Bordas para alguns Apps {{{ 
   for_window [class="Gnome-terminal"] border normal 1
@@ -198,17 +169,13 @@ bar {
   for_window [class="vmplayer"]       border normal
   for_window [class="Vmplayer"]       border normal
   for_window [class="zoom"]           border normal
-
-# }}} <-
+# }}} 
 
 # -> Dicas de Como Usar {{{ 
-
   
 # Para pegar o nome da janela e usar nas configuracoes baixo usar o comando
   
 # xprop | grep -i class ;
   
 # clicar na janela que voce quer
-
-
-# }}} <-
+# }}} 
