@@ -143,7 +143,27 @@ bindsym $super+r mode "resize"
 bar {
   status_command  /home/mconceicao/.config/i3/scripts/mybar.sh
   position top
+
+colors {
+        background #2f343f
+        statusline #2f343f
+        separator #4b5262
+
+        # colour of border, background, and text
+        focused_workspace       #2f343f #bf616a #d8dee8
+        active_workspace        #2f343f #2f343f #d8dee8
+        inactive_workspace      #2f343f #2f343f #d8dee8
+        urgent_workspacei       #2f343f #ebcb8b #2f343f
+    }
 }
+
+  client.focused              #bf616a #2f343f #d8dee8 #bf616a #d8dee8
+  client.focused_inactive     #2f343f #2f343f #d8dee8 #2f343f #2f343f
+  client.unfocused            #2f343f #2f343f #d8dee8 #2f343f #2f343f
+  client.urgent               #2f343f #2f343f #d8dee8 #2f343f #2f343f
+  client.placeholder          #2f343f #2f343f #d8dee8 #2f343f #2f343f
+  client.background           #2f343f
+
 # }}} 
 
 # -> Adiciona uma borda fina para conseguir fazer o resize com o mouse {{{ 
@@ -160,15 +180,15 @@ bar {
 # }}} 
 
 # -> Add Bordas para alguns Apps {{{ 
-  for_window [class="Gnome-terminal"] border normal 1
-  for_window [class="Ferdi"]          border normal
-  for_window [class="kolourpaint"]    border normal
-  for_window [class="VirtualBox.*"]   border normal
-  for_window [class="vlc"]            border normal
-  for_window [class="rdesktop"]       border normal
-  for_window [class="vmplayer"]       border normal
-  for_window [class="Vmplayer"]       border normal
-  for_window [class="zoom"]           border normal
+  # for_window [class="Gnome-terminal"] border normal 1
+  # for_window [class="Ferdi"]          border normal
+  # for_window [class="kolourpaint"]    border normal
+  # for_window [class="VirtualBox.*"]   border normal
+  # for_window [class="vlc"]            border normal
+  # for_window [class="rdesktop"]       border normal
+  # for_window [class="vmplayer"]       border normal
+  # for_window [class="Vmplayer"]       border normal
+  # for_window [class="zoom"]           border normal
 # }}} 
 
 # -> Dicas de Como Usar {{{ 
