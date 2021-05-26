@@ -9,6 +9,8 @@ font pango:monospace 10
 # -> AutoLoad ( Inicia com o Sistema ) {{{ 
 exec ~/.dropbox-dist/dropboxd
 exec ~/.config/i3/scripts/changeWallpaper.sh
+exec_always --no-startup-id compton --config ~/.compton.conf
+
 # }}} 
 
 # -> Abre terminal {{{ 
@@ -37,6 +39,13 @@ bindsym $super+Right focus right
 bindsym $super+Shift+b exec brave-browser
 bindsym $super+Shift+e exec nautilus
 bindsym $super+Shift+g exec gedit
+
+# Configuracao do mouse pelo teclado {{{ _#_
+bindsym $super+Shift+m exec python3 /home/mconceicao/.config/i3/scripts/mouse.py && /usr/bin/xdotool click 1
+for_window [class="mouse.py"] floating  enable 
+for_window [class="mouse.py"] resize set 1919 1079, move position center # Aqui está configurado para só a tela do notebook, tenho que descorbrir com fazer ele pegar o tamanho correto das telas
+# _#_ }}} 
+
 # }}} 
 
 # -> Configuração para tirar ScreenShots {{{ 
@@ -177,11 +186,12 @@ colors {
 
 # -> Abrir Apps em posições espeficicas  {{{ 
   for_window [class="Nautilus"] resize set 900 900, move position mouse
+  for_window [class="xev"] resize set 20 20, move position mouse
 # }}} 
 
 # -> Add Bordas para alguns Apps {{{ 
+  # for_window [class="mouse.py"] border normal 1
   # for_window [class="Gnome-terminal"] border normal 1
-  # for_window [class="Ferdi"]          border normal
   # for_window [class="kolourpaint"]    border normal
   # for_window [class="VirtualBox.*"]   border normal
   # for_window [class="vlc"]            border normal
@@ -199,3 +209,4 @@ colors {
   
 # clicar na janela que voce quer
 # }}} 
+
