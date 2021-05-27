@@ -54,7 +54,7 @@ bindsym $super+Shift+s exec gnome-screenshot -acf /tmp/test && cat /tmp/test | x
 # }}} 
 
 # -> Kill na janela com foco {{{ 
-bindsym $super+q kill
+bindsym $super+x kill
 # }}} 
 
 # -> Bloqueio de Tela {{{ 
