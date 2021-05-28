@@ -1,0 +1,40 @@
+! Coloca o CapsLock como FN
+keycode  66 = Mode_switch Mode_switch Mode_switch Mode_switch
+
+! Configuração para Teclado com 43 Teclas
+! ------------------------------------------------------------------------------------------|
+! Código       | Normal      | Com Shift | Com CapsLock | CapsLock + Shift | Caracter Ascii |
+! ------------------------------------------------------------------------------------------|
+! keycode 23 = | Tab         | Escape    | dead_grave   | dead_tilde       | ESC , ` , ~    |
+! keycode 24 = | q           | Q         | 1            | exclam           | !              |
+! keycode 25 = | w           | W         | 2            | at               | @              |
+! keycode 26 = | e           | E         | 3            | numbersign       | #              |
+! keycode 27 = | r           | R         | 4            | dollar           | $              |
+! keycode 28 = | t           | T         | 5            | percent          | %              |
+! keycode 29 = | y           | Y         | 6            | dead_circumflex  | ^              |
+! keycode 30 = | u           | U         | 7            | ampersand        | &              |
+! keycode 31 = | i           | I         | 8            | asterisk         | *              |
+! keycode 32 = | o           | O         | 9            | parenleft        | (              |
+! keycode 33 = | p           | P         | 0            | parenright       | )              |
+! keycode 34 = | braceleft   | minus     | NoSymbol     | underscore       | _              |
+! keycode 35 = | braceright  | equal     | NoSymbol     | plus             | +              |
+! keycode 51 = | backslash   | bar       | BackSpace    | Delete           |                |
+! keycode 36 = | Mode_switch | Return    | NoSymbol     | Return           |                |
+
+
+
+keycode 23 =  Tab          Escape      dead_grave  dead_tilde
+keycode 24 =  q            Q           1           exclam          
+keycode 25 =  w            W           2           at              
+keycode 26 =  e            E           3           numbersign      
+keycode 27 =  r            R           4           dollar          
+keycode 28 =  t            T           5           percent         
+keycode 29 =  y            Y           6           dead_circumflex 
+keycode 30 =  u            U           7           ampersand       
+keycode 31 =  i            I           8           asterisk        
+keycode 32 =  o            O           9           parenleft       
+keycode 33 =  p            P           0           parenright      
+keycode 34 =  braceleft    minus       NoSymbol    underscore      
+keycode 35 =  braceright   equal       NoSymbol    plus            
+keycode 51 =  backslash    bar         BackSpace   Delete          
+keycode 36 =  Mode_switch  Return      NoSymbol    Return          
