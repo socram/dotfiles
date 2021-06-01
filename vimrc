@@ -74,6 +74,9 @@ syntax on                      " Liga Syntax
 if !exists('g:gruvbox_contrast_light')
   let g:gruvbox_contrast_light='hard'
 endif
+
+let g:gruvbox_guisp_fallback = "bg" "Coloca cor nas palavras erradas pelo corretor ortográfico -> exampl
+
 colorscheme gruvbox
 set background=dark
 set term=screen-256color
@@ -352,3 +355,29 @@ noremap <Leader>pb : %w !pbcopy <cr> <cr>
 ".........................................
 "........... Áreas para testes ...........
 " .........................................g
+
+inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+
+function! Smart_TabComplete(...)
+  echom a:0
+  let line = getline('.')                         " current line
+  let substr = strpart(line, -1, col('.')+1)      " from the start of the current
+                                                  " line to one character right
+                                                  " of the cursor
+  let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+  if (strlen(substr)==0)                          " nothing to match on empty string
+    return "\<tab>"
+  endif
+
+  let has_period = match(substr, '\.') != -1      " position of period, if any
+  let has_slash = match(substr, '\/') != -1       " position of slash, if any
+
+  if (!has_period && !has_slash)
+    return "\<C-n>"                         " existing text matching
+  elseif ( has_slash )
+    return "\<C-X>\<C-F>"                         " file matching
+  else
+    return "\<C-X>\<C-O>"                         " plugin matching
+  endif
+endfunction
+
