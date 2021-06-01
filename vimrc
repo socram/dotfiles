@@ -1,19 +1,4 @@
-" Lembretes Gerais{{{ _#_
-
-  " Folding 
-    " zM  - Miniza todos os Folding
-    " zr  - Abre todos
-    " za  - Alterna entre Folding
-
-  " Corretor Ortografico
-    " ,z nao está configurado para dar entrer, geralmente sempre é a primeira opcao
-
-
-   
-
-" _#_ }}} 
-
-" Instala VIM-PLUG {{{ _#_
+" Instala VIM-PLUG {{{
     if has('vim_starting')
         set nocompatible
     endif
@@ -21,9 +6,7 @@
     let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
     if !filereadable(vimplug_exists)
-
         silent execute "!echo Configurações VIMRC - Marcos Conceição"
-
         silent !\curl -sfLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
     let g:not_finish_vimplug = "yes"
@@ -31,82 +14,84 @@
     endif
 
     call plug#begin(expand('~/.vim/plugged'))
-
-
-  
     let mapleader=',' " Troca / por ,  Isso tem que ficar no comeco do arquivo senao o vim nao vai conseguir executar os atalhos aqui para baixo
+"  }}}
 
-" _#_ }}} 
-
-" Lista de Plugins Instalados {{{ _#_
+" Lista de Plugins Instalados {{{
         Plug 'majutsushi/tagbar'                     " Criar buffer com funções e variaveis, facil de se achar no codigo
         Plug 'godlygeek/tabular'                     " Alinhas as Coisas
-        Plug 'joshdick/onedark.vim'                  " Tema de Cores
+        Plug 'gruvbox-community/gruvbox'             " Tema de Cores
         Plug 'w0rp/ale'                              " Avisa quando há erro no codigo
         Plug 'skywind3000/vim-quickui'               " Cria menu para acesso rapido atalho espaco espaco
         Plug 'MattesGroeger/vim-bookmarks'           " Cria marcações no código
         Plug 'instant-markdown/vim-instant-markdown' " Live Preview muito bom
-" _#_ }}} 
+        Plug 'unblevable/quick-scope'                " Plugin legal, mas nao sei aina se vou usar
+        Plug 'ntpeters/vim-better-whitespace'        " Mostra espacos em Banco no final das Linhas, isso me irrita
+"  }}}
 
-" END - Instalacao do Vim-Plug {{{ _#_
+" END - Instalacao do Vim-Plug {{{
     call plug#end()
     filetype plugin indent on
-" _#_ }}} 
+"  }}}
 
-" Configurações dos Plugins {{{ _#_
+" Configurações dos Plugins {{{
+
+  " ... Quick-Scope
+  let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
   " ... vim-instant_markdown
   let g:instant_markdown_browser = "brave-browser --new-tab"
-  let g:instant_markdown_port = 8888
-  set foldmethod=marker
+  let g:instant_markdown_port    = 8888
 
-  "... Tabular ...
+  " ... Tabular ...
     xnoremap <Leader>tt : Tabularize /
 
-  "... TagBar ...
+  " ... TagBar ...
     noremap <Leader>t : TagbarToggle<CR>
     let g:tagbar_autofocus = 1
 
-  "... Quick Ui
+  " ... Quick Ui
     call quickui#menu#reset()  " clear all the menus
 
-    call quickui#menu#install('& >', [
+    call quickui#menu#install('&Comandos>', [
                 \ [ "&Corretor Ortográfico" , ':set spell spelllang=pt' , 'Corretor Ortografico PT-BR'                     ] ,
                 \ [ "&Quebra de Linha"      , ':set wrap'               , 'habilita quebra de linhas'                      ] ,
                 \ [ "&Auto Reload"          , ':call JJ_Reload() '      , 'Auto reload automático do arquivo'              ] ,
                 \ [ "&Remove Espacos"       , ':%s/\s\+$//e '           , 'Remove espacos em branco descencessários'       ] ,
                 \ [ "&Tipo de Arquivo "     , ':echo &filetype'         , 'Mostra o tipo de arquivo para usar nas funcoes' ] ,
+                \ [ "Colar em Identar"      , ':set paste'              , 'Cola texto sem indentar, principamente PYTHON'  ]
                 \ ])
-
 
     " enable to display tips in the cmdline
     let g:quickui_show_tip = 1
 
     " hit space twice to open menu
     noremap <space><space> :call quickui#menu#open()<cr>
+"  }}}
 
-
-" _#_ }}} 
-
-" Aparência {{{ _#_
-colorscheme onedark
+" Aparência {{{
+syntax on                      " Liga Syntax
+if !exists('g:gruvbox_contrast_light')
+  let g:gruvbox_contrast_light='hard'
+endif
+colorscheme gruvbox
+set background=dark
 set term=screen-256color
 set gcr=a:blinkon0
 set scrolloff=3
 set paste
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-" _#_ }}} 
+"  }}}
 
-" Configurações Set {{{ _#_
-
+" Configurações Set {{{
 " Geral
 set paste                      " Corrige edentação
-syntax on                      " Liga Syntax
 set sm                         " Mostra par de parentese fechado
 set wildmode=longest,list:full " Completa igual o bash
 set showcmd                    " Mostra comando sendo executado no rodapé
 set mouse=a                    " Habilita uso no mouse
 set number                     " Número nas linhas
+set foldmethod=marker          " Add fold para blocos
 set number relativenumber      " Número relativos nas linhas
 set foldlevelstart=99          " Não encurta funções
 set foldlevel=99               " Não encurta funções
@@ -146,9 +131,9 @@ set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
 
-" _#_ }}} 
+"  }}}
 
-" Configurações Buffers {{{ _#_
+" Configurações Buffers {{{
 set hidden
 noremap <Leader>0 : b
 noremap <Leader>1 : b1 <CR>
@@ -169,36 +154,36 @@ noremap <Leader>l  : set nomore <Bar> :ls <Bar> :set more <CR>:b<Space>
 nnoremap <Tab> gt
 nnoremap <S-Tab> gT
 
-" _#_ }}} 
+"  }}}
 
-" Configurações Abreviações {{{ _#_
+" Configurações Abreviações {{{
 noremap <Leader>s : w<CR>
 noremap <Leader>q : call JJ_Close()   <CR>
 noremap <Leader>Q : qall!<CR>
-" _#_ }}} 
+"  }}}
 
-" Corretor  Ortográfico {{{ _#_
+" Corretor  Ortográfico {{{
 " noremap <Leader>z z=1 <CR><CR>w
 noremap <Leader>z z=
-" _#_ }}} 
+"  }}}
 
-" Seleção Visual {{{ _#_
+" Seleção Visual {{{
 vmap < <gv
 vmap > >gv
 noremap <Leader>a : <esc>ggVG<CR>
 noremap <Leader>b : <esc>vi{ <CR>%
-" _#_ }}} 
+"  }}}
 
-" Configurações Split {{{ _#_
+" Configurações Split {{{
 
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" _#_ }}} 
+"  }}}
 
-" Funções Autoload {{{ _#_
+" Funções Autoload {{{
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 highlight MinimizadoAddComentario ctermbg=white guibg=red
@@ -239,9 +224,9 @@ augroup vimrc-sync-fromstart
   autocmd!
   autocmd BufEnter * :syntax sync maxlines=200
 augroup END
-" _#_ }}} 
+"  }}}
 
-" Minha Funcoes JJ para subistituir Plugins {{{ _#_
+" Minha Funcoes JJ para subistituir Plugins {{{
 
 
     "... Fecha buffer por buffer ...
@@ -326,36 +311,44 @@ noremap <Leader>pb : %w !pbcopy <cr> <cr>
       endfun
 
 
+    "... Add {{{
+      fun! JJ_Folding()
+        let ini = line("'<") " Pega Primeira Linha
+        let end = line("'>") " Pega Ultima Linha
+
+        let s:comment_map = {
+              \   "text" : '#'  ,
+              \   "c"    : '//' ,
+              \   "vim"    : '"',
+              \   "javascript"    : '//' ,
+              \ }
+
+        if has_key(s:comment_map, &filetype)
+          let comment = s:comment_map[&filetype]
+        endif
+
+        call setline(ini - 1, comment . " Comentario_sobre_oq_esta_minimizado  {{{ ")
+        call setline(end + 1, comment . "  }}} ")
+      endfun
+
+      xnoremap <Leader>z : call JJ_Folding() <CR>
+      nnoremap <Leader><space> za
 
 
-fun! JJ_Folding()
-  let ini = line("'<") " Pega Primeira Linha
-  let end = line("'>") " Pega Ultima Linha
+"  }}}
 
-  let s:comment_map = {
-        \   "text" : '#'  ,
-        \   "c"    : '//' ,
-        \   "vim"    : '"',
-        \   "javascript"    : '//' ,
-        \ }
+" Help {{{
 
-  if has_key(s:comment_map, &filetype)
-    let comment = s:comment_map[&filetype]
-  endif
+  " Folding
+    " zM  - Miniza todos os Folding
+    " zr  - Abre todos
+    " za  - Alterna entre Folding
 
-  call setline(ini - 1, comment . " Comentario_sobre_oq_esta_minimizado  {{{ _#_")
-  call setline(end + 1, comment . " _#_ }}} ")
+  " Corretor Ortografico
+    " ,z nao está configurado para dar entrer, geralmente sempre é a primeira opcao
 
-
-endfun
-
-
-xnoremap <Leader>z : call JJ_Folding() <CR> 
-nnoremap <Leader><space> za
-
-
-" _#_ }}} 
+"  }}}
 
 ".........................................
 "........... Áreas para testes ...........
-".........................................
+" .........................................g
