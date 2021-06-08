@@ -31,6 +31,7 @@ do
   echo ',{"background": "#ABB2BF" , "name":"bateria","full_text":" '$(cat /sys/class/power_supply/BAT0/status) '-' $(cat /sys/class/power_supply/BAT0/capacity)%'"}'
   echo ',{"background": "#ABB2BF" , "name":"cpu","full_text":" '$(LC_NUMERIC=en_US.UTF-8 top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1"%"}')'"}'
   echo ',{"background": "#ABB2BF" , "name":"memoria","full_text":" '$(free -g | awk '/^Mem/ {print $3}')''/''$(free -g | awk '/^Mem/ {print $2}' )'"}'
+  echo ',{"background": "#ABB2BF" , "name":"reload","full_text":"RELOAD i3"}'
   echo ',{"background": "#ABB2BF" , "name":"volume","full_text":"'$(awk -F"[][]" '/dB/ { print $2 }' <(amixer sget Master))'"  }'
 
   echo ']'
@@ -49,6 +50,8 @@ do
       brave-browser --newtab "file:////tmp/1.txt"  ;;
 
 
+      reload    ) i3-msg restart ;;
+      data      ) gnome-calendar & ;;
       volume    ) gnome-control-center -s "Sound"   & ;;
       rede      )
             echo "Ak2539yz" | xsel --clipboard --input 
