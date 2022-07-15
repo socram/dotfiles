@@ -1,6 +1,6 @@
 # ------- JJ BashRC
 # Chromebook
-#sudo mount -i -o remount,exec /home/chronos/user
+#sudo mount -i -o remount,exec /home/chronos/user 
 
 shopt -s histappend # Do not overwrite history
 shopt -s expand_aliases # Expand aliases
