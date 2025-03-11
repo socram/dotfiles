@@ -1223,7 +1223,7 @@ end
   if vim.g.colors_name then
     vim.cmd.hi("clear")
   end
-  vim.g.colors_name = "meutema"
+  vim.g.colors_name = "tema"
   vim.o.termguicolors = true
 
   local groups = get_groups()
